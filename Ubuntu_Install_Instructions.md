@@ -2,9 +2,23 @@
 Installation
 ============
 
-###1) Install python (2.7 or higher)
+###1) Install python (2.7 or higher) and development packages
 
-###2) Install project dependencies. There are two ways to do this:
+	sudo apt-get install python2.7
+
+	sudo apt-get install python-dev
+
+###2) Install PostgreSQL and related packages
+
+Currently 9.4 is the most current release of postgres:
+
+	sudo apt-get install postgresql-9.4
+	
+	sudo apt-get install libpq-dev
+	
+helpful link: https://help.ubuntu.com/community/PostgreSQL
+
+###3) Install project dependencies.
 
 Use a virtual environment (Ubuntu):
 
@@ -49,14 +63,6 @@ Install python dependencies (while in virtual environment aka (playbook)):
 	pygithub3==0.5.1
 	requests==2.7.0
 
-###3) Install PostgreSQL
-
-Currently 9.4 is the most current release of postgres:
-
-	sudo apt-get install postgresql-9.4
-
-helpful link: https://help.ubuntu.com/community/PostgreSQL
-
 ###4) Update your database connection settings using your database admin user
 
 The database settings are located in the playbook/settings.py file and must be updated to represent your local environment. You can name your database whatever you like. In this guide, we assume that the name is northbr6_devwaterwheel
@@ -83,7 +89,7 @@ Create the database north6_devwaterwheel by running the following SQL command (y
 	psql
 	create database northbr6_devwaterwheel;
 
-After you are done with setting up the database you can log out by Ctrl+D twice OR until you see that your back in your virtual environment, you see (playbook). You should always see (playbook) unless in postgres. 
+After you are done with setting up the database you can log out by Ctrl+D twice OR until you see that you are back in your virtual environment, you see (playbook). You should always see (playbook) unless in postgres. 
 
 *In case you need to change your password for user posgres:
 
@@ -131,7 +137,7 @@ We also must create a trigger that will be responsible for update the backlog.up
 
 	psql northbr6_devwaterwheel_test < /home/path/to/playbook/db/Postgres_Update_Trigger.sql
 
-There is also two other files that must be updated: playbook/email_settings.py (information concerning email service) and playbook/backlog/github_settings.py (information used to interact with the github API).
+There are also two other files that must be updated: playbook/email_settings.py (information concerning email service) and playbook/backlog/github_settings.py (information used to interact with the github API).
 
 The system can notify users through email when an error on modules import/export occurs. Configuration can be done in the file email_settings.py. As an example, to send the emails using gmail service, one could configure the file as shown below:
 
