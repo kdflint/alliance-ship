@@ -2,7 +2,11 @@
 Installation
 ============
 
-###1) Install python (2.7 or higher)
+###1) Install python (2.7 or higher) and development packages
+
+	sudo apt-get install python2.7
+
+	sudo apt-get install python-dev
 
 ###2) Install PostgreSQL and related packages
 
@@ -12,13 +16,7 @@ Currently 9.4 is the most current release of postgres:
 	
 	sudo apt-get install libpq-dev
 	
-	sudo apt-get install python-dev
-	
-	sudo apt-get install python-psycopg2
-
 helpful link: https://help.ubuntu.com/community/PostgreSQL
-
-###2) Get the project code
 
 ###3) Install project dependencies.
 
@@ -91,7 +89,7 @@ Create the database north6_devwaterwheel by running the following SQL command (y
 	psql
 	create database northbr6_devwaterwheel;
 
-After you are done with setting up the database you can log out by Ctrl+D twice OR until you see that you're back in your virtual environment, you see (playbook). You should always see (playbook) unless in postgres. 
+After you are done with setting up the database you can log out by Ctrl+D twice OR until you see that you are back in your virtual environment, you see (playbook). You should always see (playbook) unless in postgres. 
 
 *In case you need to change your password for user posgres:
 
