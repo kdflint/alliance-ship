@@ -138,7 +138,7 @@ For example:
 After that, run the following command to import the data (you must be logged as a user that has privileges to access/update the database or provide user/password information to psql):
 
 	sudo su - postgres
-    psql northbr6_devwaterwheel < /home/path/to/playbook/db/static_inserts.sql
+    psql northbr6_devwaterwheel < /home/path/to/alliance/db/static_inserts.sql
 
 	
 We also must create a trigger that will be responsible for update the backlog.update_dttm field. This trigger will be fired on a row update event. The Postgres_Update_Trigger.sql script is located under the db folder.
@@ -180,7 +180,7 @@ Payload URL = the server endpoint that will receive the webhook payload.
 The Payload URL must point to: 
 -If you are running over HTTP (for example, through manage.py script):
   	
-  	http://\<host\>:\<port\>/playbook/backlog/githubimport
+  	http://\<host\>:\<port\>/alliance/backlog/githubimport
 
 install ngrok: https://ngrok.com/download
 -first download and then unzip
@@ -202,12 +202,12 @@ Something like this will pop up:
 	Connections                   ttl     opn     rt1     rt5     p50     p90       
 	                              0       0       0.00    0.00    0.00    0.00  
 	
-	http://389c1340.ngrok.io/playbook/backlog/githubimport
+	http://389c1340.ngrok.io/alliance/backlog/githubimport
 	
 ^This become the payload url. note that http://389c1340.ngrok.io/ points to localhost:8000 (the default)
 
 - If you want to use HTTPS (the HTTP server must be configured):
-    - https://\<host\>:\<port\>/playbook/backlog/githubimport
+    - https://\<host\>:\<port\>/alliance/backlog/githubimport
     - Remember to "Disable SSL verification" if you have a self signed certificate
 - Content type: application/json
 - Secret: chose a strong secret
@@ -238,7 +238,7 @@ example--type this into the web url:
 	localhost:8000/admin
 
 
-You can create groups and regular users that will be used to login into the playbook application (\<host\>:\<port\>/alliance).
+You can create groups and regular users that will be used to login into the alliance application (\<host\>:\<port\>/alliance).
 
 example--type this into the web url: 
 
