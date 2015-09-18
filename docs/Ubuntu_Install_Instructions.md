@@ -18,7 +18,15 @@ Currently 9.4 is the most current release of postgres:
 	
 helpful link: https://help.ubuntu.com/community/PostgreSQL
 
-###3) Install project dependencies.
+###3) Get the project code
+
+From the directory where you want your project to reside.
+
+	git clone https://github.com/NorthBridge/alliance-community.git
+
+We will call this the "project directory."
+
+###4) Install project dependencies.
 
 Use a virtual environment (Ubuntu):
 
@@ -39,23 +47,23 @@ Close the file and source it:
 
 	source ~/.bashrc
 
-Go to the project directory: Make sure you are in the directory playbook (if you do "ls" in your command line you will find there is another folder called playbook. Don't go in there. Stay here.)
+Go to the project directory: Make sure you are in the directory alliance-community (if you do "ls" in your command line you will find there is another folder called alliance. Don't go in there. Stay here.)
 
-	mkvirtualenv playbook
+	mkvirtualenv alliance
 
 The next command is only necessary if you are not already using the created virtualenv
 
-	workon playbook
+	workon alliance
 
 *to get out of the virtual environment type in:
 	
 	deactivate
 
-Install python dependencies (while in virtual environment aka (playbook)):
+Install python dependencies (while in virtual environment aka (alliance)):
 
 	pip install -r requirements.txt
 
-*Running this installs the following packages to your virtual environment (only in playbook):
+*Running this installs the following packages to your virtual environment (only in alliance):
 	
 	Django==1.8.2
 	ipaddress==1.0.7
@@ -65,9 +73,9 @@ Install python dependencies (while in virtual environment aka (playbook)):
 
 ###4) Update your database connection settings using your database admin user
 
-The database settings are located in the playbook/settings.py file and must be updated to represent your local environment. You can name your database whatever you like. In this guide, we assume that the name is northbr6_devwaterwheel
+The database settings are located in the alliance/settings.py file and must be updated to represent your local environment. You can name your database whatever you like. In this guide, we assume that the name is northbr6_devwaterwheel
 
-*This means go into playbook/settings.py and look for the DATABASE section:
+*This means go into alliance/settings.py and look for the DATABASE section:
 	
 	DATABASES = {
     'default': {
@@ -89,7 +97,7 @@ Create the database north6_devwaterwheel by running the following SQL command (y
 	psql
 	create database northbr6_devwaterwheel;
 
-After you are done with setting up the database you can log out by Ctrl+D twice OR until you see that you are back in your virtual environment, you see (playbook). You should always see (playbook) unless in postgres. 
+After you are done with setting up the database you can log out by Ctrl+D twice OR until you see that you are back in your virtual environment, you see (alliance). You should always see (alliance) unless in postgres. 
 
 *In case you need to change your password for user posgres:
 
@@ -135,9 +143,9 @@ After that, run the following command to import the data (you must be logged as 
 	
 We also must create a trigger that will be responsible for update the backlog.update_dttm field. This trigger will be fired on a row update event. The Postgres_Update_Trigger.sql script is located under the db folder.
 
-	psql northbr6_devwaterwheel_test < /home/path/to/playbook/db/Postgres_Update_Trigger.sql
+	psql northbr6_devwaterwheel_test < /home/path/to/alliance/db/Postgres_Update_Trigger.sql
 
-There are also two other files that must be updated: playbook/email_settings.py (information concerning email service) and playbook/backlog/github_settings.py (information used to interact with the github API).
+There are also two other files that must be updated: alliance/email_settings.py (information concerning email service) and alliance/backlog/github_settings.py (information used to interact with the github API).
 
 The system can notify users through email when an error on modules import/export occurs. Configuration can be done in the file email_settings.py. As an example, to send the emails using gmail service, one could configure the file as shown below:
 
@@ -206,7 +214,7 @@ Something like this will pop up:
 - Which events would you like to trigger this webhook?
   - Choose "Let me select individual events" and check the "Issues" event.
 
-Now we can configure the playbook\backlog\github_settings.py file (copy the name of the organization, your token, and your secret):
+Now we can configure the alliance\backlog\github_settings.py file (copy the name of the organization, your token, and your secret):
 
 	GITHUB_OWNER = "\<GitHub Organization\>"
 	GITHUB_TOKEN = "\<GitHub generated token\>"
@@ -230,11 +238,11 @@ example--type this into the web url:
 	localhost:8000/admin
 
 
-You can create groups and regular users that will be used to login into the playbook application (\<host\>:\<port\>/playbook).
+You can create groups and regular users that will be used to login into the playbook application (\<host\>:\<port\>/alliance).
 
 example--type this into the web url: 
 
-	localhost:8000/playbook
+	localhost:8000/alliance
 
 
 ###Let's Get Started!
@@ -268,8 +276,8 @@ while still in the admin page under "Core" click on Volunteers. Recognize someon
 
 Now you are ready to logout from admin account and access the application using the regular user you have created above.
 
-####To the Playbook!
+####To the Alliance!
 
-Go to localhost:8000/playbook
+Go to localhost:8000/alliance
 
 A main restriction is that the user's email must match the volunteer's email. It is through this relation that we can link a django user and the volunteer's informations. For now there is no database constraint ensuring this.
