@@ -287,6 +287,6 @@ Now you are ready to logout from admin account and access the application using 
 
 ####To the Alliance!
 
-Go to localhost:8000/alliance
+Go to localhost:8000/alliance/apps/backlog
 
 A main restriction is that the user's email must match the volunteer's email. It is through this relation that we can link a django user and the volunteer's informations. For now there is no database constraint ensuring this.
