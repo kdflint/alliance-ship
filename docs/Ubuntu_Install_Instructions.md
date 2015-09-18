@@ -28,7 +28,7 @@ Then instruct git to disregard your local changes to indexed settings files
 
 	git update-index --assume-unchanged alliance/settings.py
 	git update-index --assume-unchanged alliance/config/settings/dev.py
-	git update-index --assume-unchanged alliance/bin/seed/static_inserts.sql
+	git update-index --assume-unchanged bin/seed/static_inserts.sql
 	git update-index --assume-unchanged alliance/email_settings.py
 	git update-index --assume-unchanged alliance/backlog/github_settings.py
 
