@@ -251,7 +251,7 @@ You can create groups and regular users that will be used to login into the alli
 
 example--type this into the web url: 
 
-	localhost:8000/alliance
+	localhost:8000/alliance/apps/backlog
 
 
 ###Let's Get Started!
