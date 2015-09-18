@@ -13,7 +13,7 @@
     <script type="text/javascript" language="javascript">
     $(document).ready(function(){
         $("#choose-team").click(function (e) {
-            var getting = $.get("/playbook/core/chooseTeam");
+            var getting = $.get("/alliance/core/chooseTeam");
             getting.done(function (data) {
                 if (data.success) {
                     $("#dialog-form").remove();
@@ -27,7 +27,7 @@
                         buttons: {
                             Submit: function() {
                                 var data = $(form).serializeArray();
-                                var posting = $.post("/playbook/core/chooseTeam", $.param(data));
+                                var posting = $.post("/alliance/core/chooseTeam", $.param(data));
                                 posting.done( function (data) {
                                     if (data.success) {
                                         showMessage("Team was selected.");
@@ -68,7 +68,7 @@
     </script>
     {% block head %}
     {% endblock %}
-    <title>Playbook App</title>
+    <title>Alliance App</title>
 </head>
 
 <body>
@@ -77,7 +77,7 @@
             {% block topmenu %}
                 <a href="{% url 'index' %}">{% trans "Home" %}</a> |
                 {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}?next=/playbook/">{% trans "Log out" %}</a> |
+                    <a href="{% url 'logout' %}?next=/alliance/">{% trans "Log out" %}</a> |
                     <a id="choose-team" href="javascript:void(0)">{% trans "Change Team" %}</a> |
                     {% trans "Logged in as" %}: {{ user.username }}
                 {% else %}

@@ -74,7 +74,7 @@ def import_from_github(payload):
 
 
 def __notify_import_problem(message, payload, traceback):
-    subject = '[playbook.backlog] Milestone importing error'
+    subject = '[alliance.backlog] Milestone importing error'
     body = "%s\n\nPayload received:\n%s\n\n%s" %\
         (message, json.dumps(payload, indent=4), traceback)
     send_email(subject, body)

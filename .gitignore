@@ -27,7 +27,6 @@
 
 #log files
 *.log
-playbook/passwords.py
 
 /venv/
 

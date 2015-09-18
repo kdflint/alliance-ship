@@ -20,11 +20,17 @@ helpful link: https://help.ubuntu.com/community/PostgreSQL
 
 ###3) Get the project code
 
-From the directory where you want your project to reside.
+From the directory where you want your project to reside. We will call this the "project directory."
 
 	git clone https://github.com/NorthBridge/alliance-community.git
 
-We will call this the "project directory."
+Then instruct git to disregard your local changes to indexed settings files
+
+	git update-index --assume-unchanged alliance/settings.py
+	git update-index --assume-unchanged alliance/config/settings/dev.py
+	git update-index --assume-unchanged alliance/bin/seed/static_inserts.sql
+	git update-index --assume-unchanged alliance/email_settings.py
+	git update-index --assume-unchanged alliance/backlog/github_settings.py
 
 ###4) Install project dependencies.
 
@@ -90,6 +96,7 @@ The database settings are located in the alliance/settings.py file and must be u
 
 This is assuming that you are using user postgres with password postgres with port 5432 and database northbr6_devwaterwheel. However you can use whatever you like so long as things match. In this tutorial we will be using the above stated assumptions.
 
+Also update the same settings in alliance/config/settings/dev.py
  
 Create the database north6_devwaterwheel by running the following SQL command (you can use psql or any client of your choice). First you must sign into the postgres user (if prompt for a password when getting into the postgres superuser type in your computer password:
 
@@ -112,6 +119,8 @@ Now that you are connected to psql you can change your password to 'postgres':
 
 Run Django migration scripts (only AFTER database is setup/configured):
 
+	cd <project-directory>/alliance
+
 	python manage.py makemigrations
 	python manage.py migrate
 
@@ -119,11 +128,11 @@ Create a superuser (you will be prompted to type in a username, email and passwo
 
 	python manage.py createsuperuser
 
-Use the db/static_inserts.sql file to populate the database with useful testing information:
+Use the bin/seed/static_inserts.sql file to populate the database with useful testing information:
 
-Open the file (db/static_inserts.sql) and update the lines below with your information:
+Open the file (bin/seed/static_inserts.sql) and update the lines below with your information:
 
-	\set email '\'' '\<The email you used to create the django account>' '\''
+	\set email '\'' '\<The email you used to create the django superuser account>' '\''
 	\set fname '\'' '\<your first name>' '\''
 	\set lname '\'' '\<your last name>' '\''
 	\set github_repo '\'' '<github test repo>' '\''
@@ -138,12 +147,12 @@ For example:
 After that, run the following command to import the data (you must be logged as a user that has privileges to access/update the database or provide user/password information to psql):
 
 	sudo su - postgres
-    psql northbr6_devwaterwheel < /home/path/to/alliance/db/static_inserts.sql
+    psql northbr6_devwaterwheel <project directory>/alliance/bin/seed/static_inserts.sql
 
 	
 We also must create a trigger that will be responsible for update the backlog.update_dttm field. This trigger will be fired on a row update event. The Postgres_Update_Trigger.sql script is located under the db folder.
 
-	psql northbr6_devwaterwheel_test < /home/path/to/alliance/db/Postgres_Update_Trigger.sql
+	psql northbr6_devwaterwheel_test <project directory>/alliance/bin/seed/Postgres_Update_Trigger.sql
 
 There are also two other files that must be updated: alliance/email_settings.py (information concerning email service) and alliance/backlog/github_settings.py (information used to interact with the github API).
 
