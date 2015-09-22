@@ -152,7 +152,7 @@ After that, run the following command to import the data (you must be logged as 
 	
 We also must create a trigger that will be responsible for update the backlog.update_dttm field. This trigger will be fired on a row update event. The Postgres_Update_Trigger.sql script is located under the db folder.
 
-	psql northbr6_devwaterwheel_test <project directory>/alliance/bin/seed/Postgres_Update_Trigger.sql
+	psql northbr6_devwaterwheel_test <project directory>/alliance/bin/seed/postgres_update_trigger.sql
 
 There are also two other files that must be updated: alliance/email_settings.py (information concerning email service) and alliance/backlog/github_settings.py (information used to interact with the github API).
 
