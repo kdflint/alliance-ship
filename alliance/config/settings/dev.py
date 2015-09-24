@@ -16,14 +16,3 @@ GITHUB_OWNER = os.getenv('PLAYBOOK_GITHUB_OWNER')
 GITHUB_TOKEN = os.getenv('PLAYBOOK_GITHUB_TOKEN')
 GITHUB_WEBHOOK_SECRET = os.getenv('PLAYBOOK_GITHUB_WEBHOOK_SECRET')
 DEBUG = os.getenv('DEBUG', True)
-
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME':     'playbook_dev',
-    'USER':     'postgres',
-    'PASSWORD': 'postgres',
-    'HOST':     'localhost',
-    'PORT':     '5432',
-    }
-}

@@ -173,17 +173,6 @@ LOGIN_REDIRECT_URL = 'index'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME':     os.getenv('PLAYBOOK_DB_NAME'),
-    'USER':     os.getenv('PLAYBOOK_DB_USER'),
-    'PASSWORD': os.getenv('PLAYBOOK_DB_PASSWORD'),
-    'HOST':     os.getenv('PLAYBOOK_DB_HOST'),
-    'PORT':     os.getenv('PLAYBOOK_DB_PORT'),
-    }
-}
-
 ################################################################################
 # Miscellaneous configuration
 ################################################################################
@@ -208,7 +197,7 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 
 STATIC_URL = '/static/'
 
-INTERNAL_IPS = ('127.0.0.1',)
+#INTERNAL_IPS = ('127.0.0.1',)
 
 ############################################################################################################################################################
 # Github configuration
