@@ -32,8 +32,6 @@ SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 # Application definition
 
 # This accomodates guncorn pathing on Heroku
@@ -100,6 +98,13 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 #    }
 #}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -113,8 +118,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-from email_settings import *
 
 # Parse database configuration from $DATABASE_URL
 DATABASES['default'] =  dj_database_url.config()
@@ -135,3 +138,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'alliance/static'),
 )
+
+from email_settings import *
