@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'alliance.core',
     'alliance.apps.backlog',
     'alliance.apps.accounts',
-    'alliance.apps.shared'
+    'apps.shared'
 )
 
 MIDDLEWARE_CLASSES = (
