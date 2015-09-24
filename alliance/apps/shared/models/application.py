@@ -10,3 +10,4 @@ class Application(models.Model):
 
     class Meta:
         db_table = "application"
+		    app_label = 'alliance.apps.shared'
