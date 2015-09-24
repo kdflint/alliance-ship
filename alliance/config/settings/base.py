@@ -121,7 +121,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'alliance.config.urls'
 
 
 ################################################################################
@@ -194,7 +194,7 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 #INTERNAL_IPS = ('127.0.0.1',)
