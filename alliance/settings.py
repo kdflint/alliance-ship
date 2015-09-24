@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import sys
 import logging.config
-import dj_database_url
 
 LOGGING_CONFIG = None
 
@@ -98,13 +97,6 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 #    }
 #}
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -119,9 +111,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+from email_settings import *
+
 # Parse database configuration from $DATABASE_URL
+import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
-#DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -136,7 +130,5 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'alliance/static'),
+    os.path.join(BASE_DIR, 'static'),
 )
-
-from email_settings import *
