@@ -46,7 +46,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'alliance.core',
     'alliance.apps.backlog',
-    'alliance.apps.accounts'
+    'alliance.apps.accounts',
+    'alliance.apps.shared'
 )
 
 MIDDLEWARE_CLASSES = (
