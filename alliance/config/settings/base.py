@@ -93,11 +93,11 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
 )
 
-PROJECT_APPS = (
-    'apps.shared',
-    'apps.backlog',
-    'apps.accounts',
-)
+#PROJECT_APPS = (
+#    'apps.shared',
+#    'apps.backlog',
+#    'apps.accounts',
+#)
 
 EXTENSION_APPS = (
     'django_extensions',
