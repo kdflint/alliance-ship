@@ -86,17 +86,6 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'dappoj7e0d5i5j',
-    'USER': 'chqzfgohijtfrb',
-    'PASSWORD': 'YhBSnYbLdPNEQCy1oAc5LrfimW',
-    'HOST': 'ec2-54-204-26-8.compute-1.amazonaws.com',
-    'PORT': '5432',
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
