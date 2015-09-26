@@ -6,27 +6,26 @@ Notes on notation:
 * Anything following '$' are commands to enter in a Terminal shell
 * Anything following '=#' are commands to enter in a Postgres shell
 * Otherwise, a file should be modified or the terminal is echoing back information
-* <project directory> is the path to your project files
+* \<project directory> is the path to your project files
 
 ###0) Install Xcode & Homebrew
 
 Get [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) from the Mac App Store.
 
 Install Xcode Command Line Tools. Open a Terminal and type
-```bash
-$ xcode-select --install
-```
+
+	$ xcode-select --install
+	
 Install Homebrew
-```bash
-$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
+
+	$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 Add Homebrew to your path. Open or create your `~/.bash_profile` and add the line
 ```bash
 export PATH=/usr/local/bin:$PATH
 ```
-```bash
-$ source ~/.bash_profile
-```
+	
+	$ source ~/.bash_profile
 
 ###1) Install python (2.7 or higher) and development packages
 
