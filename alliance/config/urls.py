@@ -23,7 +23,6 @@ urlpatterns = [
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
     url(r'^alliance/apps/backlog/', include('apps.backlog.urls')),
-    url(r'^alliance/', include('apps.backlog.urls')),
     url(r'^alliance/core/', include('apps.shared.urls')),
     url(r'^admin/', include(admin.site.urls))
 ]
