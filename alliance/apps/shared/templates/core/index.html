@@ -34,7 +34,7 @@
 <a href="{% url 'backlogs' %}">{% trans "List Backlog for current user" %}</a>
 {% if teams %}
 <div id="dialog-form" title="Select a Team">
-    <form action='/alliance/apps/backlog/' method="post">{% csrf_token %}
+    <form action='/alliance/' method="post">{% csrf_token %}
         <div>
             {{ form.team }}
             <!-- Allow form submission with keyboard without duplicating the dialog button -->
