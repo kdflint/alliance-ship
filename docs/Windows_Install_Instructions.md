@@ -90,6 +90,11 @@ Install python dependencies (while in virtual environment aka (alliance)):
 
 	msiexec /i C:\Users\YOUR-USER\Downloads\VCForPython27.msi ALLUSERS=1
 
+Alternatively you can do:
+
+	msiexec /i %USERPROFILE%\Downloads\VCForPython27.msi ALLUSERS=1 
+
+%USERPROFILE% variable resolves to the current user's path. E.g. C:\Users\Beloved
 
 ###6) Update your database connection settings using your database admin user
 
