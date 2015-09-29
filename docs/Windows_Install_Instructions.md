@@ -88,7 +88,7 @@ Install python dependencies (while in virtual environment aka (alliance)):
 
 **If you get an error about psycopg2, go to: http://aka.ms/vcpython27 & download. Run the following command and retry to install the requirements again. (make sure to get the correct path to where VCForPython27.msi is located)
 
-	msiexec/i C:\Users\YOUR-USER\Downloads\VCForPython27.msi ALLUSERS=1
+	msiexec /i C:\Users\YOUR-USER\Downloads\VCForPython27.msi ALLUSERS=1
 
 
 ###6) Update your database connection settings using your database admin user
