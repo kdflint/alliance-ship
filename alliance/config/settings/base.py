@@ -36,7 +36,7 @@ PROJECT_NAME = basename(PROJECT_ROOT).capitalize()
 # Project folder
 PROJECT_FOLDER = basename(PROJECT_ROOT)
 
-# Project domain TODO
+# Project domain TODO verify what the project domain should actually be
 PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 
 # Add our project to our pythonpath, this way we don't need to type our project
@@ -48,20 +48,19 @@ path.append(CONFIG_ROOT)
 ############################################################################################################################################################
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = os.getenv('SMTP_SERVER')
-EMAIL_HOST_USER = os.getenv('SMTP_USER')
-EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASSWORD')
-EMAIL_PORT = os.getenv('SMTP_PORT')
-EMAIL_RECIPIENT_LIST = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST = os.getenv('ALLIANCE_SMTP_SERVER')
+EMAIL_HOST_USER = os.getenv('ALLIANCE_SMTP_USER')
+EMAIL_HOST_PASSWORD = os.getenv('ALLIANCE_SMTP_PASSWORD')
+EMAIL_PORT = os.getenv('ALLIANCE_SMTP_PORT')
+EMAIL_RECIPIENT_LIST = os.getenv('ALLIANCE_EMAIL_HOST_USER')
 EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
+LOGGING_CONFIG = None
 
-#LOGGING_CONFIG = None
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
 
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'playbook/core')
-
-#logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
+logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -72,10 +71,10 @@ EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key should only be used for development and testing.
-SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
+SECRET_KEY = os.getenv('ALLIANCE_SECRET_KEY', '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = os.getenv('ALLIANCE_DEBUG', False)
 
 ################################################################################
 # Application Configuration
@@ -176,11 +175,11 @@ LOGIN_REDIRECT_URL = 'index'
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME':     os.getenv('PLAYBOOK_DB_NAME'),
-    'USER':     os.getenv('PLAYBOOK_DB_USER'),
-    'PASSWORD': os.getenv('PLAYBOOK_DB_PASSWORD'),
-    'HOST':     os.getenv('PLAYBOOK_DB_HOST'),
-    'PORT':     os.getenv('PLAYBOOK_DB_PORT'),
+    'NAME':     os.getenv('ALLIANCE_DB_NAME'),
+    'USER':     os.getenv('ALLIANCE_DB_USER'),
+    'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
+    'HOST':     os.getenv('ALLIANCE_DB_HOST'),
+    'PORT':     os.getenv('ALLIANCE_DB_PORT'),
     }
 }
 
@@ -214,6 +213,6 @@ INTERNAL_IPS = ('127.0.0.1',)
 # Github configuration
 ############################################################################################################################################################
 
-GITHUB_OWNER = os.getenv('PLAYBOOK_GITHUB_OWNER')
-GITHUB_TOKEN = os.getenv('PLAYBOOK_GITHUB_TOKEN')
-GITHUB_WEBHOOK_SECRET = os.getenv('PLAYBOOK_GITHUB_WEBHOOK_SECRET')
+GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
+GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
+GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
