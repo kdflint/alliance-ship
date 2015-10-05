@@ -4,7 +4,7 @@
 
 To contribute, you'll need to fork this repository. Simply click on
 *fork* in the [project's Github
-page](https://github.com/NorthBridge/playbook).
+page](https://github.com/NorthBridge/alliance-community).
 
 You can either clone the forked repository via Github or via git.
 
@@ -15,11 +15,11 @@ on your Desktop (or wherever you choose to save and access the files).
 
 To clone via Git, execute the following in the command line:
 
-    git clone https://github.com/<your_username>/playbook
+    git clone https://github.com/<your_username>/alliance-community
 
 Now you should be ready to work on the project!
 
-This guide will explain how to install the following:
+This guide assumse that you have the following installed:
 
 - Python 2.7+ (not Python 3)
 - Pip
@@ -27,141 +27,18 @@ This guide will explain how to install the following:
 - PostgreSQL 9.4
 - Django
 
-It will explain how to install it in different operating systems.
+For detailed installation instructions, check out these guides:
 
-- [Installing in Windows](#installing-on-windows)
-- [Installing in Mac OS X](#installing-on-mac-os-x)
-- [Installing in Linux Ubuntu](#installing-on-linux-ubuntu)
-
-## Install Python 2 (2.7 or higher)
-
-### Installing on Windows
-
-You'll need to know if you have 32 or 64 bit Windows. You can find out
-by [following the instructions
-here](https://support.microsoft.com/en-us/kb/827218). To install on
-Windows, download the Python installer [found
-here](https://www.python.org/downloads/windows/) for Windows. If you
-have a 32-bit operating system, download the `Windows x86 MSI
-installer`. If you have a 64-bit operating system, download the `Windows
-x86-64 MSI Installer`.
-
-Alternatively, you can install [Chocolatey](https://chocolatey.org/) and
-install Python from the command line by opening up `Powershell` and
-executing the following command: `choco install python2`.
-
-### Installing on Mac OS X
-
-To install on OS X, download the Python installer [found
-here](https://www.python.org/downloads/mac-osx/).
-
-Alternatively, you can install [Homebrew](http://brew.sh/) and install
-Python from the command line by opening up a `Terminal` and executing
-the following command: `brew install python`.
-
-### Installing on Linux Ubuntu (and other `apt` distributions)
-
-TODO (ensure to include python-dev)
-
-## Installing project dependencies
-
-There are two ways to do this:
-
-### Use a virtual environment (Ubuntu):
-
-Install pip
-
-    sudo apt-get install python-pip
-
-Install virtualenv using pip
-
-    pip install virtualenvwrapper
-
-Add the following two lines to your ~/.bashrc script:
-
-    export WORKON_HOME=$HOME/.virtualenvs
-    source /usr/local/bin/virtualenvwrapper.sh
-
-Close the file and source it:
-
-    source ~/.bashrc
-
-Go to the project directory: Make sure you are in the directory playbook
-(if you do "ls" in your command line you will find there is another
-folder called playbook. Don't go in there. Stay here.)
-
-    mkvirtualenv playbook
-
-The next command is only necessary if you are not already using the
-created virtualenv.
-
-    workon playbook
-
-You should see `(playbook)` before your project directory
-
-Finally, install any python dependencies:
-
-    pip install -r requirements.txt
-
-If you encounter errors, setup PostgreSQL and come back to this step.
-
-### Use your global python environment
-
-Directly install the dependencies listed in `requirements.txt` using
-`pip` or the `easy_install` utility. If you are using Mac you will have
-to configure psycopg2 setting up the file path for postgresql and then
-restart the terminal to avoid errors.
-
-## Install PostgreSQL
-
-### Ubuntu
-
-Helpful link: https://help.ubuntu.com/community/PostgreSQL
-
-### Mac
-
-a) Download Postgres.app from http://postgresapp.com/
-
-b) Add the path to ~/.profile
-
-	echo 'export PATH="/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH"' >> ~/.profile
-	source ~/.profile
-
-## Update your database connection settings using your database admin user
-
-The database settings are located in the playbook/settings.py file and
-must be updated to represent your local environment. You can name your
-database whatever you like. In this guide, we assume that the name is
-`devwaterwheel`.
-
-Create the database `devwaterwheel` by running the following SQL command
-(you can use psql or any client of your choice):
-
-    create database devwaterwheel;
-
-Do not forget to use the correct database user and password in the
-settings.py file. Here is how you could change your database password,
-assuming the user is 'postgres'.
-
-In your linux terminal, considering your database user is postgres,
-type:
-
-    sudo -u postgres psql postgres
-
-Alternatively, you can also use the following command:
-
-    sudo su - postgres
-    psql
-
-Now that you are connected to the psql:
-
-  \password postgres
+- [Installing in Windows](windows_install_instructions.md)
+- [Installing in Mac OS X](mac_install_instructions.md)
+- [Installing in Linux Ubuntu](ubuntu_install_instructions.md)
 
 ### Configure Django
 
 If this is the first time installing the app, you'll need to have to
-generate a `local.py` file to keep your secret API keys. You can do so
-by issuing the following command in the command line:
+generate a `local.py` file within the `alliance/config/settings/` folder
+to keep your secret API keys. You can do so by issuing the following
+command in the command line:
 
     python bin/settings_builder.py
 
@@ -175,7 +52,7 @@ and password):
 
     python manage.py createsuperuser
 
-Use the `db/static_inserts.sql` file to populate the database with
+Use the `bin/seed/static_inserts.sql` file to populate the database with
 useful testing information:
 
 Open the file and update the lines below with your information:
@@ -194,23 +71,25 @@ After that, run the following command to import the data (you must be
 logged as a user that has privileges to access/update the database or
 provide user/password information to psql):
 
-    psql devwaterwheel < /path/to/your/static_inserts.sql
+    psql devwaterwheel < /path/to/your/bin/seed/static_inserts.sql
 
 We also must create a trigger that will be responsible for update the
 `backlog.update_dttm` field. This trigger will be fired on a row update
 event. The `Postgres_Update_Trigger.sql` script is located under the db
 folder. If you have a test database, run the following command:
 
-    psql devwaterwheel_test < Postgres_Update_Trigger.sql
+    psql devwaterwheel_test < bin/seed/postgres_update_trigger.sql
 
-There is also two other files that must be updated:
-`playbook/email_settings.py` (information concerning email service) and
-`playbook/backlog/github_settings.py` (information used to interact with
-the github API).
+There is also two other sections within your `config/settings/local.py`
+that must be updated:
+
+- The email settings (can be seen within `config/settings/base.py`)
+- The github settings (can also be seen within
+  `config/settings/base.py`)
 
 The system can notify users through email when an error on modules
 import/export occurs. Configuration can be done in the file
-`email_settings.py`. As an example, to send the emails using gmail
+`config/settings/local.py`. As an example, to send the emails using gmail
 service, one could configure the file as shown below:
 
     # Email configuration
@@ -241,9 +120,9 @@ pre-requirements that must be met:
     - The Payload URL must point to:
       - If you are running over HTTP (for example, through manage.py
         script):
-        - `http://\<host\>:\<port\>/playbook/backlog/githubimport`
+        - `http://\<host\>:\<port\>/alliance/backlog/githubimport`
       - If you want to use HTTPS (the HTTP server must be configured):
-        - `https://\<host\>:\<port\>/playbook/backlog/githubimport`
+        - `https://\<host\>:\<port\>/alliance/backlog/githubimport`
         - Remember to "Disable SSL verification" if you have a
           self-signed certificate
     - Content type: `application/json`
@@ -264,7 +143,7 @@ Now we can configure the `github_settings.py` file:
 
 Now you can go to `\<host\>:\<port\>/admin` and login using the user
 created above. You can create groups and regular users that will be used
-to login into the playbook application (`\<host\>:\<port\>/playbook`).
+to login into the alliance application (`\<host\>:\<port\>/alliance`).
 
 After logging into the admin interface, create a new user, using the
 same email you specified when running the `static_inserts.sql` file. The
