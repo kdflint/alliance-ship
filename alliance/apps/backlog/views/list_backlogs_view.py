@@ -38,7 +38,7 @@ class BacklogView(RequireSignIn, View):
         for backlog in backlogs:
             read_only = backlog.status.id == queued_status_id()
 
-            estimate = build_estimate(Estimate.objects.get_object_or_none(
+            estimate = build_estimate(get_object_or_none(Estimate,
                                         team_id=team_id,
                                         backlog_id=backlog.id))
 
@@ -83,7 +83,7 @@ class BacklogView(RequireSignIn, View):
         from ...backlog.forms import EstimateForm
 
         backlog_id = request.POST.get('estimate-backlog_id')
-        estimate = Estimate.objects.get_object_or_none(
+        estimate = get_object_or_none(Estimate,
                 team_id=team_id, backlog_id=backlog_id)
         form = EstimateForm(request.POST, prefix='estimate',
                             instance=estimate)
@@ -155,7 +155,7 @@ class BacklogView(RequireSignIn, View):
         from ...backlog.forms import AcceptanceCriteriaFormSet, BacklogUpdateForm
 
         backlog_id = request.POST.get('backlog-id')
-        backlog = Backlog.objects.get_object_or_none(id=backlog_id)
+        backlog = get_object_or_none(Backlog, id=backlog_id)
         form = BacklogUpdateForm(request.POST,
                 prefix='backlog', instance=backlog)
 

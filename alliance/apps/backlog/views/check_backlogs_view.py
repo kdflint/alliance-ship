@@ -34,9 +34,9 @@ class CheckBacklogsView(RequireSignIn, View):
                 #  existing into database.
                 for ui_backlog in ui_backlogs:
                     backlog_id = ui_backlog.get('id')
-                    backlog = Backlog.objects.get_object_or_none(id=backlog_id)
+                    backlog = get_object_or_none(Backlog, id=backlog_id)
 
-                    result['outdated'] = backlog == None
+                    result['outdated'] = backlog is None
                     # Database datetime has greater precision than
                     # the one brought from ui so we add a timedelta,
                     # otherwise the page that executed the update
