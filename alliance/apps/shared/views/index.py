@@ -8,7 +8,7 @@ from apps.shared.forms.choose_team_form import ChooseTeamForm
 @login_required
 def index(request):
     if request.method == 'POST':
-        form = ChooseTeamForm(request, request.POST)
+        form = ChooseTeamForm(request, request.POST or None)
         if form.is_valid():
             team = form.cleaned_data['team']
             request.session['team'] = team

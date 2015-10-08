@@ -2,87 +2,133 @@
 Installation
 ============
 
+Notes on notation:
+* Anything following '$' are commands to enter in a Terminal shell
+* Anything following '=#' are commands to enter in a Postgres shell
+* Otherwise, a file should be modified or the terminal is echoing back information
+* \<project directory> is the path to your project files
+
+###0) Install Xcode & Homebrew
+
+Get [Xcode](https://itunes.apple.com/us/app/xcode/id497799835?mt=12) from the Mac App Store.
+
+Install Xcode Command Line Tools. Open a Terminal and type
+
+	$ xcode-select --install
+	
+Install Homebrew
+
+	$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+Add Homebrew to your path. Open or create your `~/.bash_profile` and add the line
+```bash
+export PATH=/usr/local/bin:$PATH
+```
+	
+	$ source ~/.bash_profile
+
 ###1) Install python (2.7 or higher) and development packages
 
-	sudo apt-get install python2.7
+Homebrew installs Python 2.7 with Setuptools and pip
+	
+	$ brew install python
 
-	sudo apt-get install python-dev
+Add the new Python to your `~/.bash_profile`.
+```bash
+export PATH=/usr/local/share/python:$PATH
+```
+
+	$ source ~/.bash_profile
+
+You can check if you are using the Homebrew python with
+
+	$ which python
+	/usr/local/bin/python
 
 ###2) Install PostgreSQL and related packages
 
-Currently 9.4 is the most current release of postgres:
+Currently 9.4 is the most current release of postgres. Download Postgres.app from [http://postgresapp.com/](http://postgresapp.com/)
 
-	sudo apt-get install postgresql-9.4
+Move the app to `/Applications` and add the path to your `~/.bash_profile`.
+```bash
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
+```
+
+	$ source ~/.bash_profile
+
+You can verify the path with
 	
-	sudo apt-get install libpq-dev
-	
-helpful link: https://help.ubuntu.com/community/PostgreSQL
+	$ which psql
+	/usr/local/bin/psql
 
 ###3) Get the project code
 
 From the directory where you want your project to reside. We will call this the "project directory."
 
-	git clone https://github.com/NorthBridge/alliance-community.git
+	$ git clone https://github.com/NorthBridge/alliance-community.git
 
 Then instruct git to disregard your local changes to indexed settings files
 
-	git update-index --assume-unchanged alliance/settings.py
-	git update-index --assume-unchanged alliance/config/settings/dev.py
-	git update-index --assume-unchanged bin/seed/static_inserts.sql
-	git update-index --assume-unchanged alliance/email_settings.py
-	git update-index --assume-unchanged alliance/backlog/github_settings.py
+	$ git update-index --assume-unchanged alliance/settings.py
+	$ git update-index --assume-unchanged alliance/config/settings/dev.py
+	$ git update-index --assume-unchanged bin/seed/static_inserts.sql
+	$ git update-index --assume-unchanged alliance/email_settings.py
+	$ git update-index --assume-unchanged alliance/backlog/github_settings.py
 
 ###4) Install project dependencies.
 
-Use a virtual environment (Ubuntu):
+Use a virtual environment:
 
-Install pip
+If you haven't already, install pip
 
-	sudo apt-get install python-pip
+	$ sudo easy_install pip
 
 Install virtualenv using pip
 
-	pip install virtualenvwrapper
+	$ pip install virtualenvwrapper
 
-Add the following two lines to your ~/.bashrc script:
+Add the following two lines to your `~/.bash_profile`:
 
-    export WORKON_HOME=$HOME/.virtualenvs
-    source /usr/local/bin/virtualenvwrapper.sh
+```bash
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+```
 
-Close the file and source it:
-
-	source ~/.bashrc
+	$ source ~/.bash_profile
 
 Go to the project directory: Make sure you are in the directory alliance-community (if you do "ls" in your command line you will find there is another folder called alliance. Don't go in there. Stay here.)
 
-	mkvirtualenv alliance
+	$ mkvirtualenv alliance
 
 The next command is only necessary if you are not already using the created virtualenv
 
-	workon alliance
+	$ workon alliance
 
 *to get out of the virtual environment type in:
 	
-	deactivate
+	$ deactivate
+For more commands, see the [virtualenvwrapper command reference](http://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html)
 
 Install python dependencies (while in virtual environment aka (alliance)):
 
-	pip install -r requirements.txt
+	$ pip install -r requirements.txt
 
 *Running this installs the following packages to your virtual environment (only in alliance):
-	
+
+```python
 	Django==1.8.2
 	ipaddress==1.0.7
 	psycopg2==2.6.1
 	pygithub3==0.5.1
 	requests==2.7.0
+```
 
 ###4) Update your database connection settings using your database admin user
 
-The database settings are located in the alliance/settings.py file and must be updated to represent your local environment. You can name your database whatever you like. In this guide, we assume that the name is northbr6_devwaterwheel
+The database settings are located in the `alliance/settings.py` file and must be updated to represent your local environment. 
 
-*This means go into alliance/settings.py and look for the DATABASE section:
-	
+Example:
+```python
 	DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -93,79 +139,87 @@ The database settings are located in the alliance/settings.py file and must be u
     'PORT': '5432',
     	}
 	}
-
-This is assuming that you are using user postgres with password postgres with port 5432 and database northbr6_devwaterwheel. However you can use whatever you like so long as things match. In this tutorial we will be using the above stated assumptions.
-
-Also update the same settings in alliance/config/settings/dev.py
+```
+In this guide, we assume that that you are using user 'postgres' with password 'postgres', port '5432' and database 'northbr6_devwaterwheel'. However, you can use whatever you like so long as you update the same settings in `alliance/config/settings/dev.py`.
  
-Create the database north6_devwaterwheel by running the following SQL command (you can use psql or any client of your choice). First you must sign into the postgres user (if prompt for a password when getting into the postgres superuser type in your computer password:
+Create a new super user and database by opening the app and selecting 'Open psql'. Enter the following psql commands:
+	
+	=# CREATE USER postgres WITH SUPERUSER CREATEROLE CREATEDB;
+	=# CREAT DATABASE northbr6_devwaterwheel OWNER postgres;
 
-	sudo su - postgres
-	psql
-	create database northbr6_devwaterwheel;
+You can check if you successfully created a new superuser and database by further interacting with the psql shell.
+To see the list of all users and their permissions:
 
-After you are done with setting up the database you can log out by Ctrl+D twice OR until you see that you are back in your virtual environment, you see (alliance). You should always see (alliance) unless in postgres. 
+	=# \du
 
-*In case you need to change your password for user posgres:
+To see the list of all databases and owners:
 
-	sudo -u postgres psql postgres
+	=# \l
 
-Now that you are connected to psql you can change your password to 'postgres':
+To exit psql:
 
-	\password postgres
+	=# \q
 
+So long as the app is still running, you can re-enter psql from a Terminal shell with
+	
+	$ psql
 
 ###5) Configure Django
 
 Run Django migration scripts (only AFTER database is setup/configured):
 
-	cd <project-directory>/alliance
+	$ cd <project-directory>/alliance
 
-	python manage.py makemigrations
-	python manage.py migrate
+	$ python manage.py makemigrations
+	$ python manage.py migrate
 
 Create a superuser (you will be prompted to type in a username, email and password):
 
-	python manage.py createsuperuser
+	$ python manage.py createsuperuser
 
 Use the bin/seed/static_inserts.sql file to populate the database with useful testing information:
 
 Open the file (bin/seed/static_inserts.sql) and update the lines below with your information:
 
+```SQL
 	\set email '\'' '\<The email you used to create the django superuser account>' '\''
 	\set fname '\'' '\<your first name>' '\''
 	\set lname '\'' '\<your last name>' '\''
 	\set github_repo '\'' '<github test repo>' '\''
-	
+```
+
 For example:
 
+```SQL
 	\set email '\'' 'johndoe@gmail.com' '\''
 	\set fname '\'' 'John' '\''
 	\set lname '\'' 'Doe' '\''
 	\set github_repo '\'' 'https://github.com/myorg/githubtest' '\''
+```
 
 After that, run the following command to import the data (you must be logged as a user that has privileges to access/update the database or provide user/password information to psql):
 
-	sudo su - postgres
-    psql northbr6_devwaterwheel < <project directory>/bin/seed/static_inserts.sql
+	$ psql -U postgres northbr6_devwaterwheel < <project directory>/bin/seed/static_insterts.sql
 
 	
-We also must create a trigger that will be responsible for update the backlog.update_dttm field. This trigger will be fired on a row update event. The Postgres_Update_Trigger.sql script is located under the db folder.
+We also must create a trigger that will be responsible for update the backlog.update\_dttm field. This trigger will be fired on a row update event. The `postgres\_update_trigger.sql` script is located under the db folder.
 
-	psql northbr6_devwaterwheel_test < <project directory>/bin/seed/postgres_update_trigger.sql
+	$ psql -U postgres northbr6_devwaterwheel < <project directory>/
 
-There are also two other files that must be updated: alliance/email_settings.py (information concerning email service) and alliance/backlog/github_settings.py (information used to interact with the github API).
+There are also two other files that must be updated: `alliance/email_settings.py` (information concerning email service) and `alliance/backlog/github_settings.py` (information used to interact with the github API).
 
 The system can notify users through email when an error on modules import/export occurs. Configuration can be done in the file email_settings.py. As an example, to send the emails using gmail service, one could configure the file as shown below:
 
-	# Email configuration
-	EMAIL_USE_TLS = True
-	EMAIL_HOST = 'smtp.gmail.com'
-	EMAIL_HOST_USER = 'exampleName@gmail.com'
-	EMAIL_HOST_PASSWORD = 'myPassword'
-	EMAIL_PORT = 587
-	EMAIL_RECIPIENT_LIST = ['exampleName2@gmail.com']
-	
+```python
+# Email configuration
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'exampleName@gmail.com'
+EMAIL_HOST_PASSWORD = 'myPassword'
+EMAIL_PORT = 587
+EMAIL_RECIPIENT_LIST = ['exampleName2@gmail.com']
+```
+
 The main functionality of the system is the integration with the GitHub API. In order to put this integration to work there are some pre-requirements that must be met:
 
 - You must have a GitHub Organization
@@ -195,7 +249,7 @@ install ngrok: https://ngrok.com/download
 -first download and then unzip
 -you can extract it in your downloads folder and then run it:
 
-	~/Downloads/ngrok http 8000
+	$ ~/Downloads/ngrok http 8000
 
 
 Something like this will pop up:
@@ -223,33 +277,34 @@ Something like this will pop up:
 - Which events would you like to trigger this webhook?
   - Choose "Let me select individual events" and check the "Issues" event.
 
-Now we can configure the alliance\backlog\github_settings.py file (copy the name of the organization, your token, and your secret):
+Now we can configure the `alliance\backlog\github_settings.py` file (copy the name of the organization, your token, and your secret):
 
-	GITHUB_OWNER = "\<GitHub Organization\>"
-	GITHUB_TOKEN = "\<GitHub generated token\>"
-	GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
+```python
+GITHUB_OWNER = "\<GitHub Organization\>"
+GITHUB_TOKEN = "\<GitHub generated token\>"
+GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
+```
 
 Running
 =======
 
-	python manage.py runserver [host:port]
+From the project directory:
+	$ python ./alliance/manage.py runserver [host:port]
 
-
-example (add the same info you added when creating the webhook aka the same host and port):
+Example (add the same info you added when creating the webhook aka the same host and port):
 	
-	python manage.py runserver 
-
+	$ python manage.py runserver 
 
 Now you can go to \<host\>:\<port\>/admin and login using the user created above. 
 
-example--type this into the web url: 
+Example: Open a browser and type into the web url:
 
 	localhost:8000/admin
 
 
 You can create groups and regular users that will be used to login into the alliance application (\<host\>:\<port\>/alliance).
 
-example--type this into the web url: 
+Example: Open a browser and type into the web url:
 
 	localhost:8000/alliance/apps/backlog
 
@@ -260,7 +315,7 @@ After logging into the admin interface, create a new user, using the same email 
 
 Creating User:
 
-go to localhost:8000/admin (still have the runserver running on the terminal).
+Go to [localhost:8000/admin](http://127.0.0.1:8000/admin) (still have the runserver running on the terminal).
 Under the Authentication and Authorization administration tab click on "Users". Add a new user example: newuser and give a password (i.e. password); type it 2x and click save!
 
 Congrats! you just created your first user! (well other than the user you created while in the terminal--that createsuperuser command) So what can this user do?!
@@ -287,6 +342,6 @@ Now you are ready to logout from admin account and access the application using 
 
 ####To the Alliance!
 
-Go to localhost:8000/alliance/apps/backlog
+Go to [localhost:8000/alliance/apps/backlog](http://127.0.0.1:8000/alliance/apps/backlog)
 
 A main restriction is that the user's email must match the volunteer's email. It is through this relation that we can link a django user and the volunteer's informations. For now there is no database constraint ensuring this.
