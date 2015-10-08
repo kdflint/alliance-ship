@@ -226,7 +226,9 @@ Something like this will pop up:
 ^This become the payload url. note that http://389c1340.ngrok.io/ points to localhost:8000 (the default)
 
 - If you want to use HTTPS (the HTTP server must be configured):
+
     - https://\<host\>:\<port\>/alliance/apps/backlog/githubimport
+
     - Remember to "Disable SSL verification" if you have a self signed certificate
 - Content type: application/json
 - Secret: chose a strong secret
