@@ -13,8 +13,16 @@ from core.lib.shortcuts import create_json_message_object
 from ...backlog.forms import AcceptanceCriteriaFormSet,\
     EstimateForm, BacklogUpdateForm
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
+from core.lib.views_helper import get_object_or_none
 
 class BacklogView(RequireSignIn, View):
+
+    def build_estimate(estimate, team_id, backlog_id):
+        if not estimate:
+            estimate = Estimate()
+            estimate.team_id = team_id
+            estimate.backlog_id = backlog.id
+        return estimate
 
     def get(self, request):
         # Get the volunteers team
@@ -30,13 +38,9 @@ class BacklogView(RequireSignIn, View):
         for backlog in backlogs:
             read_only = backlog.status.id == queued_status_id()
 
-            try:
-                estimate = Estimate.objects.get(team_id=team_id,
-                                                backlog_id=backlog.id)
-            except Estimate.DoesNotExist:
-                estimate = Estimate()
-                estimate.team_id = team_id
-                estimate.backlog_id = backlog.id
+            estimate = build_estimate(get_object_or_none(Estimate,
+                                        team_id=team_id,
+                                        backlog_id=backlog.id))
 
             # Creates the backlog form to edit data like story descr, skills,
             # notes, etc
@@ -76,14 +80,11 @@ class BacklogView(RequireSignIn, View):
         return JsonResponse(results)
 
     def update_estimate(self, request, results, team_id):
-        backlog_id = request.POST.get('estimate-backlog_id')
         from ...backlog.forms import EstimateForm
-        try:
-            estimate = Estimate.objects.get(
-                team_id=team_id, backlog_id=backlog_id)
-        except Estimate.DoesNotExist:
-            estimate = None
 
+        backlog_id = request.POST.get('estimate-backlog_id')
+        estimate = get_object_or_none(Estimate,
+                team_id=team_id, backlog_id=backlog_id)
         form = EstimateForm(request.POST, prefix='estimate',
                             instance=estimate)
 
@@ -151,35 +152,31 @@ class BacklogView(RequireSignIn, View):
                     str(e), code="exception")
 
     def update_backlog_and_acc_cri(self, request, results):
-        from ...backlog.forms import BacklogUpdateForm
-        backlog_id = request.POST.get('backlog-id')
-        try:
-            backlog = Backlog.objects.get(id=backlog_id)
-        except Backlog.DoesNotExist:
-            backlog = None
-        else:
-            form = BacklogUpdateForm(request.POST,
-                                     prefix='backlog', instance=backlog)
+        from ...backlog.forms import AcceptanceCriteriaFormSet, BacklogUpdateForm
 
-            prefix = 'acceptance-criteria-%d' % backlog.id
-            from ...backlog.forms import AcceptanceCriteriaFormSet
-            formset = AcceptanceCriteriaFormSet(request.POST,
-                                                instance=backlog,
-                                                prefix=prefix)
-            if form.is_valid():
-                if formset.is_valid():
-                    backlog = form.save()
-                    backlog.refresh_from_db()
-                    formset.save()
-                    formset = AcceptanceCriteriaFormSet(
+        backlog_id = request.POST.get('backlog-id')
+        backlog = get_object_or_none(Backlog, id=backlog_id)
+        form = BacklogUpdateForm(request.POST,
+                prefix='backlog', instance=backlog)
+
+        prefix = 'acceptance-criteria-%d' % backlog.id
+        formset = AcceptanceCriteriaFormSet(request.POST,
+                instance=backlog,
+                prefix=prefix)
+        if form.is_valid():
+            if formset.is_valid():
+                backlog = form.save()
+                backlog.refresh_from_db()
+                formset.save()
+                formset = AcceptanceCriteriaFormSet(
                         instance=backlog, prefix=prefix)
-                    html = render_to_string('backlog/acc_cri_par.txt',
-                                            {'form': form, 'formset': formset})
-                    results['html'] = html
-                    results['mgt_fields'] = formset.management_form.as_p()
-                    results['update_dttm'] = localtime(backlog.update_dttm)
-                    results['success'] = True
-                else:
-                    results['errors'] = formset.non_form_errors()
+                html = render_to_string('backlog/acc_cri_par.txt',
+                        {'form': form, 'formset': formset})
+                results['html'] = html
+                results['mgt_fields'] = formset.management_form.as_p()
+                results['update_dttm'] = localtime(backlog.update_dttm)
+                results['success'] = True
             else:
-                results['errors'] = form.errors.as_json()
+                results['errors'] = formset.non_form_errors()
+        else:
+            results['errors'] = form.errors.as_json()
