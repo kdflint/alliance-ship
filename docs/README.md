@@ -1,4 +1,4 @@
-# Welcome to Playbooks's documentation!
+# Welcome to Alliance's documentation!
 
 ## [Setup](setup.md)
 
