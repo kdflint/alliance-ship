@@ -52,7 +52,7 @@ class GitHubWebhookView(View):
     #  code = 403).
     def verify_signature(self, request):
         #if settings.GITHUB_WEBHOOK_SECRET:
-        if true:
+        if 1 < 2:
             try:
                 sha_name, signature = request.META.get(
                     self.meta_key_formatter('X-Hub-Signature')).split('=')
