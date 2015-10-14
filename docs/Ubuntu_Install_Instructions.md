@@ -211,12 +211,12 @@ Something like this will pop up:
 	Connections                   ttl     opn     rt1     rt5     p50     p90       
 	                              0       0       0.00    0.00    0.00    0.00  
 	
-	http://389c1340.ngrok.io/alliance/backlog/githubimport
+	http://389c1340.ngrok.io/alliance/apps/backlog/githubimport
 	
 ^This become the payload url. note that http://389c1340.ngrok.io/ points to localhost:8000 (the default)
 
 - If you want to use HTTPS (the HTTP server must be configured):
-    - https://\<host\>:\<port\>/alliance/backlog/githubimport
+    - https://\<host\>:\<port\>/alliance/apps/backlog/githubimport
     - Remember to "Disable SSL verification" if you have a self signed certificate
 - Content type: application/json
 - Secret: chose a strong secret
