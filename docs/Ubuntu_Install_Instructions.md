@@ -189,7 +189,7 @@ Payload URL = the server endpoint that will receive the webhook payload.
 The Payload URL must point to: 
 -If you are running over HTTP (for example, through manage.py script):
   	
-  	http://\<host\>:\<port\>/alliance/backlog/githubimport
+  	http://\<host\>:\<port\>/alliance/apps/backlog/githubimport
 
 install ngrok: https://ngrok.com/download
 -first download and then unzip
