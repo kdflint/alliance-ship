@@ -6,7 +6,7 @@ from django.utils.dateparse import parse_datetime
 from ..util import retrieve_backlogs_by_status_project_and_priority
 from apps.shared.models import Backlog
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
-from core.util.views_helper import get_object_or_none
+from core.lib.views_helper import get_object_or_none
 
 
 class CheckBacklogsView(RequireSignIn, View):
