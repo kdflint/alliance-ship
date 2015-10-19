@@ -1,4 +1,5 @@
 from apps.shared.models import Backlog, Status, TeamProject
+from alliance.core.lib.views_helper import get_object_or_none
 from .constants import DB_OPEN_STATUS_NAME, DB_SELECTED_STATUS_NAME,\
     DB_QUEUED_STATUS_NAME, DB_ACCEPTED_STATUS_NAME
 
@@ -11,7 +12,7 @@ def retrieve_backlogs_by_status_project_and_priority(team_id):
 
 
 def status_id_list():
-    return [open_status_id(), selected_status_id(), queued_status_id()]
+    return [s for s in [open_status_id(), selected_status_id(), queued_status_id()] if s]
 
 
 def project_id_list(team_id):
@@ -40,4 +41,7 @@ def accepted_status_id():
 
 
 def status_id(name):
-    return Status.objects.get(category='backlog', name=name).id
+    status = get_object_or_none(Status, category='backlog', name=name)
+    if status:
+        return status.id
+    return None

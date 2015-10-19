@@ -60,7 +60,7 @@ LOGGING_CONFIG = None
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
 
-logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
+# logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
