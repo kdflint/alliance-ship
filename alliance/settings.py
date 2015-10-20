@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-import sys
-import logging.config
+#import os
+#import sys
+#import logging.config
 
 #LOGGING_CONFIG = None
 
@@ -26,7 +26,7 @@ import logging.config
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
+#SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
@@ -99,18 +99,18 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'CST6CDT'
+#TIME_ZONE = 'CST6CDT'
 
-USE_I18N = True
+#USE_I18N = True
 
-USE_L10N = True
+#USE_L10N = True
 
-USE_TZ = True
+#USE_TZ = True
 
 
-from email_settings import *
+#from email_settings import *
 
 # Parse database configuration from $DATABASE_URL
 #import dj_database_url
