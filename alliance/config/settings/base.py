@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 import logging.config
 from os.path import abspath, basename, dirname, join, normpath
 from os import listdir
