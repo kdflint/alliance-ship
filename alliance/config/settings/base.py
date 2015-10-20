@@ -103,6 +103,13 @@ THIRD_PARTY_APPS = (
 #    'apps.accounts',
 #)
 
+PROJECT_APPS = (
+    'alliance.core',
+    'alliance.apps.backlog',
+    'alliance.apps.accounts',
+    'apps.shared'
+)
+
 EXTENSION_APPS = (
     'django_extensions',
 )

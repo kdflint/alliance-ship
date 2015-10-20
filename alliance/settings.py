@@ -37,31 +37,31 @@ SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
 # http://stackoverflow.com/questions/11660627/python-app-import-error-in-django-with-wsgi-gunicorn
 #sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'alliance.core',
-    'alliance.apps.backlog',
-    'alliance.apps.accounts',
-    'apps.shared'
-)
+#INSTALLED_APPS = (
+#    'django.contrib.admin',
+#    'django.contrib.auth',
+#    'django.contrib.contenttypes',
+#    'django.contrib.sessions',
+#    'django.contrib.messages',
+#    'django.contrib.staticfiles',
+#    'alliance.core',
+#    'alliance.apps.backlog',
+#    'alliance.apps.accounts',
+#    'apps.shared'
+#)
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+#MIDDLEWARE_CLASSES = (
+#    'django.contrib.sessions.middleware.SessionMiddleware',
+#    'django.middleware.common.CommonMiddleware',
+#    'django.middleware.csrf.CsrfViewMiddleware',
+#    'django.contrib.auth.middleware.AuthenticationMiddleware',
+#    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+#    'django.contrib.messages.middleware.MessageMiddleware',
+#    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#    'django.middleware.security.SecurityMiddleware',
+#)
 
-ROOT_URLCONF = 'alliance.config.urls'
+#ROOT_URLCONF = 'alliance.config.urls'
 
 
 #TEMPLATES = [
