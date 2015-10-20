@@ -140,8 +140,10 @@ EXTENSION_TEMPLATES = [normpath(join(PROJECT_ROOT, 'extensions', 'templates'))]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
-        'APP_DIRS': True,  # TODO
+        #'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
+        # modified to support gunicorn on heroku - don't completely understand yet
+        'DIRS': [os.path.join(BASE_DIR, 'alliance/apps/shared/templates')],
+        'APP_DIRS': True, #TODO
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -152,6 +154,17 @@ TEMPLATES = [
         },
     },
 ]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
 
 ################################################################################
 # Login Configuration
@@ -199,10 +212,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 
 
-# Static files (CSS, JavaScript, Images)
+# Static asset configuration (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 #INTERNAL_IPS = ('127.0.0.1',)
 
@@ -210,6 +226,12 @@ STATIC_URL = '/static/'
 # Github configuration
 ############################################################################################################################################################
 
-GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
-GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
-GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
+GITHUB_OWNER = os.getenv('PLAYBOOK_GITHUB_OWNER')
+GITHUB_TOKEN = os.getenv('PLAYBOOK_GITHUB_TOKEN')
+GITHUB_WEBHOOK_SECRET = os.getenv('PLAYBOOK_GITHUB_WEBHOOK_SECRET')
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
