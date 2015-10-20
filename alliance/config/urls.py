@@ -17,7 +17,8 @@ from django.contrib.auth.views import login, logout
 from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
-from core import views
+#from core import views
+import views
 
 urlpatterns = [
     url(r'^accounts/login/$', login, name='login'),
