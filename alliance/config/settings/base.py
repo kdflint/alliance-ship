@@ -220,7 +220,6 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 ROOT_URLCONF = 'alliance.config.urls'
-#ROOT_URLCONF = 'alliance.config.urls'
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Chicago'
