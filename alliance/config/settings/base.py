@@ -107,7 +107,7 @@ PROJECT_APPS = (
     'alliance.core',
     'alliance.apps.backlog',
     'alliance.apps.accounts',
-    'apps.shared'
+    'alliance.apps.shared'
 )
 
 EXTENSION_APPS = (
