@@ -228,7 +228,8 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-WSGI_APPLICATION = 'config.wsgi.application'
+#WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'alliance.config.wsgi.application'
 SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 
 

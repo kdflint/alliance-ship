@@ -82,9 +82,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 #]
 
 
-WSGI_APPLICATION = 'alliance.config.wsgi.application'
-LOGIN_REDIRECT_URL = 'index'
-SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
+#WSGI_APPLICATION = 'alliance.config.wsgi.application'
+#LOGIN_REDIRECT_URL = 'index'
+#SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -117,10 +117,10 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 #DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
 #import os
