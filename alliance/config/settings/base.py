@@ -12,22 +12,18 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-#import sys
 import logging.config
 from os.path import abspath, basename, dirname, join, normpath
 from os import listdir
 from sys import path
-
-# This accomodates gunicorn pathing on Heroku
-# http://stackoverflow.com/questions/11660627/python-app-import-error-in-django-with-wsgi-gunicorn
-#sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
 
 ############################################################################################################################################################
 # Path configuration
 ############################################################################################################################################################
 
 # Absolute path of the config directory
-CONFIG_ROOT = dirname(dirname(abspath(__file__)))
+# CONFIG_ROOT = dirname(dirname(abspath(__file__)))
+CONFIG_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 
 # Absolute filesystem path to the django repo directory
 DJANGO_ROOT = dirname(CONFIG_ROOT)
@@ -48,12 +44,12 @@ PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 # name in our dotted import paths:
 path.append(CONFIG_ROOT)
 
-TMP_DIR = os.path.dirname(os.path.abspath(__file__))
+#TMP_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(TMP_DIR, 'static'),
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 
 ############################################################################################################################################################
