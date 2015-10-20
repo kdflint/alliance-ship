@@ -48,9 +48,9 @@ path.append(CONFIG_ROOT)
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = (
-#    os.path.join(PROJECT_ROOT, 'static'),
-#)
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 ############################################################################################################################################################
 # Email configuration
@@ -83,7 +83,7 @@ CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
 SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', False)
+DEBUG = os.getenv('DEBUG', True)
 
 ################################################################################
 # Application Configuration
