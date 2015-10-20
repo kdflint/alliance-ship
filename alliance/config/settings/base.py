@@ -58,8 +58,8 @@ EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
 LOGGING_CONFIG = None
 
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'playbook/core')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
 
 logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
 
