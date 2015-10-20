@@ -48,6 +48,14 @@ PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 # name in our dotted import paths:
 path.append(CONFIG_ROOT)
 
+TMP_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(TMP_DIR, 'static'),
+)
+
 ############################################################################################################################################################
 # Email configuration
 ############################################################################################################################################################
