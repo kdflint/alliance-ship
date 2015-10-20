@@ -1,1 +1,1 @@
-web: gunicorn alliance.wsgi --log-file -
+web: python alliance/manage.py collectstatic --noinput ; gunicorn alliance.wsgi --log-file -
