@@ -60,8 +60,7 @@ EMAIL_PORT = os.getenv('SMTP_PORT')
 EMAIL_RECIPIENT_LIST = os.getenv('EMAIL_HOST_USER')
 EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
-
-#LOGGING_CONFIG = None
+LOGGING_CONFIG = None
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
