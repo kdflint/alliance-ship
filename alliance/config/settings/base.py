@@ -17,6 +17,10 @@ from os.path import abspath, basename, dirname, join, normpath
 from os import listdir
 from sys import path
 
+# This accomodates gunicorn pathing on Heroku
+# http://stackoverflow.com/questions/11660627/python-app-import-error-in-django-with-wsgi-gunicorn
+sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
+
 ############################################################################################################################################################
 # Path configuration
 ############################################################################################################################################################
@@ -207,11 +211,11 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 
 # Static asset configuration (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+#STATIC_ROOT = 'staticfiles'
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS = (
+#    os.path.join(BASE_DIR, 'static'),
+#)
 
 #INTERNAL_IPS = ('127.0.0.1',)
 
