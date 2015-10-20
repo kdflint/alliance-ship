@@ -29,13 +29,13 @@ import logging.config
 SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
 # Application definition
 
-# This accomodates guncorn pathing on Heroku
+# This accomodates gunicorn pathing on Heroku
 # http://stackoverflow.com/questions/11660627/python-app-import-error-in-django-with-wsgi-gunicorn
-sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
+#sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -123,11 +123,11 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
-#import os
-#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-#STATIC_ROOT = 'staticfiles'
-#STATIC_URL = '/static/'
+import os
+TMP_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
+STATICFILES_DIRS = (
+    os.path.join(TMP_DIR, 'static'),
+)
