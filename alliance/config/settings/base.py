@@ -20,7 +20,7 @@ from sys import path
 
 # This accomodates gunicorn pathing on Heroku
 # http://stackoverflow.com/questions/11660627/python-app-import-error-in-django-with-wsgi-gunicorn
-sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
+#sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
 
 ############################################################################################################################################################
 # Path configuration
