@@ -112,6 +112,7 @@ PROJECT_APPS = (
     'alliance.core',
     'alliance.apps.backlog',
     'alliance.apps.accounts',
+    'alliance.apps.shared',
     'alliance.apps'
 )
 
