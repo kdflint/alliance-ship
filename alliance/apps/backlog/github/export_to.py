@@ -22,8 +22,7 @@ def export_to_github(backlog):
     __validate(backlog)
 
     github = Github(token=settings.GITHUB_TOKEN, user=settings.GITHUB_OWNER,
-                    repo=backlog.github_repo)
-    
+                    repo=backlog.github_repo)   
     if backlog.status.id == selected_status_id():
         try:
             __export_milestone(backlog, github)
