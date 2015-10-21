@@ -14,6 +14,7 @@ from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.views_helper import get_object_or_none
 
 
+
 class BacklogView(RequireSignIn, View):
 
     def get(self, request):
