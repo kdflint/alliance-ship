@@ -239,9 +239,9 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 # Github configuration
 ############################################################################################################################################################
 
-GITHUB_OWNER = os.getenv('PLAYBOOK_GITHUB_OWNER')
-GITHUB_TOKEN = os.getenv('PLAYBOOK_GITHUB_TOKEN')
-GITHUB_WEBHOOK_SECRET = os.getenv('PLAYBOOK_GITHUB_WEBHOOK_SECRET')
+GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
+GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
+GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

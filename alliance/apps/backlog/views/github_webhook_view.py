@@ -52,8 +52,8 @@ class GitHubWebhookView(View):
     #  (in this case, Django will return an HttpResponse with status
     #  code = 403).
     def verify_signature(self, request):
-        #if settings.GITHUB_WEBHOOK_SECRET:
-        if 1 < 2:
+        if settings.GITHUB_WEBHOOK_SECRET:
+        #if 1 < 2:
             try:
                 sha_name, signature = request.META.get(
                     self.meta_key_formatter('X-Hub-Signature')).split('=')
@@ -69,10 +69,10 @@ class GitHubWebhookView(View):
                     return HttpResponse("Only sha1 hash algorithm is" +
                                         " accepted.", status=501)
 
-                #mac = hmac.new(settings.GITHUB_WEBHOOK_SECRET, request.body,
-                #               digestmod=sha1)
-                mac = hmac.new("n0rthbr1dge", request.body,
+                mac = hmac.new(settings.GITHUB_WEBHOOK_SECRET, request.body,
                                digestmod=sha1)
+               # mac = hmac.new("n0rthbr1dge", request.body,
+               #                digestmod=sha1)
                 if not hmac.compare_digest(str(mac.hexdigest()),
                                            str(signature)):
                     logger.warning("X-Hub-Signature does not match. Ignoring" +
