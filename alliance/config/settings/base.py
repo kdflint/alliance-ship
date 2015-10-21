@@ -89,7 +89,8 @@ EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key should only be used for development and testing.
-SECRET_KEY = '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+# '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', True)
@@ -110,24 +111,12 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
 )
 
-#PROJECT_APPS = (
-#    'apps.shared',
-#    'apps.backlog',
-#    'apps.accounts',
-#)
-
 PROJECT_APPS = (
     'alliance.core',
     'alliance.apps.backlog',
     'alliance.apps.accounts',
-    #'alliance.apps.shared',
     'apps.shared'
 )
-
-#    'alliance.core',
-#    'alliance.apps.backlog',
-#    'alliance.apps.accounts',
-#    'apps.shared'
 
 EXTENSION_APPS = (
     'django_extensions',
