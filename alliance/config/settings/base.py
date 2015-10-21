@@ -57,11 +57,11 @@ STATICFILES_DIRS = (
 ############################################################################################################################################################
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = os.getenv('ALLIANCE_SMTP_SERVER')
-EMAIL_HOST_USER = os.getenv('ALLIANCE_SMTP_USER')
-EMAIL_HOST_PASSWORD = os.getenv('ALLIANCE_SMTP_PASSWORD')
-EMAIL_PORT = os.getenv('ALLIANCE_SMTP_PORT')
-EMAIL_RECIPIENT_LIST = os.getenv('ALLIANCE_EMAIL_HOST_USER')
+EMAIL_HOST = os.getenv('SMTP_SERVER')
+EMAIL_HOST_USER = os.getenv('SMTP_USER')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASSWORD')
+EMAIL_PORT = os.getenv('SMTP_PORT')
+EMAIL_RECIPIENT_LIST = os.getenv('SMTP_RECIPIENT_LIST')
 EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
 #LOGGING_CONFIG = None
