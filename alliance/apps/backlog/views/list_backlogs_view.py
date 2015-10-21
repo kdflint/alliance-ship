@@ -13,12 +13,6 @@ from core.lib.shortcuts import create_json_message_object
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.views_helper import get_object_or_none
 
-#from alliance.apps.shared.models import Backlog, Estimate, Event, Status, Team
-#from alliance.apps.shared.views.mixins.requiresigninajax import RequireSignIn
-#from alliance.core.lib.shortcuts import create_json_message_object
-#from alliance.core.lib.views_helper import get_object_or_none
-
-
 class BacklogView(RequireSignIn, View):
 
     def get(self, request):
