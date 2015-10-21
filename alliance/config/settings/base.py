@@ -30,6 +30,9 @@ DJANGO_ROOT = dirname(CONFIG_ROOT)
 # Absolute filesystem path to the project directory
 PROJECT_ROOT = dirname(CONFIG_ROOT)
 
+# Path to the project parent directory
+BASE_DIR = os.path.dirname(PROJECT_ROOT)
+
 # Project name
 PROJECT_NAME = basename(PROJECT_ROOT).capitalize()
 
@@ -39,13 +42,11 @@ PROJECT_FOLDER = basename(PROJECT_ROOT)
 # Project domain TODO verify what the project domain should actually be
 PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 
+CORE_PROJECT_DIR = os.path.join(PROJECT_ROOT, 'core')
+
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
 path.append(CONFIG_ROOT)
-
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-CORE_PROJECT_DIR = os.path.join(PROJECT_ROOT, 'core')
 
 
 ############################################################################################################################################################
@@ -173,7 +174,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         #'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
         # modified to support gunicorn on heroku - don't completely understand yet
-        'DIRS': [os.path.join(BASE_DIR, 'alliance/apps/shared/templates')],
+        'DIRS': [os.path.join(PROJECT_ROOT, 'apps/shared/templates')],
         'APP_DIRS': True, #TODO
         'OPTIONS': {
             'context_processors': [
