@@ -217,16 +217,12 @@ GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
 # Miscellaneous configuration
 ################################################################################
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
 ROOT_URLCONF = 'alliance.config.urls'
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Chicago'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-#WSGI_APPLICATION = 'config.wsgi.application'
-#WSGI_APPLICATION = 'alliance.config.wsgi.application'
 WSGI_APPLICATION = 'alliance.wsgi.application'
 SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
