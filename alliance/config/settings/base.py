@@ -22,7 +22,6 @@ from sys import path
 ############################################################################################################################################################
 
 # Absolute path of the config directory
-# CONFIG_ROOT = dirname(dirname(abspath(__file__)))
 CONFIG_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 
 # Absolute filesystem path to the django repo directory
@@ -44,7 +43,15 @@ PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 # name in our dotted import paths:
 path.append(CONFIG_ROOT)
 
-#TMP_DIR = os.path.dirname(os.path.abspath(__file__))
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+CORE_PROJECT_DIR = os.path.join(PROJECT_ROOT, 'core')
+
+
+############################################################################################################################################################
+# Static assets configuration
+############################################################################################################################################################
+
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
@@ -64,10 +71,11 @@ EMAIL_PORT = os.getenv('SMTP_PORT')
 EMAIL_RECIPIENT_LIST = os.getenv('SMTP_RECIPIENT_LIST')
 EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
-#LOGGING_CONFIG = None
+############################################################################################################################################################
+# Logging configuration
+############################################################################################################################################################
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
+#LOGGING_CONFIG = None
 
 #logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
 
