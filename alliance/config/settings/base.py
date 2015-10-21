@@ -112,9 +112,14 @@ PROJECT_APPS = (
     'alliance.core',
     'alliance.apps.backlog',
     'alliance.apps.accounts',
-    'alliance.apps.shared',
-    'alliance.apps'
+    #'alliance.apps.shared',
+    'apps.shared'
 )
+
+#    'alliance.core',
+#    'alliance.apps.backlog',
+#    'alliance.apps.accounts',
+#    'apps.shared'
 
 EXTENSION_APPS = (
     'django_extensions',
