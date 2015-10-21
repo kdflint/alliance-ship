@@ -31,7 +31,6 @@ class GitHubWebhookView(View):
         signature_ver = self.verify_signature(request)
         if not signature_ver:
             event = request.META.get(self.meta_key_formatter('X-GitHub-Event'))
-            response = None
             if event == 'issues':
                 try:
                     payload = loads(request.body)
@@ -47,7 +46,7 @@ class GitHubWebhookView(View):
 
     # This method will return None if the signature verification
     #  run well. The other possibilities are an HttpResponse with
-    #  status code = 501 if the hash algorithm is not suported or
+    #  status code = 501 if the hash algorithm is not supported or
     #  an exception raised in case of the signature does not match
     #  (in this case, Django will return an HttpResponse with status
     #  code = 403).

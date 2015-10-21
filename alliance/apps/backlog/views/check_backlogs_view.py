@@ -7,6 +7,9 @@ from ..util import retrieve_backlogs_by_status_project_and_priority
 from apps.shared.models import Backlog
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.views_helper import get_object_or_none
+#from alliance.apps.shared.models import Backlog
+#from alliance.apps.shared.views.mixins.requiresigninajax import RequireSignIn
+#from alliance.core.lib.views_helper import get_object_or_none
 
 
 class CheckBacklogsView(RequireSignIn, View):
@@ -42,14 +45,14 @@ class CheckBacklogsView(RequireSignIn, View):
                     # otherwise the page that executed the update
                     # would show the message of requested refresh.
                     ui_last_update = parse_datetime(
-                            ui_backlog.get('lastUpdated'))
+                        ui_backlog.get('lastUpdated'))
                     db_last_update = backlog.update_dttm
 
                     if not ui_last_update and db_last_update:
                         result['outdated'] = True
                     elif db_last_update:
                         ui_last_update += datetime.timedelta(
-                                milliseconds=500)
+                            milliseconds=500)
                         if db_last_update > ui_last_update:
                             result['outdated'] = True
         return JsonResponse(result)

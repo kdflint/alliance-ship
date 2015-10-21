@@ -12,3 +12,8 @@ DEBUG = os.getenv('DEBUG', True)
 
 if os.path.isfile('local.py'):
     from .local import *
+
+# This will parse database configuration from environment variable DATABASE_URL
+# Conforms to heroku project setup requirements
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
