@@ -4,12 +4,12 @@ from django.http import JsonResponse
 from django.views.generic import View
 from django.utils.dateparse import parse_datetime
 from ..util import retrieve_backlogs_by_status_project_and_priority
-#from apps.shared.models import Backlog
-#from apps.shared.views.mixins.requiresigninajax import RequireSignIn
-#from core.lib.views_helper import get_object_or_none
-from alliance.apps.shared.models import Backlog
-from alliance.apps.shared.views.mixins.requiresigninajax import RequireSignIn
-from alliance.core.lib.views_helper import get_object_or_none
+from apps.shared.models import Backlog
+from apps.shared.views.mixins.requiresigninajax import RequireSignIn
+from core.lib.views_helper import get_object_or_none
+#from alliance.apps.shared.models import Backlog
+#from alliance.apps.shared.views.mixins.requiresigninajax import RequireSignIn
+#from alliance.core.lib.views_helper import get_object_or_none
 
 
 class CheckBacklogsView(RequireSignIn, View):

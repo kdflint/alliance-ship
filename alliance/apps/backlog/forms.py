@@ -5,8 +5,10 @@ from django.db.models import Q
 from django.forms.models import BaseInlineFormSet
 from django.forms.models import inlineformset_factory
 from .util import queued_status_id
-from alliance.apps.shared.models import (Backlog, Estimate, Event,
-                                         AcceptanceCriteria)
+#from alliance.apps.shared.models import (Backlog, Estimate, Event,
+#                                         AcceptanceCriteria)
+from aapps.shared.models import (Backlog, Estimate, Event,
+                                          AcceptanceCriteria)
 
 
 class EstimateForm(forms.ModelForm):
