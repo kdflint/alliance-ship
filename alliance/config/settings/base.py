@@ -90,7 +90,6 @@ EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key should only be used for development and testing.
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-# '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', True)
@@ -162,7 +161,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         #'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
-        # modified to support gunicorn on heroku - don't completely understand yet
         'DIRS': [os.path.join(PROJECT_ROOT, 'apps/shared/templates')],
         'APP_DIRS': True, #TODO
         'OPTIONS': {
@@ -176,6 +174,10 @@ TEMPLATES = [
     },
 ]
 
+################################################################################
+# Database Configuration
+################################################################################
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -183,7 +185,8 @@ DATABASES = {
     }
 }
 
-# Parse database configuration from $DATABASE_URL
+# This will parse database configuration from environment variable DATABASE_URL
+# Conforms to heroku project setup requirements
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
 
@@ -200,8 +203,15 @@ LOGIN_REDIRECT_URL = 'index'
 # https://docs.djangoproject.com/en/dev/ref/settings/#logout-url
 #LOGOUT_URL = '/logout/'
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+
+############################################################################################################################################################
+# Github API configuration
+############################################################################################################################################################
+
+GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
+GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
+GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
+
 
 ################################################################################
 # Miscellaneous configuration
@@ -210,40 +220,14 @@ LOGIN_REDIRECT_URL = 'index'
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 ROOT_URLCONF = 'alliance.config.urls'
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Chicago'
-
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 #WSGI_APPLICATION = 'config.wsgi.application'
-WSGI_APPLICATION = 'alliance.config.wsgi.application'
+#WSGI_APPLICATION = 'alliance.config.wsgi.application'
+WSGI_APPLICATION = 'alliance.wsgi.application'
 SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
-
-
-# Static asset configuration (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-#STATIC_ROOT = 'staticfiles'
-#STATIC_URL = '/static/'
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, 'static'),
-#)
-
-#INTERNAL_IPS = ('127.0.0.1',)
-
-############################################################################################################################################################
-# Github configuration
-############################################################################################################################################################
-
-GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
-GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
-GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Allow all host headers
 ALLOWED_HOSTS = ['*']
-
