@@ -7,7 +7,7 @@ from django.forms.models import inlineformset_factory
 from .util import queued_status_id
 #from alliance.apps.shared.models import (Backlog, Estimate, Event,
 #                                         AcceptanceCriteria)
-from aapps.shared.models import (Backlog, Estimate, Event,
+from apps.shared.models import (Backlog, Estimate, Event,
                                           AcceptanceCriteria)
 
 
