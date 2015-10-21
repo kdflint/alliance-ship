@@ -21,11 +21,11 @@ ACCEPT_ISSUE_TITLE = 'Accept the story (milestone)'
 def export_to_github(backlog):
     __validate(backlog)
 
-    #github = Github(token=settings.GITHUB_TOKEN, user=settings.GITHUB_OWNER,
-    #                repo=backlog.github_repo)
-    
-    github = Github(token="2d01e83117bbfebfbd5c9a653fea222acef9284e", user="northbridge",
+    github = Github(token=settings.GITHUB_TOKEN, user=settings.GITHUB_OWNER,
                     repo=backlog.github_repo)
+    
+    #github = Github(token="2d01e83117bbfebfbd5c9a653fea222acef9284e", user="northbridge",
+    #                repo=backlog.github_repo)
 
     if backlog.status.id == selected_status_id():
         try:
