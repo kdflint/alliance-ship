@@ -31,6 +31,7 @@ class GitHubWebhookView(View):
         signature_ver = self.verify_signature(request)
         if not signature_ver:
             event = request.META.get(self.meta_key_formatter('X-GitHub-Event'))
+            response = None
             if event == 'issues':
                 try:
                     payload = loads(request.body)
