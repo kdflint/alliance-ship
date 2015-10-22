@@ -180,8 +180,12 @@ TEMPLATES = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('ALLIANCE_DB_NAME'),
+        'USER': os.getenv('ALLIANCE_DB_USER'),
+        'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
+        'HOST': os.getenv('ALLIANCE_DB_HOST'),
+        'PORT': os.getenv('ALLIANCE_DB_PORT'),
     }
 }
 
@@ -207,17 +211,6 @@ GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
 GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
 GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('ALLIANCE_DB_NAME'),
-        'USER': os.getenv('ALLIANCE_DB_USER'),
-        'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
-        'HOST': os.getenv('ALLIANCE_DB_HOST'),
-        'PORT': os.getenv('ALLIANCE_DB_PORT'),
-    }
-}
 
 ################################################################################
 # Miscellaneous configuration
