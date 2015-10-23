@@ -139,9 +139,6 @@ We also must create a trigger that will be responsible for update the backlog.up
 
 	psql -U postgres db/Postgres_Update_Trigger.sql northbr6_devwaterwheel
 
-
-There is also two other files that must be updated: alliance/email_settings.py (information concerning email service) and alliance/backlog/github_settings.py (information used to interact with the github API).
-
 The database settings are stored in system variables and must be added to represent your local environment. Using the same technique described in Step 3, create the following system variables
 
 The system can notify users through email when an error on modules import/export occurs. Configuration for this optional feature should be done using system variables. Using the same technique described in Step 3, create the following system variables
