@@ -134,8 +134,6 @@ We also must create a trigger that will be responsible for update the backlog.up
 
 	psql northbr6_devwaterwheel_test < <project directory>/bin/seed/postgres_update_trigger.sql
 
-There are also two other files that must be updated: alliance/email_settings.py (information concerning email service) and alliance/backlog/github_settings.py (information used to interact with the github API).
-
 The system can notify users through email when an error on modules import/export occurs. Configuration for this optional feature should be done using environment variables.
 
 One way to do this is to edit the system file /etc/environment, by adding something like the following:
