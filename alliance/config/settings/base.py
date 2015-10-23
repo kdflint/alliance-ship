@@ -196,7 +196,7 @@ USE_L10N = True
 USE_TZ = True
 
 WSGI_APPLICATION = 'config.wsgi.application'
-SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
+SESSION_COOKIE_AGE = 60 * 60  # 60 minutes
 
 
 # Static files (CSS, JavaScript, Images)
