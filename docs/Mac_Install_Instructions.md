@@ -107,7 +107,7 @@ Install python dependencies (while in virtual environment aka (alliance)):
 
 *Running this installs the packages listed in requirements.txt to your virtual environment (only in alliance):
 
-###4) Update your database connection settings using your database admin user
+###5) Update your database connection settings using your database admin user
 
 The database settings are stored in environment variables and must be added to represent your local environment. 
 
@@ -142,7 +142,7 @@ So long as the app is still running, you can re-enter psql from a Terminal shell
 	
 	$ psql
 
-###5) Configure Django
+###6) Configure Django
 
 Run Django migration scripts (only AFTER database is setup/configured):
 
