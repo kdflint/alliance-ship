@@ -63,7 +63,7 @@ Install python dependencies (while in virtual environment aka (alliance)):
 
 *Running this installs the packages listed in requirements.txt to your virtual environment (only in alliance):
 	
-###4) Update your database connection settings using your database admin user
+###5) Update your database connection settings using your database admin user
 
 The database settings are stored in environment variables and must be added to represent your local environment. You can name your database whatever you like. In this guide, we assume that the name is northbr6_devwaterwheel
 
@@ -95,7 +95,7 @@ Now that you are connected to psql you can change your password to 'postgres':
 	\password postgres
 
 
-###5) Configure Django
+###6) Configure Django
 
 Run Django migration scripts (only AFTER database is setup/configured):
 
