@@ -112,10 +112,9 @@ THIRD_PARTY_APPS = (
 )
 
 PROJECT_APPS = (
-    'alliance.core',
-    'alliance.apps.backlog',
-    'alliance.apps.accounts',
-    'apps.shared'
+    'apps.shared',
+    'apps.backlog',
+    'apps.accounts',
 )
 
 EXTENSION_APPS = (
@@ -124,6 +123,7 @@ EXTENSION_APPS = (
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS + EXTENSION_APPS
+#INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + EXTENSION_APPS
 
 ################################################################################
 # Middleware Configuration
@@ -160,9 +160,9 @@ EXTENSION_TEMPLATES = [normpath(join(PROJECT_ROOT, 'extensions', 'templates'))]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
-        'DIRS': [os.path.join(PROJECT_ROOT, 'apps/shared/templates')],
-        'APP_DIRS': True, #TODO
+        'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
+        #'DIRS': BASE_TEMPLATES + EXTENSION_TEMPLATES,
+        'APP_DIRS': True,  # TODO
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -178,14 +178,37 @@ TEMPLATES = [
 # Database Configuration
 ################################################################################
 
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
+LOGIN_REDIRECT_URL = 'index'
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+# LOGIN_URL = '/login/'
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#logout-url
+# LOGOUT_URL = '/logout/'
+
+# Database
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': os.getenv('ALLIANCE_DB_NAME'),
+#        'USER': os.getenv('ALLIANCE_DB_USER'),
+#        'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
+#        'HOST': os.getenv('ALLIANCE_DB_HOST'),
+#        'PORT': os.getenv('ALLIANCE_DB_PORT'),
+#    }
+#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('ALLIANCE_DB_NAME'),
-        'USER': os.getenv('ALLIANCE_DB_USER'),
-        'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
-        'HOST': os.getenv('ALLIANCE_DB_HOST'),
-        'PORT': os.getenv('ALLIANCE_DB_PORT'),
+        'NAME': 'db_test',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 

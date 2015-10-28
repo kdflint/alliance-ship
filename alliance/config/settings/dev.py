@@ -10,7 +10,10 @@ import os
 
 DEBUG = os.getenv('DEBUG', True)
 
-if os.path.isfile('local.py'):
+this_file_dir = os.path.dirname(os.path.abspath(__file__))
+
+if os.path.exists(os.path.join(this_file_dir, 'local.py')):
+    print('Found a local.py file. OVERRIDING ALL THE THINGS!')
     from .local import *
     
 #DATABASES = {
