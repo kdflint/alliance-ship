@@ -12,7 +12,7 @@ Install the appropriate python according to how many bits your computer has.
 		http://www.postgresql.org/download/windows/
 
 
-###3) ***Set Up Environment Variables on Windows***
+###3) Set Up Environment Variables on Windows
 Go to your environment variables (Control Panel--> search: environment variables --> edit environment variables):
 
 Create variable "PYTHON_HOME" (in system variable) with path:
@@ -36,14 +36,6 @@ Create variable "PATH" (in user variables) with path:
 From the directory where you want your project to reside. We will call this the "project directory."
 	
 	git clone https://github.com/NorthBridge/alliance-community.git
-
-Then instruct git to disregard your local changes to indexed settings files
-
-	git update-index --assume-unchanged alliance/settings.py
-	git update-index --assume-unchanged alliance/config/settings/dev.py
-	git update-index --assume-unchanged bin/seed/static_inserts.sql
-	git update-index --assume-unchanged alliance/email_settings.py
-	git update-index --assume-unchanged alliance/backlog/github_settings.py
 
 ###5) Install project dependencies. There are two ways to do this:
 Install pip. Download get-pip.py and save (this will probably go into your Downloads Folder)
@@ -76,14 +68,7 @@ Install python dependencies (while in virtual environment aka (alliance)):
 
 	pip install -r requirements.txt
 
-*Running this installs the following packages to your virtual environment (only in alliance):
-	
-	Django==1.8.2
-	ipaddress==1.0.7
-	psycopg2==2.6.1
-	pygithub3==0.5.1
-	requests==2.7.0
-
+*Running this installs the packages listed in requirements.txt to your virtual environment (only in alliance):
 
 **If you get an error about psycopg2, go to: http://aka.ms/vcpython27 & download. Run the following command and retry to install the requirements again. (make sure to get the correct path to where VCForPython27.msi is located)
 
@@ -97,21 +82,14 @@ Alternatively you can do:
 
 ###6) Update your database connection settings using your database admin user
 
-The database settings are located in the alliance/settings.py file and must be updated to represent your local environment. 
+The database settings are stored in system variables and must be added to represent your local environment. Using the same technique described in Step 3, create the following system variables
 
-*This means go into alliance/settings.py and look for the DATABASE section. should look something like:
+	ALLIANCE_DB_NAME=northbr6_devwaterwheel
+	ALLIANCE_DB_USER=postgres
+	ALLIANCE_DB_PASSWORD=postgres
+	ALLIANCE_DB_HOST=127.0.0.1
+	ALLIANCE_DB_PORT=5432
 	
-	DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'northbr6_devwaterwheel',
-    'USER': 'postgres',
-    'PASSWORD': 'postgres',
-    'HOST': '127.0.0.1',
-    'PORT': '5432',
-    	}
-	}
-
 *Make sure that your user, password, host, and port match how everything is set up on postgres on your local machine. Name corresponds to the name of the database which we create below in the next section:
 
 Create the database north6_devwaterwheel by running the following SQL command (you can use psql or any client of your choice). First you must sign into the postgres user (if prompt for a password when getting into the postgres superuser type in your computer password:
@@ -161,20 +139,16 @@ We also must create a trigger that will be responsible for update the backlog.up
 
 	psql -U postgres db/Postgres_Update_Trigger.sql northbr6_devwaterwheel
 
+The database settings are stored in system variables and must be added to represent your local environment. Using the same technique described in Step 3, create the following system variables
 
-There is also two other files that must be updated: alliance/email_settings.py (information concerning email service) and alliance/backlog/github_settings.py (information used to interact with the github API).
+The system can notify users through email when an error on modules import/export occurs. Configuration for this optional feature should be done using system variables. Using the same technique described in Step 3, create the following system variables
 
-
-
-The system can notify users through email when an error on modules import/export occurs. Configuration can be done in the file email_settings.py. As an example, to send the emails using gmail service, one could configure the file as shown below:
-
-	# Email configuration
-	EMAIL_USE_TLS = True
-	EMAIL_HOST = 'smtp.gmail.com'
-	EMAIL_HOST_USER = 'exampleName@gmail.com'
-	EMAIL_HOST_PASSWORD = 'myPassword'
-	EMAIL_PORT = 587
-	EMAIL_RECIPIENT_LIST = ['exampleName2@gmail.com']
+	# Alliance email configuration
+	SMTP_SERVER = 'smtp.gmail.com'
+	SMTP_USER = 'exampleName@gmail.com'
+	SMTP_PASSWORD = 'myPassword'
+	SMTP_PORT = 587
+	SMTP_RECIPIENT_LIST = ['exampleName2@gmail.com']
 	
 The main functionality of the system is the integration with the GitHub API. In order to put this integration to work there are some pre-requirements that must be met:
 
@@ -233,11 +207,11 @@ Something like this will pop up:
 - Which events would you like to trigger this webhook?
   - Choose "Let me select individual events" and check the "Issues" event.
 
-Now we can configure the alliance\backlog\github_settings.py file (copy the name of the organization, your token, and your secret):
+Configuration for this optional feature should be done using system variables. Using the same technique described in Step 3, create the following system variables
 
-	GITHUB_OWNER = "\<GitHub Organization\>"
-	GITHUB_TOKEN = "\<GitHub generated token\>"
-	GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
+	ALLIANCE_GITHUB_OWNER = "\<GitHub Organization\>"
+	ALLIANCE_GITHUB_TOKEN = "\<GitHub generated token\>"
+	ALLIANCE_GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
 
 Running
 =======

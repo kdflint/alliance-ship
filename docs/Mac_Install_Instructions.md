@@ -67,14 +67,6 @@ From the directory where you want your project to reside. We will call this the 
 
 	$ git clone https://github.com/NorthBridge/alliance-community.git
 
-Then instruct git to disregard your local changes to indexed settings files
-
-	$ git update-index --assume-unchanged alliance/settings.py
-	$ git update-index --assume-unchanged alliance/config/settings/dev.py
-	$ git update-index --assume-unchanged bin/seed/static_inserts.sql
-	$ git update-index --assume-unchanged alliance/email_settings.py
-	$ git update-index --assume-unchanged alliance/backlog/github_settings.py
-
 ###4) Install project dependencies.
 
 Use a virtual environment:
@@ -113,34 +105,20 @@ Install python dependencies (while in virtual environment aka (alliance)):
 
 	$ pip install -r requirements.txt
 
-*Running this installs the following packages to your virtual environment (only in alliance):
+*Running this installs the packages listed in requirements.txt to your virtual environment (only in alliance):
 
-```python
-	Django==1.8.2
-	ipaddress==1.0.7
-	psycopg2==2.6.1
-	pygithub3==0.5.1
-	requests==2.7.0
-```
+###5) Update your database connection settings using your database admin user
 
-###4) Update your database connection settings using your database admin user
+The database settings are stored in environment variables and must be added to represent your local environment. 
 
-The database settings are located in the `alliance/settings.py` file and must be updated to represent your local environment. 
+	# Alliance database configuration
+	ALLIANCE_DB_NAME=northbr6_devwaterwheel
+	ALLIANCE_DB_USER=postgres
+	ALLIANCE_DB_PASSWORD=postgres
+	ALLIANCE_DB_HOST=127.0.0.1
+	ALLIANCE_DB_PORT=5432
 
-Example:
-```python
-	DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'northbr6_devwaterwheel',
-    'USER': 'postgres',
-    'PASSWORD': 'postgres',
-    'HOST': '127.0.0.1',
-    'PORT': '5432',
-    	}
-	}
-```
-In this guide, we assume that that you are using user 'postgres' with password 'postgres', port '5432' and database 'northbr6_devwaterwheel'. However, you can use whatever you like so long as you update the same settings in `alliance/config/settings/dev.py`.
+In this guide, we assume that that you are using user 'postgres' with password 'postgres', port '5432' and database 'northbr6_devwaterwheel'. However, you can use whatever you like so long as they are specified accurately in environment variables
  
 Create a new super user and database by opening the app and selecting 'Open psql'. Enter the following psql commands:
 	
@@ -164,7 +142,7 @@ So long as the app is still running, you can re-enter psql from a Terminal shell
 	
 	$ psql
 
-###5) Configure Django
+###6) Configure Django
 
 Run Django migration scripts (only AFTER database is setup/configured):
 
@@ -206,18 +184,15 @@ We also must create a trigger that will be responsible for update the backlog.up
 
 	$ psql -U postgres northbr6_devwaterwheel < <project directory>/
 
-There are also two other files that must be updated: `alliance/email_settings.py` (information concerning email service) and `alliance/backlog/github_settings.py` (information used to interact with the github API).
-
-The system can notify users through email when an error on modules import/export occurs. Configuration can be done in the file email_settings.py. As an example, to send the emails using gmail service, one could configure the file as shown below:
+The system can notify users through email when an error on modules import/export occurs. Configuration for this optional feature should be done using environment variables, for example:
 
 ```python
-# Email configuration
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'exampleName@gmail.com'
-EMAIL_HOST_PASSWORD = 'myPassword'
-EMAIL_PORT = 587
-EMAIL_RECIPIENT_LIST = ['exampleName2@gmail.com']
+	# Alliance email configuration
+	SMTP_SERVER = 'smtp.gmail.com'
+	SMTP_USER = 'exampleName@gmail.com'
+	SMTP_PASSWORD = 'myPassword'
+	SMTP_PORT = 587
+	SMTP_RECIPIENT_LIST = ['exampleName2@gmail.com']
 ```
 
 The main functionality of the system is the integration with the GitHub API. In order to put this integration to work there are some pre-requirements that must be met:
@@ -277,12 +252,12 @@ Something like this will pop up:
 - Which events would you like to trigger this webhook?
   - Choose "Let me select individual events" and check the "Issues" event.
 
-Now we can configure the `alliance\backlog\github_settings.py` file (copy the name of the organization, your token, and your secret):
+Configuration for this feature should be done using environment variables.
 
 ```python
-GITHUB_OWNER = "\<GitHub Organization\>"
-GITHUB_TOKEN = "\<GitHub generated token\>"
-GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
+	ALLIANCE_GITHUB_OWNER = "\<GitHub Organization\>"
+	ALLIANCE_GITHUB_TOKEN = "\<GitHub generated token\>"
+	ALLIANCE_GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
 ```
 
 Running
