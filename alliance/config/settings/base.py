@@ -22,13 +22,16 @@ from sys import path
 ############################################################################################################################################################
 
 # Absolute path of the config directory
-CONFIG_ROOT = dirname(dirname(abspath(__file__)))
+CONFIG_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 
 # Absolute filesystem path to the django repo directory
 DJANGO_ROOT = dirname(CONFIG_ROOT)
 
 # Absolute filesystem path to the project directory
 PROJECT_ROOT = dirname(CONFIG_ROOT)
+
+# Path to the project parent directory
+BASE_DIR = os.path.dirname(PROJECT_ROOT)
 
 # Project name
 PROJECT_NAME = basename(PROJECT_ROOT).capitalize()
@@ -39,28 +42,43 @@ PROJECT_FOLDER = basename(PROJECT_ROOT)
 # Project domain TODO verify what the project domain should actually be
 PROJECT_DOMAIN = '%s.com' % PROJECT_NAME.lower()
 
+CORE_PROJECT_DIR = os.path.join(PROJECT_ROOT, 'core')
+
 # Add our project to our pythonpath, this way we don't need to type our project
 # name in our dotted import paths:
 path.append(CONFIG_ROOT)
+
+
+############################################################################################################################################################
+# Static assets configuration
+############################################################################################################################################################
+
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 ############################################################################################################################################################
 # Email configuration
 ############################################################################################################################################################
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = os.getenv('ALLIANCE_SMTP_SERVER')
-EMAIL_HOST_USER = os.getenv('ALLIANCE_SMTP_USER')
-EMAIL_HOST_PASSWORD = os.getenv('ALLIANCE_SMTP_PASSWORD')
-EMAIL_PORT = os.getenv('ALLIANCE_SMTP_PORT')
-EMAIL_RECIPIENT_LIST = os.getenv('ALLIANCE_EMAIL_HOST_USER')
+EMAIL_HOST = os.getenv('SMTP_SERVER')
+EMAIL_HOST_USER = os.getenv('SMTP_USER')
+EMAIL_HOST_PASSWORD = os.getenv('SMTP_PASSWORD')
+EMAIL_PORT = os.getenv('SMTP_PORT')
+EMAIL_RECIPIENT_LIST = os.getenv('SMTP_RECIPIENT_LIST')
 EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
-LOGGING_CONFIG = None
+############################################################################################################################################################
+# Logging configuration
+############################################################################################################################################################
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
+#LOGGING_CONFIG = None
 
-# logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
+#logging.config.fileConfig(os.path.join(CORE_PROJECT_DIR, 'logging.ini'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -71,10 +89,11 @@ CORE_PROJECT_DIR = os.path.join(BASE_DIR, 'alliance/core')
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key should only be used for development and testing.
-SECRET_KEY = os.getenv('ALLIANCE_SECRET_KEY', '-ccj-m$@5h9z$t%+9zq6z$y@s%e9+kapdy^ozt4k^lfvpq)bxm')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('ALLIANCE_DEBUG', False)
+DEBUG = os.getenv('DEBUG', True)
+
 
 ################################################################################
 # Application Configuration
@@ -92,11 +111,12 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
 )
 
-#PROJECT_APPS = (
-#    'apps.shared',
-#    'apps.backlog',
-#    'apps.accounts',
-#)
+PROJECT_APPS = (
+    'alliance.core',
+    'alliance.apps.backlog',
+    'alliance.apps.accounts',
+    'apps.shared'
+)
 
 EXTENSION_APPS = (
     'django_extensions',
@@ -140,8 +160,9 @@ EXTENSION_TEMPLATES = [normpath(join(PROJECT_ROOT, 'extensions', 'templates'))]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
-        'APP_DIRS': True,  # TODO
+        #'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
+        'DIRS': [os.path.join(PROJECT_ROOT, 'apps/shared/templates')],
+        'APP_DIRS': True, #TODO
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -154,20 +175,8 @@ TEMPLATES = [
 ]
 
 ################################################################################
-# Login Configuration
+# Database Configuration
 ################################################################################
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = 'index'
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-# LOGIN_URL = '/login/'
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#logout-url
-# LOGOUT_URL = '/logout/'
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -181,35 +190,40 @@ DATABASES = {
 }
 
 ################################################################################
-# Miscellaneous configuration
+# Login Configuration
 ################################################################################
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-ROOT_URLCONF = 'config.urls'
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'America/Chicago'
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
+LOGIN_REDIRECT_URL = 'index'
 
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+# LOGIN_URL = '/login/'
 
-WSGI_APPLICATION = 'config.wsgi.application'
-SESSION_COOKIE_AGE = 60 * 60  # 60 minutes
+# https://docs.djangoproject.com/en/dev/ref/settings/#logout-url
+# LOGOUT_URL = '/logout/'
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-
-#INTERNAL_IPS = ('127.0.0.1',)
 
 ############################################################################################################################################################
-# Github configuration
+# Github API configuration
 ############################################################################################################################################################
 
 GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
 GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
 GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
+
+
+################################################################################
+# Miscellaneous configuration
+################################################################################
+
+ROOT_URLCONF = 'alliance.config.urls'
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'America/Chicago'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+WSGI_APPLICATION = 'alliance.wsgi.application'
+SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ALLOWED_HOSTS = ['*']

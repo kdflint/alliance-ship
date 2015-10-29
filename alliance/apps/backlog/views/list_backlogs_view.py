@@ -9,8 +9,8 @@ from ..github.export_to import export_to_github
 from ..util import (open_status_id, selected_status_id, queued_status_id,
                     retrieve_backlogs_by_status_project_and_priority)
 from apps.shared.models import Backlog, Estimate, Event, Status, Team
-from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.shortcuts import create_json_message_object
+from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.views_helper import get_object_or_none
 
 

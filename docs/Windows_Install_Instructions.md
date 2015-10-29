@@ -166,7 +166,7 @@ The main functionality of the system is the integration with the GitHub API. In 
 
 *Helpful link: https://developer.github.com/webhooks/creating/
 
-To set up a repository webhook on GitHub, head over to the Settings page of your repository, and click on Webhooks & services. After that, click on Add webhook.
+To set up a repository webhook on GitHub,  over to the Settings page of your repository, and click on Webhooks & services. After that, click on Add webhook.
 
 Payload URL = the server endpoint that will receive the webhook payload.
 
@@ -200,7 +200,9 @@ Something like this will pop up:
 ^This become the payload url. note that http://389c1340.ngrok.io/ points to localhost:8000 (the default)
 
 - If you want to use HTTPS (the HTTP server must be configured):
+
     - https://\<host\>:\<port\>/alliance/apps/backlog/githubimport
+
     - Remember to "Disable SSL verification" if you have a self signed certificate
 - Content type: application/json
 - Secret: chose a strong secret
