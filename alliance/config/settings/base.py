@@ -193,6 +193,7 @@ DATABASES = {
 # Login Configuration
 ################################################################################
 
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = 'index'
 
