@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "shared/base.html" %}
 
 {% block head %}
     <script type="text/javascript" language="javascript">
@@ -77,7 +77,7 @@
                         "lastUpdated": lastUpdated
                     });
             });
-            var posting = $.post("/playbook/backlog/checkBacklogs", JSON.stringify(jsonData));
+            var posting = $.post("/alliance/apps/backlog/checkBacklogs", JSON.stringify(jsonData));
             posting.done(function (data) {
                 if (data.outdated) {
                     showMessage('This backlog table is outdated. Please refresh your page.');
@@ -93,7 +93,7 @@
         function updateSprint(form) {
             var data = $(form).serializeArray();
             data.push({ name: 'action-select-sprint', value: true });
-            var posting = $.post("/playbook/backlog/", $.param(data));
+            var posting = $.post("/alliance/apps/backlog/", $.param(data));
             posting.done(function (data) {
                 if (data.success) {
                     newStatus = data.status;
@@ -120,7 +120,7 @@
         function updateEstimate(form) {
             var data = $(form).serializeArray();
             data.push({ name: 'action-update-estimate', value: true });
-            var posting = $.post("/playbook/backlog/", $.param(data));
+            var posting = $.post("/alliance/apps/backlog/", $.param(data));
             posting.done(function (data) {
                 if (data.success) {
                     backlog_id = $("#id_estimate-backlog_id").attr('value');
@@ -139,7 +139,7 @@
         function updateBacklog(form) {
             var data = $(form).serializeArray();
             data.push({ name: 'action-save', value: true });
-            var posting = $.post("/playbook/backlog/", $.param(data))
+            var posting = $.post("/alliance/apps/backlog/", $.param(data))
             posting.done( function (data) {
                 if (data.success) {
                     $(form).find('tbody').empty().append(data.html);
@@ -155,7 +155,7 @@
                     })
                     backlog_id = $(form).find("#id_backlog-id").attr('value');
                     updateDttm(backlog_id, data.update_dttm);
-                    showMessage("Backlog successfuly updated.");
+                    showMessage("Backlog successfully updated.");
                 } else
                     showErrors(data.errors);
             });
@@ -239,6 +239,6 @@
             {% endfor %}
         </table>
     {% else %}
-        <p>There are no backlogs available.</p>
+        <p>There are no open User Stories to show for this backlog.</p>
     {% endif %}
 {% endblock %}

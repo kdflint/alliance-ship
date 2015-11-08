@@ -1,5 +1,5 @@
 <div id="dialog-form" title="Select a Team">
-    <form id="choose-team-form" action='/playbook/' method="post">{% csrf_token %}
+    <form id="choose-team-form" action='/alliance/' method="post">{% csrf_token %}
         <div>
             {{ form.team }}
             <!-- Allow form submission with keyboard without duplicating the dialog button -->

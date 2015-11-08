@@ -1,90 +1,95 @@
-
 Installation
 ============
 
-###1) Install python 2.7.x (Currently 2.7.10 is the latest version). Install the appropriate python according to how many bits your computer has. Link below:
+###1) Install python 2.7.x (Currently 2.7.10 is the latest version)
+Install the appropriate python according to how many bits your computer has.
 
 	https://www.python.org/downloads/release/python-2710/
 
-Go to your environment variables and make the variable "PYTHON_HOME" in user variable with path:
+
+###2) Install PostgreSQL (Currently 9.4 is the latest version)
+
+		http://www.postgresql.org/download/windows/
+
+
+###3) Set Up Environment Variables on Windows
+Go to your environment variables (Control Panel--> search: environment variables --> edit environment variables):
+
+Create variable "PYTHON_HOME" (in system variable) with path:
 
 	 C:\Python27
 	 
-In Path (system variables) add the following: 
+Create variable "Path" (in system variables) with path: 
 	
 	;%PYTHON_HOME%;%PYTHON_HOME%/Scripts;
 
-(making sure to add ';' before if there are other paths in there.)
-In PATH add "C:\Python27"
+(making sure to add ';' before if there are other paths in there. you can also just add ";C:\Python27;C:\Python27\Scripts;" instead the first version just references the variable "PYTHON_HOME" that was created.)
 
-###2) Install project dependencies. There are two ways to do this:
+*Great Resource: http://docs.python-guide.org/en/latest/starting/install/win/
 
+Create variable "PATH" (in user variables) with path:
 
+	C:\Program Files\PostgreSQL\9.4\bin;
 
+###4) Get the project code
+
+From the directory where you want your project to reside. We will call this the "project directory."
+	
+	git clone https://github.com/NorthBridge/alliance-community.git
+
+###5) Install project dependencies. There are two ways to do this:
 Install pip. Download get-pip.py and save (this will probably go into your Downloads Folder)
 
-	https://bootstrap.pypa.io/get-pip.py
+	https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py
 
-Once downloaded go into cmd:
+Once downloaded go into powershell/cmd:
 
 	cd ~/Downloads
 	python get-pip.py
 
-Go to the Environment variables and make variable "PYTHON_HOME" in systems variables with path "C:\Python27"
-
-cmd:
+powershell/cmd:
+	
 	pip install virtualenvwrapper-win
 
 	
-Go to the project directory: Make sure you are in the directory playbook (if you do "ls" in your command line you will find there is another folder called playbook. Don't go in there. Stay here.)
+Go to the project directory: Make sure you are in the directory alliance-community (if you do "dir" in powershell/cmd you will find there is another folder called alliance. Don't go in there. Stay here.)
 
-	mkvirtualenv playbook
+	mkvirtualenv alliance
 
-The next command is only necessary if you are not already using the created virtualenv
+The next command is only necessary if you are not already using the created virtualenv (ie when you want to get back into your virtual environment)
 
-	workon playbook
+	workon alliance
 
 *to get out of the virtual environment type in:
 	
 	deactivate
 
-Install python dependencies (while in virtual environment aka (playbook)):
+Install python dependencies (while in virtual environment aka (alliance)):
 
 	pip install -r requirements.txt
 
-*Running this installs the following packages to your virtual environment (only in playbook):
+*Running this installs the packages listed in requirements.txt to your virtual environment (only in alliance):
+
+**If you get an error about psycopg2, go to: http://aka.ms/vcpython27 & download. Run the following command and retry to install the requirements again. (make sure to get the correct path to where VCForPython27.msi is located)
+
+	msiexec /i C:\Users\YOUR-USER\Downloads\VCForPython27.msi ALLUSERS=1
+
+Alternatively you can do:
+
+	msiexec /i %USERPROFILE%\Downloads\VCForPython27.msi ALLUSERS=1 
+
+%USERPROFILE% variable resolves to the current user's path. E.g. C:\Users\Beloved
+
+###6) Update your database connection settings using your database admin user
+
+The database settings are stored in system variables and must be added to represent your local environment. Using the same technique described in Step 3, create the following system variables
+
+	ALLIANCE_DB_NAME=northbr6_devwaterwheel
+	ALLIANCE_DB_USER=postgres
+	ALLIANCE_DB_PASSWORD=postgres
+	ALLIANCE_DB_HOST=127.0.0.1
+	ALLIANCE_DB_PORT=5432
 	
-	Django==1.8.2
-	ipaddress==1.0.7
-	psycopg2==2.6.1
-	pygithub3==0.5.1
-	requests==2.7.0
-
-
-**If you get an error about psycopg2, go to: http://aka.ms/vcpython27 & download. Run the following command and retry to install the requirements again.
-
-	msiexec/i C:\Users\\Downloads\VCForPython27.msi ALLUSERS=1
-
-###3) Install PostgreSQL: http://www.postgresql.org/download/windows/
-Go to your environment variables and add postgres to the PATH user variable. (Should look something like C:\Program Files\PostgreSQL\9.x\bin;)
-
-###4) Update your database connection settings using your database admin user
-
-The database settings are located in the playbook/settings.py file and must be updated to represent your local environment. 
-
-*This means go into playbook/settings.py and look for the DATABASE section. should look something like:
-	
-	DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'northbr6_devwaterwheel',
-    'USER': 'postgres',
-    'PASSWORD': 'postgres',
-    'HOST': '127.0.0.1',
-    'PORT': '5432',
-    	}
-	}
-
 *Make sure that your user, password, host, and port match how everything is set up on postgres on your local machine. Name corresponds to the name of the database which we create below in the next section:
 
 Create the database north6_devwaterwheel by running the following SQL command (you can use psql or any client of your choice). First you must sign into the postgres user (if prompt for a password when getting into the postgres superuser type in your computer password:
@@ -92,12 +97,14 @@ Create the database north6_devwaterwheel by running the following SQL command (y
 	psql -U postgres
 	create database northbr6_devwaterwheel;
 
-After you are done with setting up the database you can log out by running exit() & you see that your back in your virtual environment, you see (playbook). You should always see (playbook) unless in postgres. 
+After you are done with setting up the database you can log out by running exit() & you see that your back in your virtual environment, you see (alliance). You should always see (alliance) unless in postgres. 
 
 
-###5) Configure Django
+###7) Configure Django
 
 Run Django migration scripts (only AFTER database is setup/configured):
+
+	cd >project-directory>/alliance
 
 	python manage.py makemigrations
 	python manage.py migrate
@@ -106,7 +113,7 @@ Create a superuser (you will be prompted to type in a username, email and passwo
 
 	python manage.py createsuperuser
 
-Use the db/static_inserts.sql file to populate the database with useful testing information:
+Use the bin/seed/static_inserts.sql file to populate the database with useful testing information:
 
 Open the file (db/static_inserts.sql) and update the lines below with your information:
 
@@ -128,24 +135,20 @@ After that, run the following command to import the data (you must be logged as 
     psql -U postgres -f db/static_inserts.sql northbr6_devwaterwheel
 
 	
-We also must create a trigger that will be responsible for update the backlog.update_dttm field. This trigger will be fired on a row update event. The Postgres_Update_Trigger.sql script is located under the db folder.
+We also must create a trigger that will be responsible for update the backlog.update_dttm field. This trigger will be fired on a row update event. The Postgres_Update_Trigger.sql script is located under the bin/seed folder.
 
 	psql -U postgres db/Postgres_Update_Trigger.sql northbr6_devwaterwheel
 
+The database settings are stored in system variables and must be added to represent your local environment. Using the same technique described in Step 3, create the following system variables
 
-There is also two other files that must be updated: playbook/email_settings.py (information concerning email service) and playbook/backlog/github_settings.py (information used to interact with the github API).
+The system can notify users through email when an error on modules import/export occurs. Configuration for this optional feature should be done using system variables. Using the same technique described in Step 3, create the following system variables
 
-
-
-The system can notify users through email when an error on modules import/export occurs. Configuration can be done in the file email_settings.py. As an example, to send the emails using gmail service, one could configure the file as shown below:
-
-	# Email configuration
-	EMAIL_USE_TLS = True
-	EMAIL_HOST = 'smtp.gmail.com'
-	EMAIL_HOST_USER = 'exampleName@gmail.com'
-	EMAIL_HOST_PASSWORD = 'myPassword'
-	EMAIL_PORT = 587
-	EMAIL_RECIPIENT_LIST = ['exampleName2@gmail.com']
+	# Alliance email configuration
+	SMTP_SERVER = 'smtp.gmail.com'
+	SMTP_USER = 'exampleName@gmail.com'
+	SMTP_PASSWORD = 'myPassword'
+	SMTP_PORT = 587
+	SMTP_RECIPIENT_LIST = ['exampleName2@gmail.com']
 	
 The main functionality of the system is the integration with the GitHub API. In order to put this integration to work there are some pre-requirements that must be met:
 
@@ -163,14 +166,14 @@ The main functionality of the system is the integration with the GitHub API. In 
 
 *Helpful link: https://developer.github.com/webhooks/creating/
 
-To set up a repository webhook on GitHub, head over to the Settings page of your repository, and click on Webhooks & services. After that, click on Add webhook.
+To set up a repository webhook on GitHub,  over to the Settings page of your repository, and click on Webhooks & services. After that, click on Add webhook.
 
 Payload URL = the server endpoint that will receive the webhook payload.
 
 The Payload URL must point to: 
 -If you are running over HTTP (for example, through manage.py script):
   	
-  	http://\<host\>:\<port\>/playbook/backlog/githubimport
+  	http://\<host\>:\<port\>/alliance/apps/backlog/githubimport
 
 Install ngrok: https://ngrok.com/download
 -first download and then unzip
@@ -192,23 +195,25 @@ Something like this will pop up:
 	Connections                   ttl     opn     rt1     rt5     p50     p90       
 	                              0       0       0.00    0.00    0.00    0.00  
 	
-	http://389c1340.ngrok.io/playbook/backlog/githubimport
+	http://389c1340.ngrok.io/alliance/apps/backlog/githubimport
 	
 ^This become the payload url. note that http://389c1340.ngrok.io/ points to localhost:8000 (the default)
 
 - If you want to use HTTPS (the HTTP server must be configured):
-    - https://\<host\>:\<port\>/playbook/backlog/githubimport
+
+    - https://\<host\>:\<port\>/alliance/apps/backlog/githubimport
+
     - Remember to "Disable SSL verification" if you have a self signed certificate
 - Content type: application/json
 - Secret: chose a strong secret
 - Which events would you like to trigger this webhook?
   - Choose "Let me select individual events" and check the "Issues" event.
 
-Now we can configure the playbook\backlog\github_settings.py file (copy the name of the organization, your token, and your secret):
+Configuration for this optional feature should be done using system variables. Using the same technique described in Step 3, create the following system variables
 
-	GITHUB_OWNER = "\<GitHub Organization\>"
-	GITHUB_TOKEN = "\<GitHub generated token\>"
-	GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
+	ALLIANCE_GITHUB_OWNER = "\<GitHub Organization\>"
+	ALLIANCE_GITHUB_TOKEN = "\<GitHub generated token\>"
+	ALLIANCE_GITHUB_WEBHOOK_SECRET = "\<The secret you created on GitHub\>"
 
 Running
 =======
@@ -228,11 +233,11 @@ example--type this into the web url:
 	localhost:8000/admin
 
 
-You can create groups and regular users that will be used to login into the playbook application (\<host\>:\<port\>/playbook).
+You can create groups and regular users that will be used to login into the alliance application (\<host\>:\<port\>/alliance).
 
 example--type this into the web url: 
 
-	localhost:8000/playbook
+	localhost:8000/alliance
 
 
 ###Let's Get Started!
@@ -266,8 +271,8 @@ while still in the admin page under "Core" click on Volunteers. Recognize someon
 
 Now you are ready to logout from admin account and access the application using the regular user you have created above.
 
-####To the Playbook!
+####To the alliance!
 
-Go to localhost:8000/playbook
+Go to localhost:8000/alliance
 
 A main restriction is that the user's email must match the volunteer's email. It is through this relation that we can link a django user and the volunteer's informations. For now there is no database constraint ensuring this.

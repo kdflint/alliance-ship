@@ -47,7 +47,7 @@ class GitHubWebhookView(View):
 
     # This method will return None if the signature verification
     #  run well. The other possibilities are an HttpResponse with
-    #  status code = 501 if the hash algorithm is not suported or
+    #  status code = 501 if the hash algorithm is not supported or
     #  an exception raised in case of the signature does not match
     #  (in this case, Django will return an HttpResponse with status
     #  code = 403).

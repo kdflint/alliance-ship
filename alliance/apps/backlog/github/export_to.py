@@ -68,7 +68,7 @@ def export_to_github(backlog):
 
 
 def __notify_export_problem(message, traceback=None, is_update=False):
-    subject = '[playbook.backlog] Milestone exporting error'
+    subject = '[alliance.backlog] Milestone exporting error'
     body = "%s\n\n%s" % (message, traceback)
     send_email(subject, body)
 

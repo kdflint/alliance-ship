@@ -27,10 +27,12 @@
 
 #log files
 *.log
-playbook/passwords.py
 
 /venv/
 
 venv/
 
 venv/*
+
+# IDEA files
+.idea/

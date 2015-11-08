@@ -1,29 +1,27 @@
+#############################################################################################################
+# This settings file is purposed for our centralized dev environment installed at alliance-dev.herokuapp.com
+# If these configurations do not suit your environment, use a local.py settings file 
+# Do not modify these configurations to suit any environment except the one at alliance-dev.herokuapp.com
+#############################################################################################################
+
 # Import base to override settings
 from .base import *
 import os
 
-# Override the email settings in the base.
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = '<smtp_server>'
-#EMAIL_HOST_USER = '<user>'
-#EMAIL_HOST_PASSWORD = '<passwd>'
-#EMAIL_PORT = 587
-#EMAIL_RECIPIENT_LIST = ['EMAIL_HOST_USER']
-
-# Override Github settings
-
-GITHUB_OWNER = os.getenv('PLAYBOOK_GITHUB_OWNER')
-GITHUB_TOKEN = os.getenv('PLAYBOOK_GITHUB_TOKEN')
-GITHUB_WEBHOOK_SECRET = os.getenv('PLAYBOOK_GITHUB_WEBHOOK_SECRET')
 DEBUG = os.getenv('DEBUG', True)
 
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME':     'playbook_dev',
-    'USER':     'postgres',
-    'PASSWORD': 'postgres',
-    'HOST':     'localhost',
-    'PORT':     '5432',
-    }
-}
+if os.path.isfile('local.py'):
+    from .local import *
+    
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+
+# This will parse database configuration from environment variable DATABASE_URL
+# Conforms to heroku project setup requirements
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+

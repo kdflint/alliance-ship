@@ -6,7 +6,7 @@ from django.forms.models import BaseInlineFormSet
 from django.forms.models import inlineformset_factory
 from .util import queued_status_id
 from apps.shared.models import (Backlog, Estimate, Event,
-                           AcceptanceCriteria)
+                                         AcceptanceCriteria)
 
 
 class EstimateForm(forms.ModelForm):
