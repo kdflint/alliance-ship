@@ -24,4 +24,3 @@ if os.path.isfile('local.py'):
 # Conforms to heroku project setup requirements
 import dj_database_url
 DATABASES['default'] =  dj_database_url.config()
-

@@ -1,4 +1,20 @@
+#############################################################################################################
+# This requirements file is purposed for our centralized environments installed at alliance-xxxv.herokuapp.com
+# Do not modify these configurations to suit any environments except the ones at herokuapp.com
+#############################################################################################################
+
 # See more documentation in /docs/libraries.md
 
 # Importing from base.txt
 -r base.txt
+
+django-extensions==1.5.6
+django-postgrespool==0.3.0
+SQLAlchemy==1.0.4
+whitenoise==1.0.6
+dj-database-url==0.3.0
+dj-static==0.0.6
+django-toolbelt==0.0.1
+gunicorn==19.3.0
+static3==0.6.1
+wheel==0.24.0
