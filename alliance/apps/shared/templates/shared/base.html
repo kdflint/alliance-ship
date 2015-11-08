@@ -13,11 +13,11 @@
     <script type="text/javascript" language="javascript">
     $(document).ready(function(){
         $("#choose-team").click(function (e) {
-            var getting = $.get("/alliance/core/chooseTeam");
+            var getting = $.get("{% url 'chooseTeam' %}");
             getting.done(function (data) {
                 if (data.success) {
                     $("#dialog-form").remove();
-                    $("body").append(data.html)
+                    $("body").append(data.html);
                     $("#dialog-form").dialog({modal: true});
                     var dialog, form, team = $("#team");
                     dialog = $("#dialog-form").dialog({
@@ -38,7 +38,7 @@
                                 });
                                 posting.fail(function (xhr) {
                                     if (xhr.status == '401') {
-                                        redirectToLogin($(location).attr('pathname'));
+                                        redirectToLogin("{% url 'login' %}", $(location).attr('pathname'));
                                     }
                                 });
                             },
@@ -59,7 +59,7 @@
             });
             getting.fail(function (xhr) {
                 if (xhr.status == '401') {
-                    redirectToLogin($(location).attr('pathname'));
+                    redirectToLogin("{% url 'login' %}", $(location).attr('pathname'));
                 }
             });
             return false;
@@ -77,7 +77,7 @@
             {% block topmenu %}
                 <a href="{% url 'index' %}">{% trans "Home" %}</a> |
                 {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}?next=/alliance/">{% trans "Log out" %}</a> |
+                    <a href="{% url 'logout' %}?next={% url 'index' %}">{% trans "Log out" %}</a> |
                     <a id="choose-team" href="javascript:void(0)">{% trans "Change Team" %}</a> |
                     {% trans "Logged in as" %}: {{ user.username }}
                 {% else %}

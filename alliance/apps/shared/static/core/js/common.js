@@ -14,11 +14,10 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function redirectToLogin(next) {
-    url = "/accounts/login";
+function redirectToLogin(loginUrl, next) {
     if (next != null)
-        url = url + "/?next=" + next;
-    window.location.replace(url);
+        loginUrl = loginUrl + "/?next=" + next;
+    window.location.replace(loginUrl);
 }
 
 function showMessage(message) {
