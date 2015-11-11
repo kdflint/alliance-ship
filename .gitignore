@@ -38,4 +38,4 @@ venv/*
 .idea/
 
 # Ignores your local settings
-alliance/config/settings/local.py
+alliance/config/local_settings.py

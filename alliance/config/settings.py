@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
 import os
 import logging.config
 from os.path import abspath, basename, dirname, join, normpath
@@ -22,7 +23,7 @@ from sys import path
 ############################################################################################################################################################
 
 # Absolute path of the config directory
-CONFIG_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
+CONFIG_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ )))
 
 # Absolute filesystem path to the django repo directory
 DJANGO_ROOT = dirname(CONFIG_ROOT)
@@ -48,10 +49,9 @@ CORE_PROJECT_DIR = os.path.join(PROJECT_ROOT, 'core')
 # name in our dotted import paths:
 path.append(CONFIG_ROOT)
 
-
-############################################################################################################################################################
+################################################################################
 # Static assets configuration
-############################################################################################################################################################
+################################################################################
 
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
@@ -60,9 +60,9 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
 
-############################################################################################################################################################
+################################################################################
 # Email configuration
-############################################################################################################################################################
+################################################################################
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.getenv('SMTP_SERVER')
@@ -72,9 +72,9 @@ EMAIL_PORT = os.getenv('SMTP_PORT')
 EMAIL_RECIPIENT_LIST = os.getenv('SMTP_RECIPIENT_LIST')
 EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 
-############################################################################################################################################################
+################################################################################
 # Logging configuration
-############################################################################################################################################################
+################################################################################
 
 #LOGGING_CONFIG = None
 
@@ -123,7 +123,6 @@ EXTENSION_APPS = (
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS + EXTENSION_APPS
-#INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + EXTENSION_APPS
 
 ################################################################################
 # Middleware Configuration
@@ -161,7 +160,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': PROJECT_APP_TEMPLATES + BASE_TEMPLATES + EXTENSION_TEMPLATES,
-        #'DIRS': BASE_TEMPLATES + EXTENSION_TEMPLATES,
         'APP_DIRS': True,  # TODO
         'OPTIONS': {
             'context_processors': [
@@ -190,27 +188,17 @@ LOGIN_REDIRECT_URL = 'index'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': os.getenv('ALLIANCE_DB_NAME'),
-#        'USER': os.getenv('ALLIANCE_DB_USER'),
-#        'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
-#        'HOST': os.getenv('ALLIANCE_DB_HOST'),
-#        'PORT': os.getenv('ALLIANCE_DB_PORT'),
-#    }
-#}
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db_test',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': os.getenv('ALLIANCE_DB_NAME'),
+        'USER': os.getenv('ALLIANCE_DB_USER'),
+        'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
+        'HOST': os.getenv('ALLIANCE_DB_HOST'),
+        'PORT': os.getenv('ALLIANCE_DB_PORT'),
     }
 }
+
 
 ################################################################################
 # Login Configuration
@@ -227,9 +215,9 @@ LOGIN_REDIRECT_URL = 'index'
 # LOGOUT_URL = '/logout/'
 
 
-############################################################################################################################################################
+################################################################################
 # Github API configuration
-############################################################################################################################################################
+################################################################################
 
 GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
 GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
@@ -240,13 +228,28 @@ GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
 # Miscellaneous configuration
 ################################################################################
 
-ROOT_URLCONF = 'alliance.config.urls'
+ROOT_URLCONF = 'config.urls'
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Chicago'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-WSGI_APPLICATION = 'alliance.wsgi.application'
+#WSGI_APPLICATION = 'alliance.wsgi.application' TODO this does not really work.
 SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
+
+# This will parse database configuration from environment variable DATABASE_URL
+# Conforms to heroku project setup requirements
+DATABASES['default'] =  dj_database_url.config()
+
+
+################################################################################
+# Custom configuration
+################################################################################
+
+# Look to see if there is a `local.py` file in the `config` folder, if so, load
+# it up and override all the things.
+if os.path.exists(os.path.join(CONFIG_ROOT, 'local_settings.py')):
+    print('Found a local.py file. OVERRIDING ALL THE THINGS!')
+    from .local import *
