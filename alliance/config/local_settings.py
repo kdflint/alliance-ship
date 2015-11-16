@@ -2,8 +2,8 @@ DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME': 'northbr6_devwaterwheel',
-		'USER': 'postgres',
-		'PASSWORD': 'postgres',
+		'USER': 'alliance',
+		'PASSWORD': 'beloved',
 		'HOST': '127.0.0.1',
 		'PORT': '5432',
     }

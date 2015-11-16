@@ -284,10 +284,5 @@ DATABASES['default'] =  dj_database_url.config()
 # Look to see if there is a `local.py` file in the `config` folder, if so, load
 # it up and override all the things.
 if os.path.exists(os.path.join(CONFIG_ROOT, 'local_settings.py')):
-    print('Found a local.py file. OVERRIDING ALL THE THINGS!')
+    print('Found a local_settings.py file. OVERRIDING ALL THE THINGS!')
     from .local_settings import *
-
-import django
-
-if django.VERSION >= 1.7:
-    django.setup()
