@@ -232,6 +232,8 @@ DATABASES = {
     }
 }
 
+DATABASES = { 'default': dj_database_url.config(default=os.getenv('POSTGRES_URL')) }
+
 
 ################################################################################
 # Login Configuration
@@ -274,7 +276,7 @@ ALLOWED_HOSTS = ['*']
 
 # This will parse database configuration from environment variable DATABASE_URL
 # Conforms to heroku project setup requirements
-DATABASES['default'] =  dj_database_url.config()
+#DATABASES['default'] =  dj_database_url.config()
 
 
 ################################################################################
@@ -285,4 +287,4 @@ DATABASES['default'] =  dj_database_url.config()
 # it up and override all the things.
 if os.path.exists(os.path.join(CONFIG_ROOT, 'local_settings.py')):
     print('Found a local_settings.py file. OVERRIDING ALL THE THINGS!')
-    from .local_settings import *
+    #from .local_settings import *
