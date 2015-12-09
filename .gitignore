@@ -72,3 +72,4 @@ docs/_build/
 .viminfo
 .virtualenvs/
 .bash_history
+staticfiles/

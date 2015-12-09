@@ -14,9 +14,9 @@ from os.path import abspath, basename, dirname, join, normpath
 from os import listdir
 from sys import path
 
-############################################################################################################################################################
+################################################################################
 # Path configuration
-############################################################################################################################################################
+################################################################################
 
 # Absolute path of the config directory
 CONFIG_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ )))
@@ -209,30 +209,9 @@ TEMPLATES = [
 # Database Configuration
 ################################################################################
 
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = 'index'
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-# LOGIN_URL = '/login/'
-
-# https://docs.djangoproject.com/en/dev/ref/settings/#logout-url
-# LOGOUT_URL = '/logout/'
-
-# Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('ALLIANCE_DB_NAME'),
-        'USER': os.getenv('ALLIANCE_DB_USER'),
-        'PASSWORD': os.getenv('ALLIANCE_DB_PASSWORD'),
-        'HOST': os.getenv('ALLIANCE_DB_HOST'),
-        'PORT': os.getenv('ALLIANCE_DB_PORT'),
-    }
-}
-
-DATABASES = { 'default': dj_database_url.config(default=os.getenv('POSTGRES_URL')) }
+DATABASES = { 'default': dj_database_url.config() }
 
 
 ################################################################################
@@ -269,14 +248,9 @@ TIME_ZONE = 'America/Chicago'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-#WSGI_APPLICATION = 'alliance.wsgi.application' TODO this does not really work.
 SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
-
-# This will parse database configuration from environment variable DATABASE_URL
-# Conforms to heroku project setup requirements
-#DATABASES['default'] =  dj_database_url.config()
 
 
 ################################################################################
@@ -284,7 +258,12 @@ ALLOWED_HOSTS = ['*']
 ################################################################################
 
 # Look to see if there is a `local.py` file in the `config` folder, if so, load
-# it up and override all the things.
-if os.path.exists(os.path.join(CONFIG_ROOT, 'local_settings.py')):
+# it up and override all the things. We do NOT use these settings if the
+# `ALLIANCE_CUSTOM_SETTINGS` are set to False.
+has_local_settings = os.path.exists(os.path.join(CONFIG_ROOT,
+                                                 'local_settings.py'))
+use_custom_settings = os.getenv('ALLIANCE_CUSTOM_SETTINGS', 'True')
+
+if has_local_settings and use_custom_settings == 'True':
     print('Found a local_settings.py file. OVERRIDING ALL THE THINGS!')
-    #from .local_settings import *
+    from .local_settings import *
