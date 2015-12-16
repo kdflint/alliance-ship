@@ -97,8 +97,10 @@ LOGGING = {
     'handlers': {
         'file': {
             'level': 'DEBUG',
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': os.path.join(LOG_FOLDER, 'alliance.log'),
+        'when' : 'W1', #new log every Tuesday
+        'interval' : 1,
             'formatter': 'verbose'
         },
     },
