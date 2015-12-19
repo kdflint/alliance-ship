@@ -1,3 +1,6 @@
+
+###Special thanks to [BrowserStack](https://www.browserstack.com/) for supporting our cross-browser testing!
+
 # The Problem 
 
 GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. There is one component that Northbridge Technology Alliance needs in order to make GitHub hit the sweet spot of our agile development methodology, and that is backlog management.
