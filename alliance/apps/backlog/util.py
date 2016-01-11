@@ -1,5 +1,5 @@
 from apps.shared.models import Backlog, Status, TeamProject
-from alliance.core.lib.views_helper import get_object_or_none
+from core.lib.views_helper import get_object_or_none
 from .constants import DB_OPEN_STATUS_NAME, DB_SELECTED_STATUS_NAME,\
     DB_QUEUED_STATUS_NAME, DB_ACCEPTED_STATUS_NAME
 
