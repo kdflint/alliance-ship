@@ -12,7 +12,7 @@ class TeamProject(models.Model):
     claim_backlog = models.CharField(max_length=100, blank=True, null=True)
 
     def __unicode__(self):
-        return self.team, self.project
+        return '{}, {}'.format(self.team, self.project)
 
     class Meta:
         db_table = 'team_project'
