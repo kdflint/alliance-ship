@@ -1,17 +1,29 @@
 
-###Special thanks to [BrowserStack](https://www.browserstack.com/) for supporting our cross-browser testing!
+###Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
 
 # The Problem 
 
-GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. There is one component that Northbridge Technology Alliance needs in order to make GitHub hit the sweet spot of our agile development methodology, and that is backlog management.
+[Northbridge](http://northbridgetech.org) is an open-source, decentralized, nonprofit, social-justice software shop that is highly dependent on volunteers to advance our project work. 
 
-This project provides a web-based backlog that Northbridge uses to prioritize all of our volunteer work across several projects. When a team selects a user story to accomplish, a button push exports the story into GitHub as a milestone and the associated acceptance criteria as tasks associated to that milestone.
+GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. There is one component that Northbridge Technology Alliance needs in order to make GitHub hit the sweet spot of our [agile development methodology](https://github.com/Northbridge/playbook/wiki/1.How-We-Do), and that is backlog management.
 
-Upon completion of the milestone, a GitHub API web hook is used to signal that the story is complete, and our backlog is udated accordingly.
+This project provides a web-based backlog that Northbridge uses to prioritize all of our volunteer work across several teams and projects. When a team selects a user story to accomplish, a button push exports the story into GitHub as a milestone and surfaces it on the burndown chart. Upon completion of the milestone, a GitHub API web hook is used to signal that the story is complete, and our internal backlog is udated accordingly.
 
-We have researched lots of task management tools, and there are some very nice ones available. However they generally required the construction of a rather siloed user base. Northbridge wants to leverage the user infrastructure of GitHub, and all the other GitHub goodness. So this project give us the backlog we need in order to do that seamlessly.
+We have researched lots of task management tools, and there are some very nice ones available. However they require the construction of a siloed user base. Northbridge needs to work in an agile, backlog-driven fashion and also leverage the public infrastructure and userbase of GitHub, with all of those advantages. This project give us the backlog we need in order to do that seamlessly.
+
+####3/22 Update
+
+This project was begun Spring, 2015. Happy to report that Alliance has reached a stable and usable codebase. We are using it now for our day-to-day operations. Also, we've containerized our local installation procedures using Vagrant.
+
+Next challenge - we need to create an authentication layer into the application that depends on the Github API. We want to grant access to Alliance to any user who has been placed on a Northbridge team. See a preliminary write-up [here[(https://github.com/NorthBridge/alliance-community/issues/63).
 
 # Overview
+
+## The User Interface
+
+This is new work. 
+
+## The Backlog Interface (mostly complete)
 
 This repository wiki describes Northbridge agile team processes.
 
@@ -35,6 +47,6 @@ API.
 
 ![Project Diagram](http://northbridgetech.org/images/alliance2.jpg)
 
-# Installing
+## Installation
 
 Curious about contributing? Check out our [Installation Guide](https://github.com/NorthBridge/alliance-community/tree/master/docs).
