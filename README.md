@@ -47,4 +47,5 @@ API.
 
 ## Installation
 
-Curious about contributing? Check out our [Installation Guide](https://github.com/NorthBridge/alliance-community/tree/master/docs).
+Curious about contributing? Reach to @kdflint. Installation instructions are currently being reformatted.
+//Check out our [Installation Guide](https://github.com/NorthBridge/alliance-community/tree/master/docs).
