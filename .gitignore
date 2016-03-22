@@ -1,38 +1,75 @@
-*.[oa]
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-*~
+# # C extensions
+*.so
 
-# Configuration file.
-*CONFIG
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Compiled python modules.
-*.pyc
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
 
-# Setuptools distribution folder.
-/dist/
+# # Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Python egg metadata, regenerated from source files by setuptools.
-/*.egg-info
-/*.egg
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
 
-# UltraEdit local project files
-*.pui
-*.prj
+# Translations
+*.mo
+*.pot
 
-#sublime files
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# sublime files
 *sublime*
 
 #debug tool
 *debug_toolbar*
 
-#log files
-*.log
-
-/venv/
-
-venv/
-
-venv/*
-
 # IDEA files
 .idea/
+
+# Ignores your local settings
+*/local_settings.py
+
+.vagrant/
+.vim/
+.viminfo
+.virtualenvs/
+.bash_history
+staticfiles/
