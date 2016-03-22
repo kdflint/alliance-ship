@@ -5,6 +5,8 @@
 
 [Northbridge](http://northbridgetech.org) is an open-source, decentralized, nonprofit, social-justice software shop that is highly dependent on volunteers to advance our project work. 
 
+This project represents the internal app that all of our other social justice project work depends on.
+
 GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. There is one component that Northbridge Technology Alliance needs in order to make GitHub hit the sweet spot of our [agile development methodology](https://github.com/Northbridge/playbook/wiki/1.How-We-Do), and that is backlog management.
 
 This project provides a web-based backlog that Northbridge uses to prioritize all of our volunteer work across several teams and projects. 
