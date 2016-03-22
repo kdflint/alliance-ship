@@ -9,9 +9,7 @@ This project represents the internal app that all of our other social justice pr
 
 GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. There is one component that Northbridge Technology Alliance needs in order to make GitHub hit the sweet spot of our [agile development methodology](https://github.com/Northbridge/playbook/wiki/1.How-We-Do), and that is backlog management.
 
-This project provides a web-based backlog that Northbridge uses to prioritize all of our volunteer work across several teams and projects. 
-
-We have researched lots of task management tools, and there are some very nice ones available. However they require the construction of a siloed user base. Northbridge needs to work in an agile, backlog-driven fashion and also leverage the public infrastructure and userbase of GitHub, with all of those advantages. This project give us the backlog we need in order to do that seamlessly.
+We have researched lots of task management tools, and there are some very nice ones available. However they require the construction of a siloed user base. Northbridge needs to work in an agile, backlog-driven fashion and also leverage the public infrastructure and userbase of GitHub, with all of those advantages. This project give us the GitHub-integrated backlog we need in order to do that seamlessly.
 
 ####3/22/16 Update
 
