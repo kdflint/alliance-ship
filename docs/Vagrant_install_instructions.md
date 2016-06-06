@@ -47,12 +47,12 @@ vragrant lib folder C:\vagrant\vagrant\embedded\lib\ruby\gems\1.9.1\gems\
 vagrant-1.0.3\lib\vagrant\ssh.rb to comment out the faulty Windows check 
 and add a real SSH check and try the vagrant ssh command again.
 
-# if Util::Platform.windows?
+'# if Util::Platform.windows?
   # raise Errors::SSHUnavailableWindows, :host => ssh_info[:host],
                                        # :port => ssh_info[:port],
                                        # :username => ssh_info[:username],
                                        # :key_path => ssh_info[:private_key_path]
-# end
+'# end
 
 which = Util::Platform.windows? ? "where ssh >NUL 2>&1" : "which ssh >/dev/null 2>&1"
 raise Errors::SSHUnavailable if !Kernel.system(which)
