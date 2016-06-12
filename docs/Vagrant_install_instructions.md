@@ -4,6 +4,9 @@ Installation
 ###1) Install Vagrant
 https://www.vagrantup.com/docs/installation/
 
+###2) Install VirtualBox
+https://www.virtualbox.org/wiki/Downloads
+
 ###2) Get the alliance code
 Go to your project directory and clone the alliance repo:
 
