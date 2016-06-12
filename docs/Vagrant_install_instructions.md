@@ -7,12 +7,12 @@ https://www.vagrantup.com/docs/installation/
 ###2) Install VirtualBox
 https://www.virtualbox.org/wiki/Downloads
 
-###2) Get the alliance code
+###3) Get the alliance code
 Go to your project directory and clone the alliance repo:
 
     git clone https://github.com/NorthBridge/alliance-community.git
     
-###3) Create the VM
+###4) Create the VM
 Change to the directory with the file `VagrantFile` and start the vagrant vm
 
     vagrant up
@@ -34,7 +34,7 @@ and change host number in the following lines:
     config.vm.network :forwarded_port, guest: 8000, host:8000
     config.vm.network :forwarded_port, guest: 9001, host:9001
 
-###4) Migrate the database
+###5) Migrate the database
 The vm is available via ssh:
 
     vagrant ssh
@@ -84,7 +84,7 @@ Environment...) to point to its installed location.
 Any time there is a schema change with new migration files, you'll need to
 repeat this step.
 
-###5) Start the webserver
+###6) Start the webserver
 We can use the django development server for our local dev environment
 
     ./manage.py runserver 0.0.0.0:9001
@@ -95,12 +95,12 @@ on step 3 you should use the same number here. This way you can open a
 browser on your host machine (not the vm) and http://127.0.0.1:9001 will
 retrieve the page served by the vm.
 
-###6) Run the tests
+###7) Run the tests
 The tests have to be run in the vm since that is where the database lives.
 
    ./manage.py test
    
-###7) Share your local server
+###8) (Optional) Share your local server
 HashiCorp (makers of vagrant) provider a service that lets you make your
 local development server available to the public. You have to create
 a (free) account with HashiCorp (https://atlas.hashicorp.com/) and then
@@ -112,3 +112,8 @@ host machine
    
 A public facing url will be printed on your console. You can use this for
 github webhooks.
+
+###9) To make code changes
+Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion.
+
+
