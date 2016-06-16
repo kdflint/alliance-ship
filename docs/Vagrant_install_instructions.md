@@ -13,7 +13,7 @@ Go to your project directory and clone the alliance repo:
     git clone https://github.com/NorthBridge/alliance-community.git
     
 ###4) Create the VM
-Change to the directory with the file `VagrantFile` and start the vagrant vm
+Change to the directory with the file `VagrantFile` and start the vagrant vm [add path]
 
     vagrant up
     
@@ -35,7 +35,7 @@ and change host number in the following lines:
     config.vm.network :forwarded_port, guest: 9001, host:9001
 
 ###5) Migrate the database
-The vm is available via ssh:
+Open a vm session by executing
 
     vagrant ssh
 
@@ -95,6 +95,10 @@ on step 3 you should use the same number here. This way you can open a
 browser on your host machine (not the vm) and http://127.0.0.1:9001 will
 retrieve the page served by the vm.
 
+[add the full url to the app]
+
+[add login creds - need to import static data somehow]
+
 ###7) Run the tests
 The tests have to be run in the vm since that is where the database lives.
 
@@ -114,6 +118,6 @@ A public facing url will be printed on your console. You can use this for
 github webhooks.
 
 ###9) To make code changes
-Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion.
+Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion. [confirm this]
 
 
