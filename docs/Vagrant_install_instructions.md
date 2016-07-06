@@ -14,7 +14,7 @@ VirtualBox is an open source, general-purpose virtualizer for x86 hardware, targ
 Vagrant works with VirtualBox to provide the virtual machine that will host Alliance on your local computer.
 
 ###3) Get the alliance code
-Inside your project root directory, clone the Alliance repo. We'll call your project root directory <project-root>
+Inside your project root directory, clone the Alliance repo. We'll call your project root directory `<project-root>`
 
 ```
 git clone https://github.com/NorthBridge/alliance-community.git
@@ -28,11 +28,11 @@ Change to the Alliance root directory /alliance-community (which contains the fi
     
 The first time you run this it will take a while as it has to download a machine image (vagrant calls them boxes) for the virtual machine. Future `vagrant up` commands won't require this lengthy step.
 
-`vagrant up` installs all the necessary packages into the Vagrant vm, such as python, postres, virtualenvwrapper, etc.
+`vagrant up` installs all the necessary packages into the Vagrant vm, such as python, postgres, virtualenvwrapper, etc.
 
-Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependecies are installed in the context of a Python virtual envirnment, whihc in turns runs inside the Vagrant Virtual machine.
+Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependencies are installed in the context of a Python virtual envirnment, which in turn runs inside the Vagrant virtual machine.
 
-If show up a message that the port is already being used, open the VagrantFile and change host number in the following lines:
+If a message appears that the port is already being used, open `<project-root>/alliance-community/Vagrantfile` and change host port numbers in the following lines:
     config.vm.network :forwarded_port, guest: 8001, host:8081
     config.vm.network :forwarded_port, guest: 9001, host:9091
     
