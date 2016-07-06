@@ -30,7 +30,7 @@ The first time you run this it will take a while as it has to download a machine
 
 `vagrant up` installs all the necessary packages into the Vagrant vm, such as python, postgres, virtualenvwrapper, etc.
 
-Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependencies are installed in the context of a Python virtual envirnment, which in turn runs inside the Vagrant virtual machine.
+Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependencies are installed in the context of a Python virtual envirnment, which in turn is hosted by the Vagrant virtual machine.
 
 If a message appears that the port is already being used, open `<project-root>/alliance-community/Vagrantfile` and change host port numbers in the following lines:
 ```
