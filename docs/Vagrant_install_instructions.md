@@ -11,34 +11,30 @@ https://www.virtualbox.org/wiki/Downloads
 
 VirtualBox is an open source, general-purpose virtualizer for x86 hardware, targeted at server, desktop and embedded use. It allows you to run multiple operating system "boxes" within a single host.
 
+Vagrant works with VirtualBox to provide the virtual machine that will host Alliance on your local computer.
 
 ###3) Get the alliance code
-Go to your project directory and clone the alliance repo:
+Inside your project root directory, clone the Alliance repo. We'll call your project root directory <project-root>
 
-    git clone https://github.com/NorthBridge/alliance-community.git
+```
+git clone https://github.com/NorthBridge/alliance-community.git
+```
     
 ###4) Create the VM
-Change to the project root directory (which contains the file `Vagrantfile`) and create a Vagrant guest machine
+Change to the Alliance root directory /alliance-community (which contains the file `Vagrantfile`). Create a Vagrant guest machine
 
     cd alliance-community
     vagrant up
     
-The first time you run this it will take a while as it has to download a
-machine image (vagrant calls them boxes) for the vm. Future `vagrant up`
-commands won't require this lengthy step.
+The first time you run this it will take a while as it has to download a machine image (vagrant calls them boxes) for the virtual machine. Future `vagrant up` commands won't require this lengthy step.
 
-`vagrant up` installs all the necessary packages in the vagrant vm
-* python, python-dev
-* postgres, libpq-dev
-* pip
-* virtualenvwrapper
-creates a virtualenv for the project and installs the project dependencies
-in that virtualenv.
+`vagrant up` installs all the necessary packages into the Vagrant vm, such as python, postres, virtualenvwrapper, etc.
 
-If show up a message that the port is already being used, open the VagrantFile
-and change host number in the following lines:
-    config.vm.network :forwarded_port, guest: 8000, host:8000
-    config.vm.network :forwarded_port, guest: 9001, host:9001
+Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependecies are installed in the context of a Python virtual envirnment, whihc in turns runs inside the Vagrant Virtual machine.
+
+If show up a message that the port is already being used, open the VagrantFile and change host number in the following lines:
+    config.vm.network :forwarded_port, guest: 8001, host:8081
+    config.vm.network :forwarded_port, guest: 9001, host:9091
     
 [TODO - attach a dump of a good command]
 
