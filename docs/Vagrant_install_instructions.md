@@ -95,12 +95,13 @@ We can use the django development server for our local dev environment
     ./manage.py runserver 0.0.0.0:9001
     
 The ip address 0.0.0.0 is the ip address of the host and port 9001 is
-specified in the `VagrantFile` as a forwarded port. If you change the port
+specified in the `Vagrantfile` as a forwarded port. If you change the port
 on step 3 you should use the same number here. This way you can open a
-browser on your host machine (not the vm) and http://127.0.0.1:9001 will
-retrieve the page served by the vm.
+browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
 
-[add the full url to the app]
+To hit the app:
+
+http://localhost:9091/accounts/login/
 
 [add login creds - need to import static data somehow]
 
