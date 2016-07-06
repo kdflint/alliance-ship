@@ -113,7 +113,7 @@ The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified 
 
 ###9) Open the app in a local browser.
 
-http://localhost:9091/accounts/login/
+[http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
 
 [TODO - add login creds - need to import static data somehow]
 
