@@ -4,10 +4,13 @@ Installation
 ###1) Install Vagrant
 https://www.vagrantup.com/docs/installation/
 
+Vagrant is a command line utility for managing the lifecycle of virtual machines. The Vagrant installation will create a directory named /.vagrant.d. This directory contains the Vagrant binaries and the yet-to-be-created user data. For example, every Vagrant "box" you create will be stored in this directory along with it's state, etc.
+
 ###2) Install VirtualBox
 https://www.virtualbox.org/wiki/Downloads
 
-[Add: what this puts on your computer]
+VirtualBox is an open source, general-purpose virtualizer for x86 hardware, targeted at server, desktop and embedded use. It allows you to run multiple operating system "boxes" within a single host.
+
 
 ###3) Get the alliance code
 Go to your project directory and clone the alliance repo:
