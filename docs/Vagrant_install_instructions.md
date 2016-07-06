@@ -97,11 +97,11 @@ python /vagrant/alliance/manage.py test
 
 The tests have to be run in the virtual machine since that is where the database lives.
 
-###8) TODO
+###7) TODO
 
 Add instructions to import static data 
 
-###9) Start the Django development webserver
+###8) Start the Django development webserver
 
 ```
 python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
@@ -111,13 +111,13 @@ The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified 
 
 
 
-###10) Open the app in a local browser.
+###9) Open the app in a local browser.
 
 http://localhost:9091/accounts/login/
 
 [TODO - add login creds - need to import static data somehow]
 
-###11) (Optional) Share your local server
+###10) (Optional) Share your local server
 HashiCorp (makers of vagrant) provider a service that lets you make your
 local development server available to the public. You have to create
 a (free) account with HashiCorp (https://atlas.hashicorp.com/) and then
@@ -130,7 +130,7 @@ host machine
 A public facing url will be printed on your console. You can use this for
 github webhooks.
 
-###9) To make code changes
+###11) To make code changes
 Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion. [confirm this]
 
 
