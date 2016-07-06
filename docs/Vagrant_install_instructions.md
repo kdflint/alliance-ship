@@ -85,6 +85,8 @@ repeat this step.
 We can use the django development server for our local dev environment
 
     ./manage.py runserver 0.0.0.0:9001
+    or
+    python manage.py runserver 0.0.0.0:9001
     
 The ip address 0.0.0.0 is the ip address of the host and port 9001 is
 specified in the `VagrantFile` as a forwarded port. If you change the port
