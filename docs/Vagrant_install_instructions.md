@@ -7,6 +7,8 @@ https://www.vagrantup.com/docs/installation/
 ###2) Install VirtualBox
 https://www.virtualbox.org/wiki/Downloads
 
+[Add: what this puts on your computer]
+
 ###3) Get the alliance code
 Go to your project directory and clone the alliance repo:
 
