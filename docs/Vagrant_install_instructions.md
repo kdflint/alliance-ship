@@ -4,7 +4,7 @@ Installation
 ###1) Install Vagrant
 https://www.vagrantup.com/docs/installation/
 
-Vagrant is a command line utility for managing the lifecycle of virtual machines. The Vagrant installation will create a directory named /.vagrant.d. This directory contains the Vagrant binaries and the yet-to-be-created user data. For example, every Vagrant "box" you create will be stored in this directory along with it's state, etc.
+Vagrant is a command line utility for managing the lifecycle of virtual machines. The Vagrant installation will 1) create a directory named /vagrant that contains the Vagrant binaries, and 2) create a directory named /.vagrant.d that contains yet-to-be-created user data. For example, every Vagrant "box" you create will be stored in /.vagrant.d along with it's state, etc.
 
 ###2) Install VirtualBox
 https://www.virtualbox.org/wiki/Downloads
