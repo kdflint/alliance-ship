@@ -101,6 +101,8 @@ The tests have to be run in the virtual machine since that is where the database
 
 Add instructions to import static data 
 
+Add superuser instructions (python /vagrant/alliance/manage.py createsuperuser)
+
 ###8) Start the Django development webserver
 
 ```
@@ -109,13 +111,15 @@ python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
 
 The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port. If you change the port on step 3 you should use the same number here. This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
 
-
-
 ###9) Open the app in a local browser.
 
-[http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
+End User: [http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
 
 [TODO - add login creds - need to import static data somehow]
+
+Admin: [http://localhost:9091/admin](http://localhost:9091/admin)
+
+User == superuser
 
 ###10) (Optional) Share your local server
 HashiCorp (makers of vagrant) provider a service that lets you make your
