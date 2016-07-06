@@ -36,6 +36,8 @@ If show up a message that the port is already being used, open the VagrantFile
 and change host number in the following lines:
     config.vm.network :forwarded_port, guest: 8000, host:8000
     config.vm.network :forwarded_port, guest: 9001, host:9001
+    
+[TODO - attach a dump of a good command]
 
 ###5) Migrate the database
 Open a vm session by executing
