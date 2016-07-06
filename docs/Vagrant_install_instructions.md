@@ -15,8 +15,9 @@ Go to your project directory and clone the alliance repo:
     git clone https://github.com/NorthBridge/alliance-community.git
     
 ###4) Create the VM
-Change to the directory with the file `VagrantFile` and start the vagrant vm [add path]
+Change to the project root directory (containing the file `Vagrantfile`) and start the vagrant vm [add path]
 
+    cd alliance-community
     vagrant up
     
 The first time you run this it will take a while as it has to download a
