@@ -21,7 +21,7 @@ git clone https://github.com/NorthBridge/alliance-community.git
 ```
     
 ###4) Create the VM
-Change to the Alliance root directory /alliance-community (which contains the file `Vagrantfile`). Create a Vagrant guest machine
+Change to the Alliance root directory `/alliance-community` (which contains the file `Vagrantfile`). Create a Vagrant guest machine
 
     cd alliance-community
     vagrant up
