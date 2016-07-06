@@ -33,13 +33,14 @@ The first time you run this it will take a while as it has to download a machine
 Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependencies are installed in the context of a Python virtual envirnment, which in turn runs inside the Vagrant virtual machine.
 
 If a message appears that the port is already being used, open `<project-root>/alliance-community/Vagrantfile` and change host port numbers in the following lines:
+```
     config.vm.network :forwarded_port, guest: 8001, host:8081
     config.vm.network :forwarded_port, guest: 9001, host:9091
-    
+```    
 [TODO - attach a dump of a good command]
 
 ###5) Migrate the database
-Open a vm session by executing
+Open a virtual machine session.
 
     vagrant ssh
 
@@ -64,16 +65,16 @@ and add a real SSH check and try the vagrant ssh command again.
 which = Util::Platform.windows? ? "where ssh >NUL 2>&1" : "which ssh >/dev/null 2>&1"
 raise Errors::SSHUnavailable if !Kernel.system(which)
 
+When your virtual machine session is open, you will see a command prompt that looks something like this:
 
-Inside the vm the directory `/vagrant` is shared with the project directory
-where the `VagrantFile` lives. Below that is the alliance directory. Change
-to that directory and migrate the db:
+`vagrant@vagrant-ubuntu-trusty-32`
+
+Change to the code root and migrate the databas.
 
     cd /vagrant/alliance
     ./manage.py migrate
 
-If it not recognize the command ./manage.py try change it for manage.py or
-python manage.py.
+If it not recognize the command ./manage.py try change it for manage.py or python manage.py.
 
 If the message persist, the django-admin script should be on your system path
 if you installed Django via its setup.py utility. If it’s not on your path, you
@@ -88,28 +89,24 @@ Environment...) to point to its installed location.
 Any time there is a schema change with new migration files, you'll need to
 repeat this step.
 
-###6) Start the webserver
-We can use the django development server for our local dev environment
+###6) Start the Django development webserver
 
     ./manage.py runserver 0.0.0.0:9001
     
-The ip address 0.0.0.0 is the ip address of the host and port 9001 is
-specified in the `Vagrantfile` as a forwarded port. If you change the port
-on step 3 you should use the same number here. This way you can open a
-browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
-
-To hit the app:
-
-http://localhost:9091/accounts/login/
-
-[add login creds - need to import static data somehow]
+The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port. If you change the port on step 3 you should use the same number here. This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
 
 ###7) Run the tests
 The tests have to be run in the vm since that is where the database lives.
 
    ./manage.py test
-   
-###8) (Optional) Share your local server
+
+###8) Open the app in a local browser.
+
+http://localhost:9091/accounts/login/
+
+[TODO - add login creds - need to import static data somehow]
+
+###9) (Optional) Share your local server
 HashiCorp (makers of vagrant) provider a service that lets you make your
 local development server available to the public. You have to create
 a (free) account with HashiCorp (https://atlas.hashicorp.com/) and then
