@@ -24,6 +24,11 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout, name='logout'),
     url(r'^alliance/apps/backlog/', include('apps.backlog.urls')),
     url(r'^alliance/core/', include('apps.shared.urls')),
-    url(r'^admin/', include(admin.site.urls))
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^logged/$','apps.accounts.views.logged'),
+    url(r'^logout/$','apps.accounts.views.logout'),
+    url(r'^login/$','apps.accounts.views.login'),
+    url('', include('social.apps.django_app.urls', namespace='social'))
 ]
+
 

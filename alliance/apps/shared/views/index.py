@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from apps.shared.models import Team
 from apps.shared.forms.choose_team_form import ChooseTeamForm
-
+import logging
 
 @login_required
 def index(request):
@@ -18,6 +18,9 @@ def index(request):
     if team is None:
         user_email = request.user.email
         teams = Team.objects.filter(volunteers__email=user_email)
+        logger = logging.getLogger("alliance")
+        logger.debug(details['teams_list'])
+        #teams = Team.objects.filter(name__in details['teams_list'])
         if (len(teams) == 0):
             request.session['team'] = None
         elif (len(teams) == 1):
