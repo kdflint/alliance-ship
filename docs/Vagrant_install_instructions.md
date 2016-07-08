@@ -124,7 +124,7 @@ User == superuser
 ###10) (Optional) Share your local server
 HashiCorp (makers of vagrant) provider a service that lets you make your
 local development server available to the public. You have to create
-a (free) account with HashiCorp (https://atlas.hashicorp.com/) and then
+a (free) account with HashiCorp (https://atlas.hashicorp.com/account/new) and then
 while your development server is running, use the following commands in the
 host machine
 
