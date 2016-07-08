@@ -72,7 +72,7 @@ When your virtual machine session is open, you will see a command prompt that lo
 Change to the code root and migrate the databas.
 
     cd /vagrant/alliance
-    ./manage.py migrate
+    python /vagrant/alliance/manage.py migrate
 
 If it not recognize the command ./manage.py try change it for manage.py or python manage.py.
 
