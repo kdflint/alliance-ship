@@ -16,11 +16,14 @@ def index(request):
         team = request.session.get('team')
 
     if team is None:
-        user_email = request.user.email
-        teams = Team.objects.filter(volunteers__email=user_email)
+        #user_email = request.user.email
+        #teams = Team.objects.filter(volunteers__email=user_email)
         logger = logging.getLogger("alliance")
-        logger.debug(details['teams_list'])
-        #teams = Team.objects.filter(name__in details['teams_list'])
+        #logger.debug(dir(request.session))
+        #logger.debug(request.session._session_key)
+        #logger.debug(request.session['teams_list'])
+        teams = Team.objects.filter(name__in = ['2015 Summer Interns','Developer','North Stars','Owners','PyselTongues','SMM'])
+        #teams = Team.objects.all()
         if (len(teams) == 0):
             request.session['team'] = None
         elif (len(teams) == 1):

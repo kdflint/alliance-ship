@@ -1,0 +1,10 @@
+logged.html
+{%extends 'shared/base.html'%}
+{%block content%}
+    {%if user.is_authenticated%}
+        <h1>Welcome {{user.username}}</h1>
+    {%else%}
+        <p id="p-large"a>You must be logged in to view this page</p>
+    {%endif%}
+        <br><a href="/logout">Logout</a>
+{%endblock%}

@@ -232,13 +232,28 @@ DATABASES = { 'default': dj_database_url.config() }
 
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = 'index'
+#LOGIN_REDIRECT_URL = 'index'
+#LOGIN_REDIRECT_URL = 'http://google.com'
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 # LOGIN_URL = '/login/'
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#logout-url
 # LOGOUT_URL = '/logout/'
+
+SOCIAL_AUTH_LOGIN_URL = '/login/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/logged/'
+SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/login/'
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'apps.accounts.pipeline.get_user_teams',
+)
 
 
 ################################################################################
@@ -248,8 +263,8 @@ LOGIN_REDIRECT_URL = 'index'
 GITHUB_OWNER = os.getenv('ALLIANCE_GITHUB_OWNER')
 GITHUB_TOKEN = os.getenv('ALLIANCE_GITHUB_TOKEN')
 GITHUB_WEBHOOK_SECRET = os.getenv('ALLIANCE_GITHUB_WEBHOOK_SECRET')
-SOCIAL_AUTH_GITHUB_KEY = 'd65f4ff7e0cddcc73352'
-SOCIAL_AUTH_GITHUB_SECRET = 'ff74450705d9355f55f5cebe28578094f370bc8a'
+SOCIAL_AUTH_GITHUB_KEY = os.getenv('ALLIANCE_OAUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = os.getenv('ALLIANCE_OAUTH_GITHUB_SECRET')
 SOCIAL_AUTH_GITHUB_SCOPE = ['read:org']
 
 ################################################################################
@@ -266,17 +281,6 @@ SESSION_COOKIE_AGE = 10 * 60  # 10 minutes
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
-SOCIAL_AUTH_PIPELINE = (
-    'social.pipeline.social_auth.social_details',
-    'social.pipeline.social_auth.social_uid',
-    'social.pipeline.social_auth.auth_allowed',
-    'social.pipeline.social_auth.social_user',
-		'social.pipeline.social_auth.associate_user',
-    'social.pipeline.social_auth.load_extra_data',
-    'apps.accounts.pipeline.get_user_teams',
-)
 
 
 ################################################################################
