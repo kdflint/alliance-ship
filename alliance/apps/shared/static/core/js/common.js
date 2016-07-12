@@ -16,7 +16,7 @@ function getCookie(name) {
 
 function redirectToLogin(loginUrl, next) {
     if (next != null)
-        loginUrl = loginUrl + "/?next=" + next;
+        loginUrl = loginUrl + "?next=" + next;
     window.location.replace(loginUrl);
 }
 

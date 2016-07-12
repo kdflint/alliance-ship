@@ -9,8 +9,8 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8000" will access port 8080 on the guest machine.
-  config.vm.network :forwarded_port, guest: 8000, host: 8080
-  config.vm.network :forwarded_port, guest: 9001, host: 9001
+  config.vm.network :forwarded_port, guest: 8001, host: 8081
+  config.vm.network :forwarded_port, guest: 9001, host: 9091
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -40,7 +40,16 @@ Vagrant.configure("2") do |config|
     sudo -u postgres psql -c "CREATE USER alliance WITH PASSWORD 'beloved';"
     sudo -u postgres psql -c "ALTER USER alliance WITH superuser;"
     sudo -u postgres psql -c "CREATE DATABASE northbr6_devwaterwheel;"
+    sudo -u postgres psql northbr6_devwaterwheel < bin/seed/static_inserts.sql
+    sudo -u postgres psql northbr6_devwaterwheel < bin/seed/postgres_update_trigger.sql
 
+
+    echo "================================================================================"
+    echo "Configuring environment variables into .profile"
+    echo "================================================================================"
+		#source ~/.profile && [ -z "$ALLIANCE_OAUTH_GITHUB_KEY" ] && echo "export ALLIANCE_OAUTH_GITHUB_KEY=123" >> ~/.profile
+		#source ~/.profile && [ -z "$SOCIAL_AUTH_GITHUB_SECRET" ] && echo "export SOCIAL_AUTH_GITHUB_SECRET=456" >> ~/.profile
+		
 
     echo "================================================================================"
     echo "Creating a virtualenv and installing requirements!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
