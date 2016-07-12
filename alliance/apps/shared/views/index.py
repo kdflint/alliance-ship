@@ -26,6 +26,7 @@ def index(request):
         teamFilterString = teamRaw.rpartition(',')[0]
         logger.debug(teamFilterString)
         # TODO - craft  teamFilterString such that it will work in query
+        # OR split the string into a list and iterate, using get action for the filter
         teams = Team.objects.filter(name__in = [teamFilterString])
         #teams = Team.objects.filter(name__in = ['2015 Summer Interns','Developer','North Stars','Owners'])
         #teams = Team.objects.all()
