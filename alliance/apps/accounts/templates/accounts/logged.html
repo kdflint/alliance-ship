@@ -1,14 +1,18 @@
-logged.html
 {%extends 'shared/base.html'%}
 {%block content%}
     {%if user.is_authenticated%}
         <h1>Welcome {{user.username}}</h1>
+        <p>Uh oh! It seems you are not on a Northbridge team :(</p>
+        <p>Check with your project lead about that... or @kdflint</p>
+        <p><a href="/logout">Logout</p>
+        <!--
+        <p>x {{user.first_name}}</p>
         <p>x {{user.last_name}}</p>
         <p>x {{user.fullname}}</p>
-        <p>x {{user.first_name}}</p>
         <p>x {{user.email}}</p>
+        -->
     {%else%}
-        <p id="p-large"a>You must be logged in to view this page</p>
+    		<h1>Welcome future friend.</h1>
+        <p>You must be logged in to view this site.</p>
     {%endif%}
-        <br><a href="/logout">Logout</a>
 {%endblock%}

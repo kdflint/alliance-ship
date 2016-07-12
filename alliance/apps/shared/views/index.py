@@ -7,8 +7,12 @@ import logging
 
 @login_required
 def index(request):
+	
     teamString = ''
     teamRaw = ''
+    teams = []
+    logger = logging.getLogger("alliance")
+
     if request.method == 'POST':
         form = ChooseTeamForm(request, request.POST or None)
         if form.is_valid():
@@ -18,19 +22,22 @@ def index(request):
         team = request.session.get('team')
 
     if team is None:
-        logger = logging.getLogger("alliance")
-        #user_email = request.user.email
         #teams = Team.objects.filter(volunteers__email=user_email)
-        teamRaw = request.user.first_name + request.user.last_name
-        #logger.debug("Team raw = " + teamRaw)
-        teamFilterString = teamRaw.rpartition(',')[0]
-        logger.debug(teamFilterString)
-        # TODO - craft  teamFilterString such that it will work in query
-        # OR split the string into a list and iterate, using get action for the filter
-        teams = Team.objects.filter(name__in = [teamFilterString])
-        #teams = Team.objects.filter(name__in = ['2015 Summer Interns','Developer','North Stars','Owners'])
-        #teams = Team.objects.all()
-        logger.debug(len(teams))
+        # This is hacksville!!
+        # First, the pipeline is using the user details string fields to communicate with this view. See pipeline.py. 
+        # Second, the user should be redirected before here, preferably in the pipeline.
+        if request.user.first_name == "unauthorized":
+					logger.info("No membership teams matched with Northbridge Organization for user " + request.user.username)
+					return render(request, 'accounts/logged.html')	       	
+        teamRaw = request.user.first_name + request.user.last_name	
+        teamChopped = teamRaw.rpartition(',')[0]
+        teamNames = teamChopped.split(",");
+        for item in teamNames:
+        	_team = Team.objects.filter(name = item)
+        	if _team:
+        		teams.append(_team)
+        logger.debug("We found some teams")
+        logger.debug(teams)
         if (len(teams) == 0):
             request.session['team'] = None
         elif (len(teams) == 1):

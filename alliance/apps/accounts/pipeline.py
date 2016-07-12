@@ -9,12 +9,17 @@ def get_user_teams(backend, user, response, details, *args, **kwargs):
 		t = ''
 		for item in r.json():
 			#logger.debug(item['organization']['name'])
+			#logger.debug(item['organization']['id'])
 			#logger.debug(item['name'])
-			# TODO - if item['organization']['name'] == Northbridge Technology Alliance:
-			t = t + '\'' + item['name'] + '\','
-		# TODO - if len(t) == 0: 
-			# don't let in
-			# possibly throw error so that user is redirected to SOCIAL_AUTH_LOGIN_ERROR_URL
-			# should show a person to contact in order to be added to a Northbridge team
-		details['first_name'] = t[0:30]	
-		details['last_name'] = t[30:60]
+			if item['organization']['name'] == "Northbridge Technology Alliance":
+				t = t + item['name'] + ','
+		# This is terrible.
+		# We overload the user details fields with information about the authentication
+		# We should either be adding the teams list to the session or using our own User model
+		# Also, can we impact the auth flow from here? Now we are depending on the success view for
+		# authorization behavior. Maybe that's ok. Maybe better way. See index.py
+		if len(t) == 0: 
+			details['first_name'] = 'unauthorized'
+		else:
+			details['first_name'] = t[0:30]	
+			details['last_name'] = t[30:60]

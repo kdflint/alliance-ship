@@ -1,9 +1,9 @@
 -- SET search_path = volunteer, pg_catalog;
 
-\set email '\'' '<The email you used to create the django account>' '\''
-\set fname '\'' '<your first name>' '\''
-\set lname '\'' '<your last name>' '\''
-\set github_repo '\'' '<github test repo>' '\''
+\set email '\'' 'test@test.com' '\''
+\set fname '\'' 'admin' '\''
+\set lname '\'' 'admin' '\''
+\set github_repo '\'' 'test-community' '\''
 
 INSERT INTO team (focus, name, visibility, task_manager_id) VALUES ('Javascript/HTML', 'Team North Stars', 'Public', 1);
 INSERT INTO team (focus, name, visibility, task_manager_id) VALUES ('PythonDjango', '2015 Summer Interns', 'Private', 1);

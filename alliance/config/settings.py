@@ -243,7 +243,6 @@ DATABASES = { 'default': dj_database_url.config() }
 
 SOCIAL_AUTH_LOGIN_URL = '/login/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
-#SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/logged/'
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
