@@ -243,8 +243,8 @@ DATABASES = { 'default': dj_database_url.config() }
 
 SOCIAL_AUTH_LOGIN_URL = '/login/'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'index'
+#SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/logged/'
-SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/login/'
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
     'social.pipeline.social_auth.social_uid',
@@ -253,6 +253,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'apps.accounts.pipeline.get_user_teams',
+    'social.pipeline.user.user_details',
 )
 
 

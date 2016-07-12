@@ -3,6 +3,10 @@ logged.html
 {%block content%}
     {%if user.is_authenticated%}
         <h1>Welcome {{user.username}}</h1>
+        <p>x {{user.last_name}}</p>
+        <p>x {{user.fullname}}</p>
+        <p>x {{user.first_name}}</p>
+        <p>x {{user.email}}</p>
     {%else%}
         <p id="p-large"a>You must be logged in to view this page</p>
     {%endif%}

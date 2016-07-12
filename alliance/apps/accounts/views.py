@@ -10,9 +10,8 @@ logger = logging.getLogger("alliance")
 #		return render_to_response("accounts/login.html",{"user":request.user})
 
 def logged(request):
-		#logger.debug(item['organization']['id'])
-    return render_to_response("accounts/logged.html",{"user":request.user})
-
+    return render(request,"accounts/logged.html",{"user":request.user})
+    	
 def logout(request):
 		logger.debug("hello from logout view def")
 		auth.logout(request)

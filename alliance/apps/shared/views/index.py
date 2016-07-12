@@ -7,6 +7,8 @@ import logging
 
 @login_required
 def index(request):
+    teamString = ''
+    teamRaw = ''
     if request.method == 'POST':
         form = ChooseTeamForm(request, request.POST or None)
         if form.is_valid():
@@ -16,14 +18,18 @@ def index(request):
         team = request.session.get('team')
 
     if team is None:
+        logger = logging.getLogger("alliance")
         #user_email = request.user.email
         #teams = Team.objects.filter(volunteers__email=user_email)
-        logger = logging.getLogger("alliance")
-        #logger.debug(dir(request.session))
-        #logger.debug(request.session._session_key)
-        #logger.debug(request.session['teams_list'])
-        teams = Team.objects.filter(name__in = ['2015 Summer Interns','Developer','North Stars','Owners','PyselTongues','SMM'])
+        teamRaw = request.user.first_name + request.user.last_name
+        #logger.debug("Team raw = " + teamRaw)
+        teamFilterString = teamRaw.rpartition(',')[0]
+        logger.debug(teamFilterString)
+        # TODO - craft  teamFilterString such that it will work in query
+        teams = Team.objects.filter(name__in = [teamFilterString])
+        #teams = Team.objects.filter(name__in = ['2015 Summer Interns','Developer','North Stars','Owners'])
         #teams = Team.objects.all()
+        logger.debug(len(teams))
         if (len(teams) == 0):
             request.session['team'] = None
         elif (len(teams) == 1):
