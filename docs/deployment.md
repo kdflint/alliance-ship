@@ -64,6 +64,11 @@ heroku run bash
 view logs/alliance.log
 ```
 
+To migrate
+```
+~/projects/alliance-community/alliance$ heroku run python manage.py migrate
+```
+
 Heroku environment information
 ```
 https://devcenter.heroku.com/articles/getting-started-with-python#introduction
