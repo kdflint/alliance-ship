@@ -2,7 +2,14 @@
 
 Making code changes
 
-Making database queries or changes
+
+Starting a shell session
+
+Making database queries or changes, from inside vm session
+```
+sudo -u postgres psql -d northbr6_devwaterwheel
+```
+
 
 Starting the server
 
