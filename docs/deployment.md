@@ -50,3 +50,16 @@ remote:        https://alliance-dev.herokuapp.com/ deployed to Heroku
 remote:   
 remote: Verifying deploy.... done.  
 ```
+
+### Notes
+
+To tail server logs, from local terminal
+```
+heroku logs --tail
+```
+
+To start a shell session and view application logs
+```
+heroku run bash
+view logs/alliance.log
+```
