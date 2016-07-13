@@ -63,3 +63,8 @@ To start a shell session and view application logs
 heroku run bash
 view logs/alliance.log
 ```
+
+Heroku environment information
+```
+https://devcenter.heroku.com/articles/getting-started-with-python#introduction
+```
