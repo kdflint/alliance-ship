@@ -12,8 +12,21 @@ sudo -u postgres psql -d northbr6_devwaterwheel
 
 
 Starting the server
+```
+cd <project-root>
+vagrant up
+vagrant ssh
+run
+```
 
-Setting up Vagrant share, GitHub round trip
-
-
-
+Setting up Vagrant share, GitHub round trip.
+After (and while) your local server is running, open new terminal window
+```
+cd <project-root>
+vagrant login
+vagrant share
+```
+Copy the url given by the share to both GitHub OAuth callback field. Use this domain to access the site running on your local system, for example:
+```
+http://<vagrant_share_domain>/login
+```
