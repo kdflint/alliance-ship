@@ -14,7 +14,7 @@ def get_user_teams(backend, user, response, details, *args, **kwargs):
 			if item['organization']['name'] == "Northbridge Technology Alliance":
 				t = t + item['name'] + ','
 		# This is terrible.
-		# We overload the user details fields with information about the authentication
+		# We overload the user details fields with information about the authorization
 		# We should either be adding the teams list to the session or using our own User model
 		# Also, can we impact the auth flow from here? Now we are depending on the success view for
 		# authorization behavior. Maybe that's ok. Maybe better way. See index.py
