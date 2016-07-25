@@ -10,7 +10,7 @@ Making database queries or changes, from inside vm session
 sudo -u postgres psql -d northbr6_devwaterwheel
 ```
 
-View vm Apache logs or anything else that needs root privilege
+View vm Apache logs. Do similar for anything needing vm root access.
 ```
 sudo su
 tail -f /var/log/apache2/error.log
