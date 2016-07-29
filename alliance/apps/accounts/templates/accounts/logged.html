@@ -6,12 +6,10 @@
         <p>Uh oh! It seems you are not on a Northbridge team :(</p>
         <p>Check with your project lead about that... or @kdflint</p>
         <p><a href="/logout">Logout</p>
-        <!--
-        <p>x {{user.first_name}}</p>
-        <p>x {{user.last_name}}</p>
-        <p>x {{user.fullname}}</p>
-        <p>x {{user.email}}</p>
-        -->
+        <p>Backend: {{request.strategy.backend}}</p>
+        <p>Mesage: {{request.message}}</p>
+        <p>Mesage: {{request.backend}}</p>
+        <p>User: {{user.authenticated}}</p>
     	{%else%}
   			<h2>Hello Beautiful Person!</h2>
     	  <p>
