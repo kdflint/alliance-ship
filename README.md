@@ -1,4 +1,11 @@
 
+###==========> #100daysofcommits <========== 
+
+We are soooo close to an actual truly useful application. Couple things need to happen
+
+1. We need people to just work the install instructions, Steps 1-9 found [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md) These instructions should work on any OS environment and we intend for them to be clear to an advanced beginner who has some confidence at the command line. Give us your feedback on what broke, if anything. Fork and improve if you wish!
+2. We need people to help us solve [this problem](http://stackoverflow.com/questions/38380421/python-social-auth-on-django-heroku-github-session-state-value-missing). This is an advanced problem and would be a nice little feel-good puzzle if you can solve. Good for an advanced Django coder. Reach to @kdflint for more info.
+
 ###Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
 
 # The Problem 
@@ -18,13 +25,6 @@ We have researched lots of task management tools, and there are some very nice o
 This project was begun Spring, 2015. Happy to report that Alliance has reached a stable and usable codebase. We are using it now for our day-to-day operations. Also, we've containerized our local installation procedures using Vagrant.
 
 Next challenge - we need to create an authentication layer into the application that depends on the Github API. We want to grant access to Alliance to any user who has been placed on a Northbridge team. See a preliminary write-up [here](https://github.com/NorthBridge/alliance-community/issues/63).
-
-####==========> 7/26/16: ATTENTION #100daysofcommits gurus <========== 
-
-We are soooo close to an actual truly useful application. Couple things need to happen
-
-1. We need people to just work the install instructions, Steps 1-9 found [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md) These instructions should work on any OS environment and we intend for them to be clear to an advanced beginner who has some confidence at the command line. Give us your feedback on what broke, if anything. Fork and improve if you wish!
-2. We need people to help us solve [this problem](http://stackoverflow.com/questions/38380421/python-social-auth-on-django-heroku-github-session-state-value-missing). This is an advanced problem and would be a nice little feel-good puzzle if you can solve. Good for an advanced Django coder. Reach to @kdflint for more info.
 
 # Overview
 
