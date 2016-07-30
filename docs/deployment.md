@@ -50,3 +50,32 @@ remote:        https://alliance-dev.herokuapp.com/ deployed to Heroku
 remote:   
 remote: Verifying deploy.... done.  
 ```
+
+### Notes
+
+To tail server logs, from local terminal, project root
+```
+heroku logs --tail
+```
+
+To browse database, from local terminal, project root
+```
+heroku pg:psql
+```
+
+To start a shell session and view application logs
+```
+heroku run bash
+```
+
+To view application logs, in heroku shell
+```
+view logs/alliance.log
+```
+
+To migrate, in heroku shell
+```
+python alliance/manage.py migrate
+```
+
+[Heroku environment documentation](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
