@@ -33,5 +33,6 @@ vagrant share
 ```
 Copy the url given by the share to both GitHub OAuth callback field. Use this domain to access the site running on your local system, for example:
 ```
-http://<vagrant_share_domain>/login
+http://<vagrant_share_subdomain>.vagrantshare.com/login
+
 ```
