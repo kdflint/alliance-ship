@@ -108,7 +108,7 @@ LOGGING = {
         'django': {
             'handlers':['file'],
             'propagate': True,
-            'level':'INFO',
+            'level':'DEBUG',
         },
         'alliance': {
             'handlers': ['file'],
@@ -174,6 +174,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
+    'apps.accounts.monkeypatches.PatchedOauthAuth',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -249,11 +250,19 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_uid',
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
     'apps.accounts.pipeline.get_user_teams',
     'social.pipeline.user.user_details',
 )
+
+GITHUB_SOCIAL_AUTH_RAISE_EXCEPTIONS = 'True'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = 'True'
+RAISE_EXCEPTIONS = 'True'
+DEBUG = 'True'
+LOGIN_ERROR_URL = '/logged/'
+FIELDS_STORED_IN_SESSION = ['gh_teams']
 
 
 ################################################################################

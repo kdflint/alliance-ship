@@ -22,28 +22,28 @@ def index(request):
         team = request.session.get('team')
 
     if team is None:
-        #teams = Team.objects.filter(volunteers__email=user_email)
-        # This is hacksville!!
-        # First, the pipeline is using the user details string fields to communicate with this view. See pipeline.py. 
-        # Second, the user should be redirected before here, preferably in the pipeline.
-        if request.user.first_name == "unauthorized":
-					logger.info("No membership teams matched with Northbridge Organization for user " + request.user.username)
+        teams = []
+        # The python_social_auth authentication pipeline puts the github user teams on the session
+        # Here, we match those teams to ones recognized in our system and present a selection dropdown if > 1
+        logger.debug("These github teams are on the session: " + request.session['gh_teams'])
+        if request.session['gh_teams'] == "unauthorized":
 					return render(request, 'accounts/logged.html')	       	
-        teamRaw = request.user.first_name + request.user.last_name	
-        teamChopped = teamRaw.rpartition(',')[0]
-        teamNames = teamChopped.split(",");
-        for item in teamNames:
-        	_team = Team.objects.filter(name = item)
-        	if _team:
-        		teams.append(_team)
-        logger.debug("We found some teams")
+        gh_team_raw = request.session['gh_teams']	
+        gh_team_chopped = gh_team_raw.rpartition(',')[0]
+        gh_team_names = gh_team_chopped.split(",")
+        for item in gh_team_names:
+        	logger.debug("matching on " + item)
+        	team_qs = Team.objects.filter(name=item)
+        	if team_qs:
+        		teams.append(team_qs[0])
+        logger.debug("We matched %d system teams in the view", len(teams))
         logger.debug(teams)
         if (len(teams) == 0):
             request.session['team'] = None
         elif (len(teams) == 1):
             request.session['team'] = teams[0].id
         else:
-            form = ChooseTeamForm(request)
+            form = ChooseTeamForm(request, teams)
             context = RequestContext(request, {'teams': teams,
                                                'form': form})
             return render(request, 'core/index.html', context)
