@@ -32,11 +32,6 @@ The first time you run this it will take a while as it has to download a machine
 
 Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependencies are installed in the context of a Python virtual envirnment, which in turn is hosted by the Vagrant virtual machine.
 
-If a message appears that the port is already being used, open `<project-root>/alliance-community/Vagrantfile` and change host port numbers in the following lines:
-```
-    config.vm.network :forwarded_port, guest: 8001, host:8081
-    config.vm.network :forwarded_port, guest: 9001, host:9091
-```    
 [TODO - attach a dump of a good command]
 
 ###5) Migrate the database
@@ -44,26 +39,7 @@ Open a virtual machine session.
 
     vagrant ssh
 
-If the error "`ssh` executable not found in any directories in the %PATH%
-variable" appear set a new enviroment variable for Bin folder for Git and
-try the vagrant ssh command again.
-
-    set PATH=%PATH%;C:\Path to Git Folder\Git\bin
-
-(Windows instruction) If the error persist modify ssh.rb file inside the
-vragrant lib folder C:\vagrant\vagrant\embedded\lib\ruby\gems\1.9.1\gems\
-vagrant-1.0.3\lib\vagrant\ssh.rb to comment out the faulty Windows check 
-and add a real SSH check and try the vagrant ssh command again.
-
-'# if Util::Platform.windows?
-  # raise Errors::SSHUnavailableWindows, :host => ssh_info[:host],
-                                       # :port => ssh_info[:port],
-                                       # :username => ssh_info[:username],
-                                       # :key_path => ssh_info[:private_key_path]
-'# end
-
-which = Util::Platform.windows? ? "where ssh >NUL 2>&1" : "which ssh >/dev/null 2>&1"
-raise Errors::SSHUnavailable if !Kernel.system(which)
+Refer footnote a) for possible Windows error
 
 When your virtual machine session is open, you will see a command prompt that looks something like this:
 
@@ -74,17 +50,7 @@ Change to the code root and migrate the databas.
     cd /vagrant/alliance
     python /vagrant/alliance/manage.py migrate
 
-If it not recognize the command ./manage.py try change it for manage.py or python manage.py.
-
-If the message persist, the django-admin script should be on your system path
-if you installed Django via its setup.py utility. If it’s not on your path, you
-can find it in site-packages/django/bin within your Python installation.
-Consider symlinking it from some place on your path, such as /usr/local/bin.
-
-For Windows users, who do not have symlinking functionality available, you
-can copy django-admin.exe to a location on your existing path or edit the
-PATH settings (under Settings - Control Panel - System - Advanced - 
-Environment...) to point to its installed location.
+See footnote b) for possible Windows error
     
 Any time there is a schema change with new migration files, you'll need to
 repeat this step.
@@ -97,11 +63,11 @@ python /vagrant/alliance/manage.py test
 
 The tests have to be run in the virtual machine since that is where the database lives.
 
-###7) TODO
+###7) Create django superuser
 
-Add instructions to import static data 
-
-Add superuser instructions (python /vagrant/alliance/manage.py createsuperuser)
+```
+python /vagrant/alliance/manage.py createsuperuser
+```
 
 ###8) Start the Django development webserver
 
@@ -114,8 +80,6 @@ The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified 
 ###9) Open the app in a local browser.
 
 End User: [http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
-
-[TODO - add login creds - need to import static data somehow]
 
 Admin: [http://localhost:9091/admin](http://localhost:9091/admin)
 
@@ -136,5 +100,38 @@ github webhooks.
 
 ###11) To make code changes
 Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion. [confirm this]
+
+###Footnotes
+
+a) If the error "`ssh` executable not found in any directories in the %PATH%
+variable" appear set a new enviroment variable for Bin folder for Git and
+try the vagrant ssh command again.
+
+    set PATH=%PATH%;C:\Path to Git Folder\Git\bin
+
+(Windows instruction) If the error persist modify ssh.rb file inside the
+vragrant lib folder C:\vagrant\vagrant\embedded\lib\ruby\gems\1.9.1\gems\
+vagrant-1.0.3\lib\vagrant\ssh.rb to comment out the faulty Windows check 
+and add a real SSH check and try the vagrant ssh command again.
+
+'# if Util::Platform.windows?
+  # raise Errors::SSHUnavailableWindows, :host => ssh_info[:host],
+                                       # :port => ssh_info[:port],
+                                       # :username => ssh_info[:username],
+                                       # :key_path => ssh_info[:private_key_path]
+'# end
+
+which = Util::Platform.windows? ? "where ssh >NUL 2>&1" : "which ssh >/dev/null 2>&1"
+raise Errors::SSHUnavailable if !Kernel.system(which)
+
+b) If the message persist, the django-admin script should be on your system path
+if you installed Django via its setup.py utility. If it’s not on your path, you
+can find it in site-packages/django/bin within your Python installation.
+Consider symlinking it from some place on your path, such as /usr/local/bin.
+
+For Windows users, who do not have symlinking functionality available, you
+can copy django-admin.exe to a location on your existing path or edit the
+PATH settings (under Settings - Control Panel - System - Advanced - 
+Environment...) to point to its installed location.
 
 
