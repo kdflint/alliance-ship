@@ -44,7 +44,7 @@ def index(request):
         if (len(teams) == 0):
             request.session['team'] = None
         #elif (len(teams) == 1):
-        elif (len(teams) > 1):
+        elif (len(teams) > 0):
             request.session['team'] = teams[0].id
             request.session['team'] = 1
         else:
