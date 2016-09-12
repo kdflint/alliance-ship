@@ -23,6 +23,7 @@ def index(request):
 
     if team is None:
         teams = []
+        teams2 = []
         # The python_social_auth authentication pipeline puts the github user teams on the session
         # Here, we match those teams to ones recognized in our system and present a selection dropdown if > 1
         logger.debug("These github teams are on the session: " + request.session['gh_teams'])
@@ -36,14 +37,17 @@ def index(request):
         	team_qs = Team.objects.filter(name=item)
         	if team_qs:
         		teams.append(team_qs[0])
+        		teams2.append(team_qs[0].id)
         logger.debug("We matched %d system teams in the view", len(teams))
         logger.debug(teams)
+        logger.debug(teams2)
         if (len(teams) == 0):
             request.session['team'] = None
         elif (len(teams) == 1):
             request.session['team'] = teams[0].id
         else:
-            form = ChooseTeamForm(request, teams)
+            request.session['test-teams'] = teams2
+            form = ChooseTeamForm(request)
             context = RequestContext(request, {'teams': teams,
                                                'form': form})
             return render(request, 'core/index.html', context)
