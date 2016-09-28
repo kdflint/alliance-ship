@@ -1,7 +1,7 @@
 
 ###Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
 
-Installation [instructions](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
+###Installation instructions [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
 
 # Problem Statement 
 
