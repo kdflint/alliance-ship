@@ -5,7 +5,7 @@
 
 [Northbridge](http://northbridgetech.org) is an open-source, decentralized, nonprofit, social-justice software shop that is highly dependent on volunteers to advance our project work. 
 
-This project represents the internal app that all of our other social justice project work depends on.
+This project, Alliance, is our internal task management app. All of our public facing social justice project work is managed with this app.
 
 GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. This ubiquitous, free, and public infrastructure is perfect for our volunteer nonprofit work.
 
@@ -17,7 +17,9 @@ We have researched lots of task management tools, and there are some very nice o
 
 This project was begun Spring, 2015. Happy to report that Alliance has reached a stable and usable codebase. We are using it now for our day-to-day operations. Also, we've containerized our local installation procedures using Vagrant.
 
-Next challenge - we need to create an authentication layer into the application that depends on the Github API. We want to grant access to Alliance to any user who has been placed on a Northbridge team. See a preliminary write-up [here](https://github.com/NorthBridge/alliance-community/issues/63).
+###9/14/16 Update
+
+Our last big challenge is met -- OAuth authentication through GitHub. Now our teams are fully managed in GitHub. We just need to add a user to a Northbridge GitHub team in order for them to see their team's backlog in Alliance. More rationale for this feature is described [here](https://github.com/NorthBridge/alliance-community/issues/63).
 
 # Overview
 
