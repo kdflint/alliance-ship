@@ -1,6 +1,8 @@
 
 ###Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
 
+Installation [instructions](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
+
 # Problem Statement 
 
 [Northbridge](http://northbridgetech.org) is an open-source, decentralized, nonprofit, social-justice software shop that is highly dependent on volunteers to advance our project work. 
@@ -17,7 +19,7 @@ We have researched lots of task management tools, and there are some very nice o
 
 This project was begun Spring, 2015. Happy to report that Alliance has reached a stable and usable codebase. We are using it now for our day-to-day operations. Also, we've containerized our local installation procedures using Vagrant.
 
-###9/14/16 Update
+####9/14/16 Update
 
 Our last big challenge is met -- OAuth authentication through GitHub. Now our teams are fully managed in GitHub. We just need to add a user to a Northbridge GitHub team in order for them to see their team's backlog in Alliance. More rationale for this feature is described [here](https://github.com/NorthBridge/alliance-community/issues/63).
 
