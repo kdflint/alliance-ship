@@ -2,11 +2,13 @@ Installation
 ============
 
 ###1) Install Vagrant
+
 https://www.vagrantup.com/docs/installation/
 
 Vagrant is a command line utility for managing the lifecycle of virtual machines. The Vagrant installation will 1) create a directory named /vagrant that contains the Vagrant binaries, and 2) create a directory named /.vagrant.d that contains yet-to-be-created user data. For example, every Vagrant "box" you create will be stored in /.vagrant.d along with it's state, etc.
 
 ###2) Install VirtualBox
+
 https://www.virtualbox.org/wiki/Downloads
 
 VirtualBox is an open source, general-purpose virtualizer for x86 hardware, targeted at server, desktop and embedded use. It allows you to run multiple operating system "boxes" within a single host.
@@ -14,6 +16,7 @@ VirtualBox is an open source, general-purpose virtualizer for x86 hardware, targ
 Vagrant works with VirtualBox to provide the virtual machine that will host Alliance on your local computer.
 
 ###3) Get the alliance code
+
 Inside your project root directory, clone the Alliance repo. We'll call your project root directory `<project-root>`
 
 ```
@@ -21,6 +24,7 @@ git clone https://github.com/NorthBridge/alliance-community.git
 ```
     
 ###4) Create the VM
+
 Change to the Alliance root directory `/alliance-community` (which contains the file `Vagrantfile`). Create a Vagrant guest machine
 
     cd alliance-community
@@ -35,6 +39,7 @@ Note: The project will be situated with a standard Python virtual environment (w
 [TODO - attach a dump of a good command]
 
 ###5) Migrate the database
+
 Open a virtual machine session.
 
     vagrant ssh
