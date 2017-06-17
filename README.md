@@ -1,7 +1,19 @@
 
-###Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
+### Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
 
-###Installation instructions [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
+### Installation instructions [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
+
+### 6/17/2017 Update
+
+Several bugs need to be addressed that are limiting the scaleability of this app. These bugs are related to authentication and data display in cases in which Northbridge team members belong to multiple teams. 
+
+#### 9/14/16 Update
+
+Our last big challenge is met -- OAuth authentication through GitHub. Now our teams are fully managed in GitHub. We just need to add a user to a Northbridge GitHub team in order for them to see their team's backlog in Alliance. More rationale for this feature is described [here](https://github.com/NorthBridge/alliance-community/issues/63).
+
+#### 3/22/16 Update
+
+This project was begun Spring, 2015. Happy to report that Alliance has reached a stable and usable codebase. We are using it now for our day-to-day operations. Also, we've containerized our local installation procedures using Vagrant.
 
 # Problem Statement 
 
@@ -14,14 +26,6 @@ GitHub provides lots of essential things that are needed in order to collaborate
 There is one component that Northbridge Technology Alliance needs in order to make GitHub hit the sweet spot of our [agile development methodology](https://github.com/Northbridge/playbook/wiki/1.How-We-Do), and that is backlog management.
 
 We have researched lots of task management tools, and there are some very nice ones available. However they require the construction of a siloed user base which is inconvenient and also does not scale well. Northbridge needs to work in an agile, backlog-driven fashion and also leverage the public infrastructure and userbase of GitHub, with all of those advantages. This project give us the GitHub-integrated backlog we need in order to do that seamlessly.
-
-####3/22/16 Update
-
-This project was begun Spring, 2015. Happy to report that Alliance has reached a stable and usable codebase. We are using it now for our day-to-day operations. Also, we've containerized our local installation procedures using Vagrant.
-
-####9/14/16 Update
-
-Our last big challenge is met -- OAuth authentication through GitHub. Now our teams are fully managed in GitHub. We just need to add a user to a Northbridge GitHub team in order for them to see their team's backlog in Alliance. More rationale for this feature is described [here](https://github.com/NorthBridge/alliance-community/issues/63).
 
 # Overview
 
