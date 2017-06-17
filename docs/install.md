@@ -103,7 +103,7 @@ host machine
 A public facing url will be printed on your console. You can use this for
 github webhooks.
 
-###11) To make code changes
+### 11) To make code changes
 Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion. [confirm this]
 
 ### Footnotes
