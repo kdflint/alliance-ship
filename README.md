@@ -29,7 +29,7 @@ We have researched lots of task management tools, and there are some very nice o
 
 # Overview
 
-## The Backlog Interface (mostly complete)
+## The Backlog Interface
 
 When a team selects a user story to accomplish, a button push exports the story into GitHub as a milestone and surfaces it on the burndown chart. Upon completion of the milestone, a GitHub API web hook is used to signal that the story is complete, and our internal backlog is udated accordingly.
 
@@ -48,4 +48,8 @@ API.
   This process will respond to a GitHub Issues Webhook.
 
 ![Project Diagram](http://northbridgetech.org/images/alliance2.jpg)
+
+## The OAuth Interface
+
+Authentication into Alliance is through Github OAauth framework. Github users who have been added to a Northbridge Github team have access to Alliance through their Github account. They can interact with the project backlogs that are relevant to their specific team.
 
