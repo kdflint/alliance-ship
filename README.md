@@ -3,7 +3,7 @@
 
 ### Installation instructions [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
 
-### 6/17/2017 Update
+#### 6/17/2017 Update
 
 Several bugs need to be addressed that are limiting the scaleability of this app. These bugs are related to authentication and data display in cases in which Northbridge team members belong to multiple teams. 
 
