@@ -31,7 +31,7 @@ We have researched lots of task management tools, and there are some very nice o
 
 ## The Backlog Interface
 
-When a team selects a user story to accomplish, a button push exports the story into GitHub as a milestone and surfaces it on the burndown chart. Upon completion of the milestone, a GitHub API web hook is used to signal that the story is complete, and our internal backlog is udated accordingly.
+Northbridge project backlogs are surfaced through Alliance, a Django application. When a team selects a user story to work from the backlog, a button push exports the story into GitHub as a milestone and surfaces it on the burndown chart. All story tasks are managed through the Github issues interface. When all of the milestone tasks are complete, a GitHub API web hook is used to signal that the story is complete, and our internal backlog is udated accordingly.
 
 There are three major components to Alliance: **web interface**,
 **export**, and **import**. These are represented as the yellow
