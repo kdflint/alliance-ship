@@ -65,7 +65,14 @@ docs/_build/
 .idea/
 
 # Ignores your local settings
-*/local_settings.py
+alliance/config/local_settings.py
+
+# UltraEdit project config files
+*.prj
+*.pui
+
+# Application logs
+logs/*
 
 .vagrant/
 .vim/
