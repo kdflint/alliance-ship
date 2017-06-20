@@ -7,6 +7,18 @@ https://www.vagrantup.com/docs/installation/
 
 Vagrant is a command line utility for managing the lifecycle of virtual machines. The Vagrant installation will 1) create a directory named /vagrant that contains the Vagrant binaries, and 2) create a directory named /.vagrant.d that contains yet-to-be-created user data. For example, every Vagrant "box" you create will be stored in /.vagrant.d along with it's state, etc.
 
+Confirm this step is successful by executing this command at your command line.
+
+`
+vagrant --version
+`
+
+You should get a response something like
+
+`
+Vagrant 1.8.3
+`
+
 ### 2) Install VirtualBox
 
 https://www.virtualbox.org/wiki/Downloads
