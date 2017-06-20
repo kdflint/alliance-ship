@@ -24,11 +24,15 @@ Confirm this step is successful by locating the folder `VirtualBox VMs` inside y
 
 ### 3) Get the alliance code
 
-Inside your project root directory, clone the Alliance repo. We'll call your project root directory `<project-root>`
+Create or locate the directory within which you want to host the Alliance source code. In this documentation, we'll call this directory `<project-root>`
+
+Navigate to that directory, and execute this command to pull the source code to your local machine.
 
 ```
 git clone https://github.com/NorthBridge/alliance-community.git
 ```
+
+Confirm this step is successful by confirming that a directory was created inside `<project-root>` named `alliance-community`. 
     
 ### 4) Create the VM
 
