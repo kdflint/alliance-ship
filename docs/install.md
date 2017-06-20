@@ -3,7 +3,7 @@ Installation
 
 ### 1) Install Vagrant
 
-https://www.vagrantup.com/docs/installation/
+Follow instructions at https://www.vagrantup.com/docs/installation/
 
 Vagrant is a command line utility for managing the lifecycle of virtual machines. The Vagrant installation will 1) create a directory named /vagrant that contains the Vagrant binaries, and 2) create a directory named /.vagrant.d that contains yet-to-be-created user data. For example, every Vagrant "box" you create will be stored in /.vagrant.d along with it's state, etc.
 
@@ -13,7 +13,7 @@ You should get a response something like `Vagrant 1.8.3`
 
 ### 2) Install VirtualBox
 
-https://www.virtualbox.org/wiki/Downloads
+Follow instructions at https://www.virtualbox.org/wiki/Downloads
 
 VirtualBox is an open source, general-purpose virtualizer for x86 hardware, targeted at server, desktop and embedded use. It allows you to run multiple operating system "boxes" within a single host.
 
