@@ -7,17 +7,9 @@ https://www.vagrantup.com/docs/installation/
 
 Vagrant is a command line utility for managing the lifecycle of virtual machines. The Vagrant installation will 1) create a directory named /vagrant that contains the Vagrant binaries, and 2) create a directory named /.vagrant.d that contains yet-to-be-created user data. For example, every Vagrant "box" you create will be stored in /.vagrant.d along with it's state, etc.
 
-Confirm this step is successful by executing this command at your command line.
+Confirm this step is successful by executing this command at your command line: `vagrant --version`
 
-`
-vagrant --version
-`
-
-You should get a response something like
-
-`
-Vagrant 1.8.3
-`
+You should get a response something like `Vagrant 1.8.3`
 
 ### 2) Install VirtualBox
 
@@ -26,6 +18,9 @@ https://www.virtualbox.org/wiki/Downloads
 VirtualBox is an open source, general-purpose virtualizer for x86 hardware, targeted at server, desktop and embedded use. It allows you to run multiple operating system "boxes" within a single host.
 
 Vagrant works with VirtualBox to provide the virtual machine that will host Alliance on your local computer.
+
+Confirm this step is successful by locating the folder `VirtualBox VMs` inside your home directory or other default installation directory
+
 
 ### 3) Get the alliance code
 
