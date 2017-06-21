@@ -1,0 +1,1 @@
+alias runserver='python /vagrant/alliance/manage.py runserver 0.0.0.0:9001'
