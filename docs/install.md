@@ -154,6 +154,8 @@ The format of this URL is 'http://<share-string>.vagrantshare.com/complete/githu
 
 For example: `http://frosty-armon-6109.vagrantshare.com/complete/github`
 
+Click on `Update Application` to save
+
 ### 12) Open the app in a local browser.
 
 End User: [http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
