@@ -1,4 +1,4 @@
-Installation
+Installation (1-2 hours)
 ============
 
 ### 1) Install Vagrant (10 minutes)
