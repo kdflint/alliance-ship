@@ -1,7 +1,7 @@
 Installation
 ============
 
-### 1) Install Vagrant
+### 1) Install Vagrant (10 minutes)
 
 Follow instructions at https://www.vagrantup.com/docs/installation/
 
@@ -11,7 +11,7 @@ Confirm this step is successful by executing this command at your command line: 
 
 You should get a response something like `Vagrant 1.8.3`
 
-### 2) Install VirtualBox
+### 2) Install VirtualBox (10 minutes)
 
 Follow instructions at https://www.virtualbox.org/wiki/Downloads
 
@@ -23,7 +23,7 @@ Confirm this step is successful by locating the folder `VirtualBox VMs` inside y
 
 ### 3) Create a GitHub test application configuration
 
-#### 3a) Create OAuth test application
+#### 3a) Create OAuth test application (5 minutes)
 
 Login to your GitHub account at https://github.com (Register for an account if you do not yet have one.)
 
@@ -38,7 +38,7 @@ Click the `Register a New Application` button and enter these values:
     
 Click `Register Application` to save these settings. Leave this browser tab open becuase you will return to this screen in a later step in order to insert the newly generated Client ID and Client Secret values into your local configuration.
 
-#### 3b) Create Personal Access token (for webhooks)
+#### 3b) Create Personal Access token (for webhooks) (5 minutes)
 
 In Settings, select `Personal access tokens` from the Developer section of the navigation menu.
 
@@ -49,13 +49,13 @@ Click the `Generate New Token` button and enter these settings:
 
 Note your personal access token for use later.
 
-### 4) Create a HashiCorp Account
+### 4) Create a HashiCorp Account (5 minutes)
 
 HashiCorp (makers of Vagrant) provides a developers service that lets you make your local development server available to the public. We will use this to enable GitHub callbacks (which cannot reach a local private server by default)
 
 Create a (free) account with HashiCorp at https://atlas.hashicorp.com/account/new. Note your username and password for later use.
 
-### 5) Get the Alliance source code
+### 5) Get the Alliance source code (5 minutes)
 
 Create or locate the directory within which you want to host the Alliance source code. In this documentation, we'll call this directory `<project-root>`
 
@@ -67,7 +67,7 @@ git clone https://github.com/NorthBridge/alliance-community.git
 
 Confirm this step is successful by confirming that a directory was created inside `<project-root>` named `alliance-community`. Also confirm that inside `<project-root>/alliance-community` is a file named `Vagrantfile`
     
-### 6) Create the Vagrant Virtual Machine (VM)
+### 6) Create the Vagrant Virtual Machine (VM) (Up to one hour if slow connectivity)
 
 Navigate to the Alliance source code root directory `<project-root>/alliance-community`. Execute this command in order to create a Vagrant virtual machine
 
@@ -83,7 +83,7 @@ Note: This one command does a lot of things! After the virtual machine image is 
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/Installation-resources
 
-### 7) Open your Vagrant session
+### 7) Open your Vagrant session (2 minutes)
 
 From your Alliance source code root directory `project-root>/alliance-community`, open a virtual machine session by executing
 
@@ -99,7 +99,7 @@ Also,confirm that when you execute the command `pwd` your result is `/home/vagra
 
 Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?]
 
-### 8) Migrate the Django-synchronized database
+### 8) Migrate the Django-synchronized database (2 minutes)
 
 From within your virtual machine session that you established in Step 7, execute
 
@@ -113,7 +113,7 @@ Note: Any time there is a schema change with new migration files, you'll need to
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-migrate%60-sample-output
 
-### 9) Run the tests
+### 9) Run the tests (2 minutes)
 
 From within your virtual machine session that you established in Step 7, execute
 
@@ -123,7 +123,7 @@ python /vagrant/alliance/manage.py test
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-test%60-sample-output
 
-### 10) Create django superuser
+### 10) Create django superuser (2 minutes)
 
 From within your virtual machine session that you established in Step 7, execute
 
@@ -135,13 +135,13 @@ The rest of these instructions assume that you enter `superuser` at the Username
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-createsuperuser%60-sample-output
 
-### 11) Update local OAuth configuration settings
+### 11) Update local OAuth configuration settings (5 minutes)
 
 In your development IDE (or just a plain text editor), open the project source code file `<project-root>/alliance-community/alliance/config/local_settings.py`
 
 Edit the values for `SOCIAL_AUTH_GITHUB_KEY` and `SOCIAL_AUTH_GITHUB_SECRET` so that these values match the values that were generated by GitHub after you executed Step 3a.
 
-### 12) Start the Django development webserver
+### 12) Start the Django development webserver (2 minutes)
 
 From within your virtual machine session that you established in Step 7 execute
 
@@ -153,7 +153,7 @@ The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified 
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-runserver%60-sample-output
 
-### 13) Share your local server (to enable GitHub test callbacks)
+### 13) Share your local server (to enable GitHub test callbacks) (5 minutes)
 
 With your development server is running, open a new command line terminal. Execute the following three commands
 
@@ -182,21 +182,23 @@ Example: `http://frosty-armon-6109.vagrantshare.com/complete/github`
 
 Click on `Update Application` to save
 
-### 14) Open the app in a local browser.
+Note: Periodically these shares expire, and they always expire when you stop your Development server. If you get notice that the share is expired simply repeat the above steps, making sure to hit the updated URL in your browser. This is a pain at times, but you'll get speedy at it!
+
+### 14) Open the app in a local browser. (2 minutes)
 
 In a browser, navigate to `http://<share-string>.vagrantshare.com/accounts/login`
 
 Example: `http://frosty-armon-6109.vagrantshare.com/accounts/login`
 
-[TODO - Update these admin site instructions. They are not accurate.]
+[TODO - Update the admin site access instructions below. They are not accurate.]
 
 Admin: [http://localhost:9091/admin](http://localhost:9091/admin)
 
 User == superuser
 
-### 15) To make code changes
+### 15) Now you are ready to rock and roll!
 
-See https://github.com/NorthBridge/alliance-community/blob/master/docs/development.md
+To make code changes, see https://github.com/NorthBridge/alliance-community/blob/master/docs/development.md
 
 =====================================
 
