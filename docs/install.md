@@ -146,7 +146,7 @@ With your development server is running, and in a different command line termina
    vagrant share
    ```
    
-A string will be printed on your console, looking something like `frosty-armon-6109`
+A string will be printed on your console, looking something like `frosty-armon-6109` We will call this string `<share-string>`
 
 Navigate to your GitHub profile. Use this vagrant share designator to create a fully qualified URL in the Authorization callback field of your OAuth application settings (the field we left empty in step 3a).
 
@@ -158,7 +158,11 @@ Click on `Update Application` to save
 
 ### 12) Open the app in a local browser.
 
-End User: [http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
+In a browser, navigate to `http://<share-string>.vagrantshare.com/accounts/login`
+
+Example: `http://frosty-armon-6109.vagrantshare.com/accounts/login`
+
+[TODO - finish admin instructions]
 
 Admin: [http://localhost:9091/admin](http://localhost:9091/admin)
 
