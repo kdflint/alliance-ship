@@ -56,16 +56,18 @@ Confirm this step is successful by noticing command output that consists of a `W
 
 `vagrant@vagrant-ubuntu-trusty-32`
 
-Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?)
+Also, from this command prompt, confirm that when you execute the command `pwd` your result is `/home/vagrant`
+
+Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?]
 
 ### 6) Migrate the database
 
-Change to the code root and migrate the database.
+From within your virtual machine session that you established in the previous step, migrate the Django-synchronized database.
 
     cd /vagrant/alliance
-    python /vagrant/alliance/manage.py migrate
+    python /home/vagrant/vagrant/alliance/manage.py migrate
 
-See footnote b) for possible Windows error
+See footnote b) for possible Windows error  [TODO - Is this footnote still relevant?]
     
 Any time there is a schema change with new migration files, you'll need to
 repeat this step.
