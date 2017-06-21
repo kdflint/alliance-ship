@@ -49,10 +49,11 @@ Vagrant.configure("2") do |config|
     echo "================================================================================"
 		#source ~/.profile && [ -z "$ALLIANCE_OAUTH_GITHUB_KEY" ] && echo "export ALLIANCE_OAUTH_GITHUB_KEY=123" >> ~/.profile
 		#source ~/.profile && [ -z "$SOCIAL_AUTH_GITHUB_SECRET" ] && echo "export SOCIAL_AUTH_GITHUB_SECRET=456" >> ~/.profile
-		source ~/.bash_aliases [ -z "alias run" ] && echo "alias run='python /vagrant/alliance/manage.py runserver 0.0.0.0:9001'"  >> ~/.bash_aliases		
+		touch ~/.bash_aliases
+		source ~/.bash_aliases [ -z "alias runserver" ] && echo "alias runserver='python /vagrant/alliance/manage.py runserver 0.0.0.0:9001'"  >> ~/.bash_aliases		
 
     echo "================================================================================"
-    echo "Creating a virtualenv and installing requirements!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "Creating a virtualenv and installing requirements"
     echo "================================================================================"
     mkvirtualenv alliance
     workon alliance
