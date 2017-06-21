@@ -60,33 +60,37 @@ Also, from this command prompt, confirm that when you execute the command `pwd` 
 
 Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?]
 
-### 6) Migrate the database
+### 6) Migrate the Django-synchronized database
 
-From within your virtual machine session that you established in the previous step, migrate the Django-synchronized database.
+From within your virtual machine session that you established in Step 5:
 
-    cd /vagrant/alliance
-    python /home/vagrant/vagrant/alliance/manage.py migrate
+```
+python /vagrant/alliance/manage.py migrate
+```
 
 See footnote b) for possible Windows error  [TODO - Is this footnote still relevant?]
     
-Any time there is a schema change with new migration files, you'll need to
-repeat this step.
+Note: Any time there is a schema change with new migration files, you'll need to repeat this step.
 
 ### 7) Run the tests
+
+From within your virtual machine session that you established in Step 5:
 
 ```
 python /vagrant/alliance/manage.py test
 ```
 
-The tests have to be run in the virtual machine since that is where the database lives.
-
 ### 8) Create django superuser
+
+From within your virtual machine session that you established in Step 5:
 
 ```
 python /vagrant/alliance/manage.py createsuperuser
 ```
 
 ### 9) Start the Django development webserver
+
+From within your virtual machine session that you established in Step 5:
 
 ```
 python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
