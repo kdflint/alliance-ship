@@ -68,6 +68,14 @@ git clone https://github.com/NorthBridge/alliance-community.git
 ```
 
 Confirm this step is successful by confirming that a directory was created inside `<project-root>` named `alliance-community`. Also confirm that inside `<project-root>/alliance-community` is a file named `Vagrantfile`
+
+Then, navigate on the command line to `<project-root>/alliance-community/logs`. Execute
+
+```
+cp alliance_template.log alliance.log
+```
+
+[TODO - This file copy should not be necessary. Logging should be configured to create the file if not existing]
     
 ### 6) Create the Vagrant Virtual Machine (VM) (Up to one hour if slow connectivity)
 
