@@ -21,8 +21,19 @@ Vagrant works with VirtualBox to provide the virtual machine that will host Alli
 
 Confirm this step is successful by locating the folder `VirtualBox VMs` inside your home directory or other default installation directory
 
+### 3) Create a GitHub OAuth test application
 
-### 3) Get the alliance code
+Under your GitHub Public Profile, select `OAuth applications` from the Developer section of the navigation menu.
+
+Click the `Register a New Application` button and enter these settings
+
+    Application name = `Alliance`
+    Homepage URL = `http://northbridgetech.org`
+    Application Description = `This is a local testing installation of the Northbridge Alliance application` 
+    Authorization callback URL: Leave empty for now
+
+
+### 4) Get the alliance code
 
 Create or locate the directory within which you want to host the Alliance source code. In this documentation, we'll call this directory `<project-root>`
 
@@ -34,7 +45,7 @@ git clone https://github.com/NorthBridge/alliance-community.git
 
 Confirm this step is successful by confirming that a directory was created inside `<project-root>` named `alliance-community`. 
     
-### 4) Create the Vagrant Virtual Machine (VM)
+### 5) Create the Vagrant Virtual Machine (VM)
 
 Navigate to the Alliance source code root directory `<project-root>/alliance-community` and confirm that it contains a file named `Vagrantfile`. Execute this command in order to create a Vagrant virtual machine
 
@@ -46,9 +57,9 @@ Note: This one command does a lot of things! After the virtual machine image is 
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/Installation-resources
 
-### 5) Open your Vagrant session
+### 6) Open your Vagrant session
 
-From your Alliance source code root directory `project-root>/alliance-community`, open a virtual machine session.
+From your Alliance source code root directory `project-root>/alliance-community`, open a virtual machine session by executing
 
     vagrant ssh
 
@@ -60,9 +71,9 @@ Also, from this command prompt, confirm that when you execute the command `pwd` 
 
 Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?]
 
-### 6) Migrate the Django-synchronized database
+### 7) Migrate the Django-synchronized database
 
-From within your virtual machine session that you established in Step 5:
+From within your virtual machine session that you established in Step 5, execute
 
 ```
 python /vagrant/alliance/manage.py migrate
@@ -74,9 +85,9 @@ Note: Any time there is a schema change with new migration files, you'll need to
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-migrate%60-sample-output
 
-### 7) Run the tests
+### 8) Run the tests
 
-From within your virtual machine session that you established in Step 5:
+From within your virtual machine session that you established in Step 5, execute
 
 ```
 python /vagrant/alliance/manage.py test
@@ -84,17 +95,29 @@ python /vagrant/alliance/manage.py test
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-test%60-sample-output
 
-### 8) Create django superuser
+### 9) Create django superuser
 
-From within your virtual machine session that you established in Step 5:
+From within your virtual machine session that you established in Step 5, execute
 
 ```
 python /vagrant/alliance/manage.py createsuperuser
 ```
+The rest of these instructions assume that you enter `superuser` at the Username prompt. The email can be real or fake. Remember the password that you select.
 
-### 9) Start the Django development webserver
+Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-createsuperuser%60-sample-output
 
-From within your virtual machine session that you established in Step 5:
+### 10) Share your local server (to enable Github test callbacks)
+
+HashiCorp (makers of vagrant) provider a service that lets you make your local development server available to the public. You have to create a (free) account with HashiCorp (https://atlas.hashicorp.com/account/new) and then while your development server is running, use the following commands in the host machine
+
+   vagrant login
+   vagrant share
+   
+A public facing url will be printed on your console. You will use this for GitHub authentication and webhook callbacks.
+
+### 11) Start the Django development webserver
+
+From within your virtual machine session that you established in Step 5 execute
 
 ```
 python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
@@ -102,7 +125,9 @@ python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
 
 The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port. If you change the port on step 3 you should use the same number here. This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
 
-### 10) Open the app in a local browser.
+Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-runserver%60-sample-output
+
+### 12) Open the app in a local browser.
 
 End User: [http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
 
@@ -110,20 +135,7 @@ Admin: [http://localhost:9091/admin](http://localhost:9091/admin)
 
 User == superuser
 
-### 11) (Optional) Share your local server
-HashiCorp (makers of vagrant) provider a service that lets you make your
-local development server available to the public. You have to create
-a (free) account with HashiCorp (https://atlas.hashicorp.com/account/new) and then
-while your development server is running, use the following commands in the
-host machine
-
-   vagrant login
-   vagrant share
-   
-A public facing url will be printed on your console. You can use this for
-github webhooks.
-
-### 12) To make code changes
+### 13) To make code changes
 Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion. [confirm this]
 
 ### Footnotes
