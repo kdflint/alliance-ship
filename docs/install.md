@@ -82,6 +82,8 @@ From within your virtual machine session that you established in Step 5:
 python /vagrant/alliance/manage.py test
 ```
 
+Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-test%60-sample-output
+
 ### 8) Create django superuser
 
 From within your virtual machine session that you established in Step 5:
