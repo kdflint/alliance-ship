@@ -21,17 +21,27 @@ Vagrant works with VirtualBox to provide the virtual machine that will host Alli
 
 Confirm this step is successful by locating the folder `VirtualBox VMs` inside your home directory or other default installation directory
 
-### 3) Create a GitHub OAuth test application
+### 3) Create a GitHub OAuth test application configuration
+
+#### 3a)
 
 Under your GitHub Public Profile, select `OAuth applications` from the Developer section of the navigation menu.
 
-Click the `Register a New Application` button and enter these settings
+Click the `Register a New Application` button and enter these settings:
 
     Application name = `Alliance`
     Homepage URL = `http://northbridgetech.org`
     Application Description = `This is a local testing installation of the Northbridge Alliance application` 
     Authorization callback URL: Leave empty for now
 
+#### 3b)
+
+Under your GitHub Public Profile, select `Personal access tokens` from the Developer section of the navigation menu.
+
+Click the `Generate New Token` button and enter these settings:
+
+    Token description = Alliance webhooks
+    Select scopes: Select all of the components in the 'Repo' and 'User' sections of the table
 
 ### 4) Get the alliance code
 
