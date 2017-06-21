@@ -38,7 +38,7 @@ Click the `Register a New Application` button and enter these values:
     Application Description = 'This is a local testing installation of the Northbridge Alliance application'
     Authorization callback URL: Leave empty for now
     
-Click `Register Application` to save these settings. Leave this browser tab open becuase you will return to this screen in a later step in order to insert the newly generated Client ID and Client Secret values into your local configuration.
+Click `Register Application` to save these settings. Leave this browser tab open because you will return to this screen in a later step in order to insert the newly generated Client ID and Client Secret values into your local configuration.
 
 #### 3b) Create Personal Access token (for Webhooks)
 
@@ -95,23 +95,20 @@ Confirm this step is successful by noting a `Successfully installed...` message 
 
 ### 7) Open your Vagrant session (2 minutes)
 
-From your Alliance source code root directory `<project-root>/alliance-community`, open a virtual machine session by executing
+From your Alliance source code root directory `<project-root>/alliance-community`, configure and then open a virtual machine session by executing
 
 ```
+cp /vagrant/alliance/config/.bash_aliases ~/.bash_aliases
 vagrant ssh
 ```
+
+[TODO - Can we figure out how to write the .bash_aliases file creation within Vagrantfile. Line 53 is not working - wy?]
 
 Confirm this step is successful by noticing command output that consists of several lines starting with a `Welcome to Ubuntu 14.04.5` message. Your command prompt should open to something like
 
 `vagrant@vagrant-ubuntu-trusty-32`
 
 Also,confirm that when you execute the command `pwd` your result is `/home/vagrant`
-
-Execute
-
-```
-cp /vagrant/alliance/config/.bash_aliases ~/.bash_aliases
-```
 
 Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?]
 
@@ -159,10 +156,10 @@ Make a copy of this file in the same directory, naming it `local_settings.py`. E
 
 ### 12) Start the Django development webserver (2 minutes)
 
-From within your virtual machine session that you established in Step 7 execute
+From within your virtual machine session that you established in Step 7, execute
 
 ```
-python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
+runserver
 ```
 
 The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port. If you change the port on step 3 due to a conflict you should use the same number here. This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
