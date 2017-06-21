@@ -34,31 +34,33 @@ git clone https://github.com/NorthBridge/alliance-community.git
 
 Confirm this step is successful by confirming that a directory was created inside `<project-root>` named `alliance-community`. 
     
-### 4) Create the VM
+### 4) Create the Vagrant Virtual Machine (VM)
 
-Navigate to the Alliance source code root directory `<project-root>/alliance-community` and confirm that it contains a file named `Vagrantfile`. Execute this command in order to create a Vagrant guest machine
+Navigate to the Alliance source code root directory `<project-root>/alliance-community` and confirm that it contains a file named `Vagrantfile`. Execute this command in order to create a Vagrant virtual machine
 
     vagrant up
     
 For a fresh install this it will take several minutes--even up to an hour--depending on your connection speed. Vagrant is downloading an entire machine image (Vagrant calls them boxes) for the virtual machine. Future `vagrant up` commands won't require this lengthy step. Watch the progress reporting to understand where the process is at. Avoid interupting the process. 
 
-Note: This one command does a lot of things! Afer the virtual machine image is downloaded, your local Alliance project will be configured using a standard Python virtual environment that resides on the Vagrant virtual machine. All Alliance project dependencies (libraries) are installed in the context of this Python virtual envirnment. Also, the postgresql database is created and initialized with static data. `Vagrantfile` holds the configuration instructions for this entire process.
+Note: This one command does a lot of things! After the virtual machine image is downloaded, your local Alliance project will be configured using a standard Python virtual environment that resides on the Vagrant virtual machine. All Alliance project dependencies (libraries) are installed in the context of this Python virtual envirnment. Also, the postgresql database is created and initialized with static data. `Vagrantfile` holds the configuration instructions for this entire process.
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/Installation-resources
 
-### 5) Migrate the database
+### 5) Open your Vagrant session
 
 From your Alliance source code root directory `project-root>/alliance-community`, open a virtual machine session.
 
     vagrant ssh
 
-Refer footnote a) for possible Windows error
-
-When your virtual machine session is open, you will see a command prompt that looks something like this:
+Confirm this step is successful by noticing command output that consists of a `Welcome to Ubuntu 14.04.5` message of several lines. Your command prompt should open to something like
 
 `vagrant@vagrant-ubuntu-trusty-32`
 
-Change to the code root and migrate the databas.
+Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?)
+
+### 6) Migrate the database
+
+Change to the code root and migrate the database.
 
     cd /vagrant/alliance
     python /vagrant/alliance/manage.py migrate
@@ -68,7 +70,7 @@ See footnote b) for possible Windows error
 Any time there is a schema change with new migration files, you'll need to
 repeat this step.
 
-### 6) Run the tests
+### 7) Run the tests
 
 ```
 python /vagrant/alliance/manage.py test
@@ -76,13 +78,13 @@ python /vagrant/alliance/manage.py test
 
 The tests have to be run in the virtual machine since that is where the database lives.
 
-### 7) Create django superuser
+### 8) Create django superuser
 
 ```
 python /vagrant/alliance/manage.py createsuperuser
 ```
 
-### 8) Start the Django development webserver
+### 9) Start the Django development webserver
 
 ```
 python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
@@ -90,7 +92,7 @@ python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
 
 The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port. If you change the port on step 3 you should use the same number here. This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
 
-### 9) Open the app in a local browser.
+### 10) Open the app in a local browser.
 
 End User: [http://localhost:9091/accounts/login](http://localhost:9091/accounts/login)
 
@@ -98,7 +100,7 @@ Admin: [http://localhost:9091/admin](http://localhost:9091/admin)
 
 User == superuser
 
-### 10) (Optional) Share your local server
+### 11) (Optional) Share your local server
 HashiCorp (makers of vagrant) provider a service that lets you make your
 local development server available to the public. You have to create
 a (free) account with HashiCorp (https://atlas.hashicorp.com/account/new) and then
@@ -111,7 +113,7 @@ host machine
 A public facing url will be printed on your console. You can use this for
 github webhooks.
 
-### 11) To make code changes
+### 12) To make code changes
 Open the project files in your editor on your local host. You will see your changes reflected in your local running installation. Commit to git in the usual fashion. [confirm this]
 
 ### Footnotes
