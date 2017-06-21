@@ -2,37 +2,37 @@
 
 Making code changes
 
+Open/edit the project source files at `<project-root>/alliance-community` in your IDE of choice. Edits will be immediately visible in your browser, possibly requiring a browser refresh (<Ctrl-R>)
 
-Starting a shell session
+Starting the web application server
+
+```
+cd <project-root>/alliance-community
+vagrant up
+vagrant ssh
+runserver
+```
 
 Making database queries or changes, from inside vm session
+
 ```
 sudo -u postgres psql -d northbr6_devwaterwheel
 ```
 
 View vm Apache logs. Do similar for anything needing vm root access.
+
 ```
 sudo su
 tail -f /var/log/apache2/error.log
 ``` 
 
-Starting the server
-```
-cd <project-root>
-vagrant up
-vagrant ssh
-run
-```
-
 Setting up Vagrant share, GitHub round trip.
+
 After (and while) your local server is running, open new terminal window
 ```
-cd <project-root>
+cd <project-root>/alliance-community
 vagrant login
 vagrant share
 ```
-Copy the url given by the share to both GitHub OAuth callback field. Use this domain to access the site running on your local system, for example:
-```
-http://<vagrant_share_subdomain>.vagrantshare.com/login
 
-```
+Run Step 13) from the Installation instructions at https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md 
