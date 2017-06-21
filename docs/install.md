@@ -44,11 +44,11 @@ For a fresh install this it will take several minutes--even up to an hour--depen
 
 Note: This one command does a lot of things! Afer the virtual machine image is downloaded, your local Alliance project will be configured using a standard Python virtual environment that resides on the Vagrant virtual machine. All Alliance project dependencies (libraries) are installed in the context of this Python virtual envirnment. Also, the postgresql database is created and initialized with static data. `Vagrantfile` holds the configuration instructions for this entire process.
 
-Output from a succesful execution should look something like this: https://github.com/NorthBridge/alliance-community/wiki/Installation-resources
+Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/Installation-resources
 
 ### 5) Migrate the database
 
-Open a virtual machine session.
+From your Alliance source code root directory `project-root>/alliance-community`, open a virtual machine session.
 
     vagrant ssh
 
