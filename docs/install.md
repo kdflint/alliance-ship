@@ -95,7 +95,7 @@ Confirm this step is successful by noting a `Successfully installed...` message 
 
 ### 7) Open your Vagrant session (2 minutes)
 
-From your Alliance source code root directory `project-root>/alliance-community`, open a virtual machine session by executing
+From your Alliance source code root directory `<project-root>/alliance-community`, open a virtual machine session by executing
 
 ```
 vagrant ssh
@@ -106,6 +106,12 @@ Confirm this step is successful by noticing command output that consists of seve
 `vagrant@vagrant-ubuntu-trusty-32`
 
 Also,confirm that when you execute the command `pwd` your result is `/home/vagrant`
+
+Execute
+
+```
+cp /vagrant/alliance/config/.bash_aliases ~/.bash_aliases
+```
 
 Refer footnote a) for possible Windows error. [TODO - Is this footnote still relevant?]
 
