@@ -21,9 +21,9 @@ Vagrant works with VirtualBox to provide the virtual machine that will host Alli
 
 Confirm this step is successful by locating the folder `VirtualBox VMs` inside your home directory or other default installation directory
 
-### 3) Create a GitHub test application configuration
+### 3) Create a GitHub test application configuration (10 minutes)
 
-#### 3a) Create OAuth test application (5 minutes)
+#### 3a) Create OAuth test application
 
 Login to your GitHub account at https://github.com (Register for an account if you do not yet have one.)
 
@@ -38,7 +38,7 @@ Click the `Register a New Application` button and enter these values:
     
 Click `Register Application` to save these settings. Leave this browser tab open becuase you will return to this screen in a later step in order to insert the newly generated Client ID and Client Secret values into your local configuration.
 
-#### 3b) Create Personal Access token (for webhooks) (5 minutes)
+#### 3b) Create Personal Access token (for Webhooks)
 
 In Settings, select `Personal access tokens` from the Developer section of the navigation menu.
 
