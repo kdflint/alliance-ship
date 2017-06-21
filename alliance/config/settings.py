@@ -304,5 +304,5 @@ has_local_settings = os.path.exists(os.path.join(CONFIG_ROOT,
 use_custom_settings = os.getenv('ALLIANCE_CUSTOM_SETTINGS', 'True')
 
 if has_local_settings and use_custom_settings == 'True':
-    print('Found a local_settings.py file. OVERRIDING ALL THE THINGS!')
+    print('Applying local settings overrides (from local_settings.py).')
     from .local_settings import *
