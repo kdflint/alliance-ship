@@ -72,6 +72,8 @@ See footnote b) for possible Windows error  [TODO - Is this footnote still relev
     
 Note: Any time there is a schema change with new migration files, you'll need to repeat this step.
 
+Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-migrate%60-sample-output
+
 ### 7) Run the tests
 
 From within your virtual machine session that you established in Step 5:
