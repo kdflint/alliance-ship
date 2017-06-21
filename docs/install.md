@@ -36,18 +36,13 @@ Confirm this step is successful by confirming that a directory was created insid
     
 ### 4) Create the VM
 
-Change to the Alliance root directory `/alliance-community` (which contains the file `Vagrantfile`). Create a Vagrant guest machine
+Navigate to the Alliance source code root directory `<project-root>/alliance-community` and confirm that it contains a file named `Vagrantfile`. Execute this command in order to create a Vagrant guest machine
 
-    cd alliance-community
     vagrant up
     
-The first time you run this it will take a while as it has to download a machine image (vagrant calls them boxes) for the virtual machine. Future `vagrant up` commands won't require this lengthy step.
+For a fresh install this it will take several minutes--even up to an hour--depending on your connection speed. Vagrant is downloading an entire machine image (Vagrant calls them boxes) for the virtual machine. Future `vagrant up` commands won't require this lengthy step. Watch the progress reporting to understand where the process is at. Avoid interupting the process. 
 
-`vagrant up` installs all the necessary packages into the Vagrant vm, such as python, postgres, virtualenvwrapper, etc.
-
-Note: The project will be situated with a standard Python virtual environment (which is different from the Vagrant virtual machine!). All project dependencies are installed in the context of a Python virtual envirnment, which in turn is hosted by the Vagrant virtual machine.
-
-[TODO - attach a dump of a good command]
+Note: This one command does a lot of things! Afer the virtual machine image is downloaded, your local Alliance project will be configured using a standard Python virtual environment that resides on the Vagrant virtual machine. All Alliance project dependencies (libraries) are installed in the context of this Python virtual envirnment. Also, the postgresql database is created and initialized with static data. `Vagrantfile` holds the configuration instructions for this entire process.
 
 ### 5) Migrate the database
 
