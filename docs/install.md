@@ -43,6 +43,14 @@ Click the `Generate New Token` button and enter these settings:
     Token description = 'Alliance webhooks'
     Select scopes: Select all of the components in the 'Repo' and 'User' sections of the table
 
+Note your personal access token for use later.
+
+### 4) Create a HashiCorp
+
+HashiCorp (makers of vagrant) provides a service that lets you make your local development server available to the public. We will use this to enable GitHub callbacks (which cannot reach a local private server by default)
+
+Create a (free) account with HashiCorp at https://atlas.hashicorp.com/account/new. Note your username and password for use later.
+
 ### 4) Get the alliance code
 
 Create or locate the directory within which you want to host the Alliance source code. In this documentation, we'll call this directory `<project-root>`
@@ -116,15 +124,6 @@ The rest of these instructions assume that you enter `superuser` at the Username
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-createsuperuser%60-sample-output
 
-### 10) Share your local server (to enable Github test callbacks)
-
-HashiCorp (makers of vagrant) provider a service that lets you make your local development server available to the public. You have to create a (free) account with HashiCorp (https://atlas.hashicorp.com/account/new) and then while your development server is running, use the following commands in the host machine
-
-   vagrant login
-   vagrant share
-   
-A public facing url will be printed on your console. You will use this for GitHub authentication and webhook callbacks.
-
 ### 11) Start the Django development webserver
 
 From within your virtual machine session that you established in Step 5 execute
@@ -136,6 +135,24 @@ python /vagrant/alliance/manage.py runserver 0.0.0.0:9001
 The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port. If you change the port on step 3 you should use the same number here. This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-runserver%60-sample-output
+
+### 10) Share your local server (to enable Github test callbacks)
+
+With your development server is running, and in a different command line terminal, execute the following commands
+
+   ```
+   cd <project-root>/alliance-community
+   vagrant login
+   vagrant share
+   ```
+   
+A string will be printed on your console, looking something like `frosty-armon-6109`
+
+Navigate to your GitHub profile. Use this vagrant share designator to create a fully qualified URL in the Authorization callback field of your OAuth application settings (the field we left empty in step 3a).
+
+The format of this URL is 'http://<share-string>.vagrantshare.com/complete/github`
+
+For example: `http://frosty-armon-6109.vagrantshare.com/complete/github`
 
 ### 12) Open the app in a local browser.
 
