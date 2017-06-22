@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder '.', '/home/vagrant/'
   
   config.vm.provision "file", source: "../alliance-community/alliance/config/.bash_aliases", destination: ".bash_aliases"
-  config.vm.provision "file", source: "../alliance-community/alliance/config/local_settings_template.py", destination: "/vagrant/alliance/config/local_settings.txt"
+  config.vm.provision "file", source: "../alliance-community/alliance/config/local_settings_template.py", destination: "/vagrant/alliance/config/local_settings.py"
   config.vm.provision "file", source: "../alliance-community/logs/alliance_template.log", destination: "/vagrant/alliance/logs/alliance.log"
 
   # Enable provisioning with a shell script. Additional provisioners such as
