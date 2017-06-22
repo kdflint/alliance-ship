@@ -22,7 +22,7 @@ vagrant ssh
 runserver
 ```
 
-## Setting up a HashiCorp share and hitting the application in a browser (5-6)
+### Setting up a HashiCorp share and hitting the application in a browser (5-6)
 
 Refer to Steps 13) and 14) in the Installation procedures. https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md
 
@@ -57,14 +57,3 @@ sudo -u postgres psql -d northbr6_devwaterwheel
 sudo su
 tail -f /var/log/apache2/error.log
 ``` 
-
-### Setting up Vagrant share, GitHub round trip.
-
-After (and while) your local server is running, open new terminal window
-```
-cd <project-root>/alliance-community
-vagrant login
-vagrant share
-```
-
-Run Step 13) from the Installation instructions at https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md 
