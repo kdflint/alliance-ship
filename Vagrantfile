@@ -18,6 +18,10 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   # config.vm.synced_folder '.', '/home/vagrant/'
+  
+  config.vm.provision "file", source: "../alliance-community/alliance/config/.bash_aliases", destination: ".bash_aliases"
+  config.vm.provision "file", source: "../alliance-community/alliance/config/local_settings_template.py", destination: "/vagrant/alliance/config/local_settings.txt"
+  config.vm.provision "file", source: "../alliance-community/logs/alliance_template.log", destination: "/vagrant/alliance/logs/alliance.log"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -49,8 +53,6 @@ Vagrant.configure("2") do |config|
     echo "================================================================================"
 		#source ~/.profile && [ -z "$ALLIANCE_OAUTH_GITHUB_KEY" ] && echo "export ALLIANCE_OAUTH_GITHUB_KEY=123" >> ~/.profile
 		#source ~/.profile && [ -z "$SOCIAL_AUTH_GITHUB_SECRET" ] && echo "export SOCIAL_AUTH_GITHUB_SECRET=456" >> ~/.profile
-		touch ~/.bash_aliases
-		source ~/.bash_aliases [ -z "alias runserver" ] && echo "alias runserver='python /vagrant/alliance/manage.py runserver 0.0.0.0:9001'"  >> ~/.bash_aliases		
 
     echo "================================================================================"
     echo "Creating a virtualenv and installing requirements"
