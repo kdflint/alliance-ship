@@ -162,7 +162,9 @@ From within your virtual machine session that you established in Step 7, execute
 runserver
 ```
 
-The ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port. If you change the port on step 3 due to a conflict you should use the same number here. This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm)) will forward the request to guest maching port 9001.
+This command is an alias whose resolution can be viewed by `cat ~/.bash_aliases` from your Vagrant session. By default, the ip address 0.0.0.0 is the ip address of the host and port 9001 is specified in the `Vagrantfile` as a forwarded port.This way you can open a browser on your host machine using one port (say, 9091) and the guest machine (the vm) will forward the request to guest maching port 9001.
+
+If you change the port on step 3 due to a local port conflict you should update the alias. 
 
 Confirm this step is successful by comparing your command output to this output. It should be similar. https://github.com/NorthBridge/alliance-community/wiki/%60manage.py-runserver%60-sample-output
 
