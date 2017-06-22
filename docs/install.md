@@ -69,13 +69,14 @@ git clone https://github.com/NorthBridge/alliance-community.git
 
 Confirm this step is successful by confirming that a directory was created inside `<project-root>` named `alliance-community`. Also confirm that inside `<project-root>/alliance-community` is a file named `Vagrantfile`
 
-Then, navigate on the command line to `<project-root>/alliance-community/logs`. Execute
+Then, from `<project-root>`, on the command line, execute
 
 ```
-cp alliance_template.log alliance.log
+cp alliance-community/alliance/config/local_settings_template.py alliance-community/alliance/config/local_settings.py
+cp alliance-community/logs/alliance_template.log alliance-community/logs/alliance.log
 ```
 
-[TODO - This file copy should not be necessary. Logging should be configured to create the file if not existing]
+[TODO - This log file copy should not be necessary. Logging should be configured to create the file if not existing. Or, can Vagrant do the file copy for us?]
     
 ### 6) Create the Vagrant Virtual Machine (VM) (Up to one hour if slow connectivity)
 
