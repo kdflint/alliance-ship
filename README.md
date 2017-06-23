@@ -31,6 +31,10 @@ We have researched lots of task management tools, and there are some very nice o
 
 # Overview
 
+## The OAuth Interface
+
+Authentication into Alliance is through Github OAauth framework. Github users who have been added to a Northbridge Github team have access to Alliance through their Github account. They can interact with the project backlogs that are relevant to their specific team. GitHub user's must add Alliance to their list of authorized apps and also be on at least one Northbridge team in order the their authentication to succeed.
+
 ## The Backlog Interface
 
 Northbridge project backlogs are surfaced through Alliance, a Django application. When a team selects a user story to work from the backlog, a button push exports the story into GitHub as a milestone and surfaces it on the burndown chart. All story tasks are managed through the Github issues interface. When all of the milestone tasks are complete, a GitHub API web hook is used to signal that the story is complete, and our internal backlog is udated accordingly.
@@ -51,7 +55,5 @@ API.
 
 ![Project Diagram](http://northbridgetech.org/images/alliance2.jpg)
 
-## The OAuth Interface
 
-Authentication into Alliance is through Github OAauth framework. Github users who have been added to a Northbridge Github team have access to Alliance through their Github account. They can interact with the project backlogs that are relevant to their specific team.
 
