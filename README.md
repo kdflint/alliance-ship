@@ -1,7 +1,7 @@
 
-### Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
+#### Special thanks to our corporate sponsors [BrowserStack](https://www.browserstack.com/)  and [Formilla](http://www.formilla.com/).
 
-### Installation instructions [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
+#### Documentaion, including local project setup instructions [here](https://github.com/NorthBridge/alliance-community/blob/master/docs/install.md)
 
 #### 6/17/2017 Update
 
@@ -21,7 +21,9 @@ This project was begun Spring, 2015. Happy to report that Alliance has reached a
 
 This project, Alliance, is our internal task management app. All of our public facing social justice project work is managed with this app.
 
-GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. This ubiquitous, free, and public infrastructure is perfect for our volunteer nonprofit work.
+#### Why Does This App Exist?
+
+GitHub is great. We have found that GitHub provides lots of essential things that are needed in order to collaborate productively in an open-source, decentralized way: self managed user accounts, teams, messaging, task management, and even simple burndown charting. This ubiquitous, free, and public infrastructure is perfect for our volunteer nonprofit work.
 
 There is one component that Northbridge Technology Alliance needs in order to make GitHub hit the sweet spot of our [agile development methodology](https://github.com/Northbridge/playbook/wiki/1.How-We-Do), and that is backlog management.
 
