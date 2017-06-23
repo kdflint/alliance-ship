@@ -1,4 +1,4 @@
-Installation (1-1.5 hours)
+Local Setup (1-1.5 hours)
 ============
 
 These instructions will build a development environment from scratch. If you already have a working environment and want to duplicate it, or start over for some reason, jump to Step 5.
