@@ -12,8 +12,10 @@
             width: 190,
             modal: true,
             buttons: {
-                Submit: function() {
+                Submit: function(){
                     form.submit()
+                    //want to do ajax call, get results and 
+                    
                 },
                 Cancel: function() {
                     dialog.dialog( "close" );
@@ -34,7 +36,7 @@
 <a href="{% url 'backlogs' %}">{% trans "List Backlog for current user" %}</a>
 {% if teams %}
 <div id="dialog-form" title="Select a Team">
-    <form action='/alliance/' method="post">{% csrf_token %}
+    <form action='{% url 'chooseTeam' %}' method="post">{% csrf_token %}
         <div>
             {{ form.team }}
             <!-- Allow form submission with keyboard without duplicating the dialog button -->

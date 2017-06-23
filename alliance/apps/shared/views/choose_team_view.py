@@ -6,13 +6,12 @@ from core.lib.shortcuts import create_json_message_object
 from apps.shared.forms.choose_team_form import ChooseTeamForm
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 
-
 class ChooseTeam(RequireSignIn, View):
 
     def get(self, request):
         results = {'success': False}
-        user_email = request.user.email
-        teams = Team.objects.filter(volunteers__email=user_email)
+        team_ids = request.session['test-teams']
+        teams = Team.objects.filter(id__in=team_ids).values_list('id', 'name')
         if (len(teams) == 0):
             results['errors'] = create_json_message_object(
                 "There is no team associated with this volunteer.")

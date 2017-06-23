@@ -25,6 +25,10 @@ body {
     margin: 30% 0 0 40%;
 }
 
+.blue {
+	color: #475b64;
+}
+
 #dialog-form {
     min-height: 1px;
 }

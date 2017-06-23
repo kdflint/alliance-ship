@@ -1,0 +1,28 @@
+{%extends 'shared/base.html'%}
+{%block content%}
+		<div style="font-size:150%;">
+    	{%if user.is_authenticated%}
+        <h2>Welcome {{user.username}}</h2>
+        <p>Uh oh! It seems you are not on a Northbridge team :(</p>
+        <p>Check with your project lead about that... or @kdflint</p>
+        <p><a href="/logout">Logout</p>
+        <p>Backend: {{request.strategy.backend}}</p>
+        <p>Mesage: {{request.message}}</p>
+        <p>Mesage: {{request.backend}}</p>
+        <p>User: {{user.authenticated}}</p>
+    	{%else%}
+  			<h2>Hello Beautiful Person!</h2>
+    	  <p>
+    	  	<img src="http://northbridgetech.org/images/darn.jpg" alt="darn!" height="200" width="200" style="float:left;margin-right:20px;">
+      		We're having an error logging you in.<br/>
+      		&nbsp;<br/>
+      		Let us know about it, please.<br/>
+      		&nbsp;<br/>
+      		<a href="mailto:volunteer_coordinator@northbridgetech.org">volunteer_coordinator@northbridgetech.org</a><br/>
+      		&nbsp;<br/>
+      		{{request.message}}
+      	</p>
+    	{%endif%}
+
+    </div>
+{%endblock%}
