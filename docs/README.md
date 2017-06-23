@@ -1,6 +1,6 @@
 # Welcome to Alliance's documentation!
 
-## [Setup](setup.md)
+## [Setup](install.md)
 
 Instructions to get your environment set up and to start coding!
 
@@ -10,28 +10,16 @@ Instructions to start developing.
 
 ## [Deployment](deployment.md)
 
-Instructions to deploy.
+Instructions to deploy into shared deelopment and production environments.
 
-## [Production](production.md)
-
-Instructions to test production.
-
-## [Testing](testing.md)
-
-Instructions to run unit and functional tests.
-
-## [Architecture](architecture.md)
+## [Architecture] (https://github.com/NorthBridge/alliance-community/blob/master/README.md)
 
 High-level overview of how this app is structured.
 
-## [Libraries](libraries.md)
+## Testing
 
-List of what third-party plugins/libraries are used and what they do.
+Instructions to run unit and functional tests.
 
-## [Services](services.md)
-
-List of cloud services used.
-
-## [Change Log](changelog.md)
+## Change Log
 
 List of changes in each version update.
