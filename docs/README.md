@@ -10,9 +10,9 @@ Instructions to start developing.
 
 ## [Deployment](deployment.md)
 
-Instructions to deploy into shared deelopment and production environments.
+Instructions to deploy into shared development and production environments.
 
-## [Architecture] (https://github.com/NorthBridge/alliance-community/blob/master/README.md)
+## [Architecture](https://github.com/NorthBridge/alliance-community/blob/master/README.md)
 
 High-level overview of how this app is structured.
 
