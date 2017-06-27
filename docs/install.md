@@ -98,11 +98,8 @@ Confirm this step is successful by noting a `Successfully installed...` message 
 From your Alliance source code root directory `<project-root>/alliance-community`, configure and then open a virtual machine session by executing
 
 ```
-cp /vagrant/alliance/config/.bash_aliases ~/.bash_aliases
 vagrant ssh
 ```
-
-[TODO - Can we figure out how to write the .bash_aliases file creation within Vagrantfile. Line 53 is not working - wy?]
 
 Confirm this step is successful by noticing command output that consists of several lines starting with a `Welcome to Ubuntu 14.04.5` message. Your command prompt should open to something like
 
