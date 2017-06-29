@@ -198,7 +198,7 @@ Notice the URL that is printed on your console; in this example, `http://e9ea93d
 
 Navigate to your GitHub profile. Use `<share-url>` to create a fully qualified URL in the Authorization callback field of your OAuth application settings (the field we left empty in step 3a).
 
-The format of this URL is 'http://<share-url>/complete/github`
+The format of this URL is `http://<share-url>/complete/github`
 
 Example: `http://e9ea93de.ngrok.io/complete/github`
 
