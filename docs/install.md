@@ -3,7 +3,7 @@ Local Setup (1-1.5 hours)
 
 These instructions will build a development environment from scratch. If you already have a working environment and want to duplicate it, or start over for some reason, jump to Step 5.
 
-### 1) Install Vagrant (10 minutes)
+### 1a) Install Vagrant (10 minutes)
 
 Follow instructions at https://www.vagrantup.com/docs/installation/
 
@@ -11,7 +11,17 @@ Vagrant is a command line utility for managing the lifecycle of virtual machines
 
 Confirm this step is successful by executing this command at your command line: `vagrant --version`
 
-You should get a response something like `Vagrant 1.8.3`
+You should get a response something like `Vagrant 1.9.6`
+
+### 1b) Install Ngrok (10 minutes)
+
+Follow instructions at https://ngrok.com/download
+
+The unzip procedure will expose a single executable file name `ngrok`. Make sure to move this file to a directory named in your system PATH variable.
+
+Confirm this step is successful by executing this command at your command line: `ngrok version`
+
+You should get a response something like `ngrok version 2.2.4`
 
 ### 2) Install VirtualBox (10 minutes)
 
