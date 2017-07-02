@@ -44,8 +44,8 @@ Vagrant.configure("2") do |config|
     sudo -u postgres psql -c "CREATE USER alliance WITH PASSWORD 'beloved';"
     sudo -u postgres psql -c "ALTER USER alliance WITH superuser;"
     sudo -u postgres psql -c "CREATE DATABASE northbr6_devwaterwheel;"
-    sudo -u postgres psql northbr6_devwaterwheel < bin/seed/static_inserts.sql
-    sudo -u postgres psql northbr6_devwaterwheel < bin/seed/postgres_update_trigger.sql
+    sudo -u postgres psql northbr6_devwaterwheel < /vagrant/bin/seed/static_inserts.sql
+    sudo -u postgres psql northbr6_devwaterwheel < /vagrant/bin/seed/postgres_update_trigger.sql
 
 
     echo "================================================================================"
