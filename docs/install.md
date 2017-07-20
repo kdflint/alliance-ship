@@ -3,7 +3,9 @@ Local Setup (1-1.5 hours)
 
 These instructions will build a development environment from scratch. If you already have a working environment and want to duplicate it, or start over for some reason, jump to Step 5.
 
-### 1) Install Vagrant (10 minutes)
+### Step 1) Install Vagrant and dependencies (15 minutes)
+
+#### 1a) Install Vagrant
 
 Follow instructions at https://www.vagrantup.com/docs/installation/
 
@@ -11,7 +13,17 @@ Vagrant is a command line utility for managing the lifecycle of virtual machines
 
 Confirm this step is successful by executing this command at your command line: `vagrant --version`
 
-You should get a response something like `Vagrant 1.8.3`
+You should get a response something like `Vagrant 1.9.6`
+
+#### 1b) Install Ngrok
+
+Follow instructions at https://ngrok.com/download
+
+The unzip procedure will expose a single executable file name `ngrok`. Make sure to move this file to a directory named in your system PATH variable.
+
+Confirm this step is successful by executing this command at your command line: `ngrok version`
+
+You should get a response something like `ngrok version 2.2.4`
 
 ### 2) Install VirtualBox (10 minutes)
 
@@ -98,11 +110,8 @@ Confirm this step is successful by noting a `Successfully installed...` message 
 From your Alliance source code root directory `<project-root>/alliance-community`, configure and then open a virtual machine session by executing
 
 ```
-cp /vagrant/alliance/config/.bash_aliases ~/.bash_aliases
 vagrant ssh
 ```
-
-[TODO - Can we figure out how to write the .bash_aliases file creation within Vagrantfile. Line 53 is not working - wy?]
 
 Confirm this step is successful by noticing command output that consists of several lines starting with a `Welcome to Ubuntu 14.04.5` message. Your command prompt should open to something like
 
@@ -178,32 +187,30 @@ With your development server is running, open a new command line terminal sessio
    vagrant share
    ```
    
-A string will be printed on your console, looking something like `frosty-armon-6109` We will call this string `<share-string>`
-
-Specifically, the output from the vagrant share command will look like 
+Succesful output from the vagrant share command will look like 
 
 ```
 ==> default: Creating Vagrant Share session...
-    default: Share will be at: frosty-armon-6109
-==> default: Your Vagrant Share is running! Name: frosty-armon-6109
-==> default: URL: http://frosty-armon-6109.vagrantshare.com
+==> default: HTTP URL: http://e9ea93de.ngrok.io
+==> default: 
 ```
+Notice the URL that is printed on your console; in this example, `http://e9ea93de.ngrok.io`. We will call this URL `<share-url>`
 
-Navigate to your GitHub profile. Use `<share-string>` to create a fully qualified URL in the Authorization callback field of your OAuth application settings (the field we left empty in step 3a).
+Navigate to your GitHub profile. Use `<share-url>` to create a fully qualified URL in the Authorization callback field of your OAuth application settings (the field we left empty in step 3a).
 
-The format of this URL is 'http://<share-string>.vagrantshare.com/complete/github`
+The format of this URL is `http://<share-url>/complete/github`
 
-Example: `http://frosty-armon-6109.vagrantshare.com/complete/github`
+Example: `http://e9ea93de.ngrok.io/complete/github`
 
 Click on `Update Application` to save
 
-Note: Periodically these shares expire, and they always expire when you stop your Development server. If you get notice that the share is expired simply repeat the above steps, making sure to hit the updated URL in your browser. This is a pain at times, but you'll get speedy at it!
-
 ### 14) Open the app in a local browser. (2 minutes)
 
-In a browser, navigate to `http://<share-string>.vagrantshare.com/accounts/login`
+In a browser, navigate to `http://<share-url>/accounts/login`
 
-Example: `http://frosty-armon-6109.vagrantshare.com/accounts/login`
+Example: `http://e9ea93de.ngrok.io/accounts/login`
+
+Note: Periodically these shares expire, and they always expire when you stop your Development server. If you get notice that the share is expired simply repeat Steps 13-14, making sure to hit the updated URL in your browser. This is a pain at times, but you'll get speedy at it!
 
 [TODO - Update the admin site access instructions below. They are not accurate.]
 
