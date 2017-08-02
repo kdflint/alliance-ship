@@ -177,7 +177,11 @@
 
 {% block header %}
     <div>
-        <h1 style="text-align: center;">List of Backlogs</h1>
+        {% if request.session.teamName != None %}
+            <h1 style="text-align: center;">Backlog for User Team : {{ request.session.teamName }} </h1>
+        {% else %}
+            <h1 style="text-align: center;">Backlog for User : {{ user.username }} </h1>
+        {% endif %}
     </div>
 {% endblock %}
 
