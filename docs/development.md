@@ -86,8 +86,8 @@ tail -f /var/log/apache2/error.log
 
 ### Reprovision your vagrant vm, possibly done in order to update static data or other Vagrantfile provisioning changes
 
-1. `git pull` to update your local code (likely bringing in Vagrantfile changes or static data changes)
+1. `git pull` to update your local code (likely bringing in Vagrantfile changes, static data changes, requirements change, etc.)
 2. open a terminal session  
 3. navigate to `<project-root>/alliance-community`  
-4. `vagrant reload --provision`  
+4. `vagrant reload --provision` (This will re-run Vagrantfile as if you were provisioning your VM for the first time)
 5. Start up your app, hit it in the browser. Changes should be visible.
