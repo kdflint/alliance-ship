@@ -51,6 +51,7 @@ def index(request):
         else:
             request.session['test-teams'] = teams2
             request.session['teamName'] = None
+            request.session['multiTeams'] = "True"
             form = ChooseTeamForm(request)
             context = RequestContext(request, {'teams': teams,
                                                'form': form})
