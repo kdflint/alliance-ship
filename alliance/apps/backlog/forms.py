@@ -4,10 +4,11 @@ from django import forms
 from django.db.models import Q
 from django.forms.models import BaseInlineFormSet
 from django.forms.models import inlineformset_factory
-from .util import queued_status_id
+from .util import (queued_status_id, open_status_id, project_id_list, status_id)
 from apps.shared.models import (Backlog, Estimate, Event,
-                                         AcceptanceCriteria)
-
+                                         AcceptanceCriteria, Project, Status, Team)
+from core.lib.views_helper import get_object_or_none
+import logging
 
 class EstimateForm(forms.ModelForm):
     backlog_id = forms.CharField(widget=forms.HiddenInput())
@@ -139,3 +140,67 @@ def is_backlog_queued(backlog):
 def mark_fields_as_read_only(form):
     for field in form.fields:
         form.fields[field].widget.attrs['readonly'] = True
+
+		
+class BacklogNewForm(forms.ModelForm):
+    logger = logging.getLogger("alliance")
+    logger.debug("Inside BacklogNewForm")
+
+    story_title = forms.CharField(
+        max_length=Backlog._meta.get_field('story_title').max_length,
+        label="Story Title",
+        widget=forms.Textarea()
+    )
+
+    story_descr = forms.CharField(
+        max_length=Backlog._meta.get_field('story_descr').max_length,
+        label="Story Description",
+        widget=forms.Textarea()
+    )
+
+    priority = forms.CharField(
+        max_length=Backlog._meta.get_field('priority').max_length,
+        label="Priority",
+        widget=forms.Textarea()
+    )
+
+    def save(self, request, commit=True, *args, **kwargs):
+        logger = logging.getLogger("alliance")
+        logger.debug("Inside BacklogNewForm save")
+        results = {'success': False}
+        results['errors'] = None
+        logger.debug(results)
+
+        backlog = super(BacklogNewForm, self).save(commit=False, *args, **kwargs)
+        backlog.story_title = self.cleaned_data['story_title']
+        backlog.story_descr = self.cleaned_data['story_descr']
+        backlog.priority = self.cleaned_data['priority']
+        backlog.module = "backlog"
+
+        backlog.status = get_object_or_none(Status, category = 'backlog', name = 'open')
+        if backlog.status is None :
+            logger.debug("Status is None")
+            results['errors'] = "Missing Status to Save Backlog. Please contact your administrator."
+
+        backlog.team = get_object_or_none(Team, id = request.session.get('team'))
+        if backlog.team is None :
+            logger.debug("Team is None")
+            results['errors'] = "Missing Team to Save Backlog. Please contact your administrator."
+			
+        backlog.project = get_object_or_none(Project, id = project_id_list(request.session.get('team')))
+        if backlog.project is None :
+            logger.debug("Project is None")
+            results['errors'] = "Team is missing Project association and hence not authorized to add backlog. Please contact your administrator."
+
+        if results['errors'] is None:
+            logger.debug("results errors is None")
+            if commit:
+                backlog = backlog.save()
+                results['success'] = True
+                return results
+        else:
+            return results
+
+    class Meta:
+        model = Backlog
+        fields = ('story_title', 'story_descr', 'priority')

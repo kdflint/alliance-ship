@@ -3,6 +3,8 @@
 {% block head %}
     <script type="text/javascript" language="javascript">
         $(document).ready(function(){
+			$("#contentSave").hide();
+			
             $('table[id^=acc-cri-tbl-]').each(function() {
                 table_id = this.id;
                 formCssClass = 'dinamic-' + table_id;
@@ -41,6 +43,10 @@
             });
 
             $("[name='action-save']").click( function(e) {
+                e.preventDefault();
+            });
+			
+			$("[name='action-saveNew']").click( function(e) {
                 e.preventDefault();
             });
 
@@ -172,6 +178,11 @@
                 }
             });
         }
+		
+		function showBacklogForm() {
+			redirectToLogin("{% url 'backlogsForm' %}", $(location).attr('pathname'));
+        }
+		
     </script>
 {%endblock%}
 
@@ -252,4 +263,12 @@
     {% else %}
         <p><h4 style="text-align: center;">There are no items to show !</h4></p>
     {% endif %}
+	
+	<div id="contentAdd" class="content" style="text-align: center" align="center">
+		<table id="backlog-new" align="center">
+			<br>
+			<button align="center" type="submit" class="button-right-al" name="action-add" value="add" onclick="showBacklogForm()" style="margin-right: 400px">Add Backlog</button>
+		</table>
+	</div>
+	
 {% endblock %}
