@@ -47,7 +47,7 @@ def index(request):
         elif (len(teams) == 1):
             request.session['team'] = teams[0].id
             request.session['teamName'] = teams[0].name
-            return redirect('/alliance/apps/backlog/')
+            return redirect('backlogs')
         else:
             request.session['test-teams'] = teams2
             request.session['teamName'] = None

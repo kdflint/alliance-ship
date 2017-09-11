@@ -55,7 +55,7 @@ class BacklogFormView(RequireSignIn, CreateView):
 
             if results['errors'] is None:
                 logger.debug("backlog is a instanceof Backlog")
-                return redirect('/alliance/apps/backlog/')
+                return redirect('backlogs')
         else: 
             results['errors'] = form.errors.as_json()
 

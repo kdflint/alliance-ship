@@ -158,8 +158,7 @@ class BacklogNewForm(forms.ModelForm):
         widget=forms.Textarea()
     )
 
-    priority = forms.CharField(
-        max_length=Backlog._meta.get_field('priority').max_length,
+    priority = forms.IntegerField(
         label="Priority",
         widget=forms.Textarea()
     )

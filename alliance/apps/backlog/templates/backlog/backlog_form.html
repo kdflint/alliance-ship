@@ -5,9 +5,9 @@
 			{% if form.visible_fields %}
 				<div>
 					{% if request.session.teamName != None %}
-						<h1 style="text-align: center;">Add Backlog for User Team : {{ request.session.teamName }} </h1>
+						<h1 style="text-align: center;">Add Story for User Team : {{ request.session.teamName }} </h1>
 					{% else %}
-						<h1 style="text-align: center;">Add Backlog for User : {{ user.username }} </h1>
+						<h1 style="text-align: center;">Add Story for User : {{ user.username }} </h1>
 					{% endif %}
 				</div>
 	
