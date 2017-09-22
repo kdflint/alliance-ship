@@ -1,0 +1,40 @@
+{% extends "shared/base.html" %}
+
+{% block content %}
+	<form class="form-horizontal" action="{% url 'backlogsForm' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+			{% if form.visible_fields %}
+				<div>
+					{% if request.session.teamName != None %}
+						<h1 style="text-align: center;">Add Story for User Team : {{ request.session.teamName }} </h1>
+					{% else %}
+						<h1 style="text-align: center;">Add Story for User : {{ user.username }} </h1>
+					{% endif %}
+				</div>
+	
+				<table align="center"><th>
+					{% for field in form.visible_fields  %}
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<span class="text-danger small">{{field.errors}}</span>
+							</div>
+							
+							<label class="control-label col-sm-2">{{field.label_tag}}</label>
+							<div class="col-sm-10">{{field}}</div>
+							
+							<br>
+						</div>
+					{% endfor %}
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-success">Submit</button>
+						</div>
+					</div>
+				</th></table>
+			{% else %}
+				<h1 style="text-align: center;"> {{ request.session.teamName }} </h1>
+				<h3 style="text-align: center;"> {{obj_as_json.errors}} </h3>
+			{% endif %}
+			
+	</form>
+{% endblock %}
