@@ -179,9 +179,7 @@ class BacklogNewForm(forms.ModelForm):
         teamNameFromRequest = request.session.get('teamName')
         logger.debug(teamNameFromRequest)
 
-        if 'Alliance Test Team' == teamNameFromRequest :
-            backlog.github_repo = "alliance-community"
-        elif 'All Megastars' == teamNameFromRequest :
+        if 'All Megastars' == teamNameFromRequest :
             backlog.github_repo = "alliance-community"
         elif 'North Stars' == teamNameFromRequest :
             backlog.github_repo = "nexus-community"
