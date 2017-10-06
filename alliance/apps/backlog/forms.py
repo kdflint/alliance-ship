@@ -176,6 +176,19 @@ class BacklogNewForm(forms.ModelForm):
         backlog.priority = self.cleaned_data['priority']
         backlog.module = "backlog"
 
+        teamNameFromRequest = request.session.get('teamName')
+        logger.debug(teamNameFromRequest)
+
+        if 'Alliance Test Team' == teamNameFromRequest :
+            backlog.github_repo = "alliance-community"
+        elif 'All Megastars' == teamNameFromRequest :
+            backlog.github_repo = "alliance-community"
+        elif 'North Stars' == teamNameFromRequest :
+            backlog.github_repo = "nexus-community"
+        else:
+            backlog.github_repo = "test-community"
+
+        logger.debug(backlog.github_repo)
         backlog.status = get_object_or_none(Status, category = 'backlog', name = 'open')
         if backlog.status is None :
             logger.debug("Status is None")

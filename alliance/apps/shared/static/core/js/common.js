@@ -24,6 +24,10 @@ function redirectToBacklog(backlogUrl) {
 	window.location.replace(backlogUrl);
 }
 
+function addAndLoadBacklog(backlogUrl) {
+	window.location.replace(backlogUrl);
+}
+
 function showMessage(message) {
     var div = document.querySelector("#messages");
     div.textContent = message;

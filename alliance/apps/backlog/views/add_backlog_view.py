@@ -29,6 +29,7 @@ class BacklogFormView(RequireSignIn, CreateView):
     def post(self, request):
         logger = logging.getLogger("alliance")
         logger.debug("Inside BacklogFormView POST >>>>>>>>>>>>>>>>>>>")
+        logger.debug(request.POST)
         results = {'success': False}
         results['errors'] = None
         logger.debug(results)
@@ -41,7 +42,6 @@ class BacklogFormView(RequireSignIn, CreateView):
             return redirect(reverse('index'))
 
         form = BacklogNewForm(request.POST)
-        logger.debug("Backlog Post FORM")
         if form.is_valid():
             logger.debug("Inside is valid")
             logger.debug(form.cleaned_data['story_title'])
@@ -54,8 +54,11 @@ class BacklogFormView(RequireSignIn, CreateView):
             logger.debug(results['errors'])
 
             if results['errors'] is None:
-                logger.debug("backlog is a instanceof Backlog")
+                logger.debug("No errors!")
                 return redirect('backlogs')
+        elif "Cancel" in request.POST.get("action-cancel"):
+            logger.debug("Matching request.POST !!!!!")
+            return redirect('backlogs')
         else: 
             results['errors'] = form.errors.as_json()
 
