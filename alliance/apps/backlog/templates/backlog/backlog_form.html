@@ -1,7 +1,19 @@
 {% extends "shared/base.html" %}
 
+{% block head %}
+	<script type="text/javascript" language="javascript">
+		function addBacklog() {
+			addAndLoadBacklog("{% url 'backlogsForm' %}");
+		}
+		
+		function cancelBacklog() {
+			redirectToBacklog("{% url 'backlogs' %}");
+		}
+	</script>
+{%endblock%}
+		
 {% block content %}
-	<form class="form-horizontal" action="{% url 'backlogsForm' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+	<form class="form-horizontal" method="post" enctype="multipart/form-data">{% csrf_token %}
 			{% if form.visible_fields %}
 				<div>
 					{% if request.session.teamName != None %}
@@ -26,8 +38,9 @@
 					{% endfor %}
 
 					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-success">Submit</button>
+						<div class="col-sm-offset-2 col-sm-10"> 
+							<button type="submit" name="action-submit" value="Submit" onclick="addBacklog()">Submit</button>
+							<button type="cancel" name="action-submit" value="Cancel" onclick="cancelBacklog()" >Cancel</button>
 						</div>
 					</div>
 				</th></table>
