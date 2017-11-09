@@ -3,25 +3,36 @@ import datetime
 from django.http import JsonResponse
 from django.views.generic import View
 from django.utils.dateparse import parse_datetime
-from ..util import retrieve_backlogs_by_status_project_and_priority
+from ..util import retrieve_backlogs_by_status_project_and_priority, retrieve_backlogs_by_acstatus_project_and_priority
 from apps.shared.models import Backlog
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.views_helper import get_object_or_none
+import logging
 
 
 class CheckBacklogsView(RequireSignIn, View):
 
     def post(self, request):
+        logger = logging.getLogger("alliance")
         result = {'outdated': False}
         team_id = request.session.get('team')
         ui_backlogs = json.loads(request.body).get("backlogs")
 
         if ui_backlogs and team_id:
             ui_backlogs_count = len(ui_backlogs)
+
             # Same query executed in the BacklogView class
-            db_backlogs_count = \
-                retrieve_backlogs_by_status_project_and_priority(team_id)\
-                .count()
+            logger.debug(request.session.get('statusFlag'))
+            if (request.session.get('statusFlag') == None or request.session.get('statusFlag') == 'OPEN'):
+                logger.debug("Inside statusFlag NONE")
+                db_backlogs_count = \
+				    retrieve_backlogs_by_status_project_and_priority(team_id)\
+                    .count()
+            else:
+                logger.debug("Inside statusFlag AVAILABLE")
+                db_backlogs_count = \
+                    retrieve_backlogs_by_acstatus_project_and_priority(team_id)\
+                    .count()
 
             # If the number of backlogs displayed to the user
             #  differs from the number that exists into database

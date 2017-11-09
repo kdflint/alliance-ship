@@ -214,3 +214,15 @@ class BacklogNewForm(forms.ModelForm):
     class Meta:
         model = Backlog
         fields = ('story_title', 'story_descr', 'priority')
+
+class BacklogStatusForm(forms.Form):
+    logger = logging.getLogger("alliance")
+    logger.debug("Inside BacklogStatusForm")
+
+    STATUS = (
+        ('OPEN','OPEN'),
+	    ('COMPLETE','COMPLETE')
+    )
+
+    backlogStatus=forms.ChoiceField(choices=STATUS, required=False, label='Status', widget=forms.Select(attrs={'onchange':'listBacklogs(this.form);'}))
+    status = forms.CharField(widget=forms.HiddenInput(), required=False)
