@@ -10,10 +10,17 @@ def retrieve_backlogs_by_status_project_and_priority(team_id):
         status__id__in=status_id_list(),
         priority__in=priority_list())
 
+def retrieve_backlogs_by_acstatus_project_and_priority(team_id):
+    return Backlog.objects.filter(
+        project__id__in=project_id_list(team_id),
+        status__id__in=acstatus_id_list(),
+        priority__in=priority_list())
 
 def status_id_list():
     return [s for s in [open_status_id(), selected_status_id(), queued_status_id()] if s]
 
+def acstatus_id_list():
+    return [s for s in [accepted_status_id()] if s]
 
 def project_id_list(team_id):
     return TeamProject.objects.filter(
