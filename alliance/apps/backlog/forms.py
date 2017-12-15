@@ -35,6 +35,10 @@ class BacklogUpdateForm(forms.ModelForm):
     skills = forms.CharField(
         max_length=Backlog._meta.get_field('skills').max_length
     )
+    priority = forms.CharField(
+        max_length=Backlog._meta.get_field('priority').max_length,
+        widget=forms.Textarea()
+    )
 
     def __init__(self, *args, **kwargs):
         self.read_only = kwargs.pop('read_only', False)
@@ -72,12 +76,12 @@ class BacklogUpdateForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super(BacklogUpdateForm, self).save(commit=False)
         if commit:
-            instance.save(update_fields=['story_descr', 'skills', 'notes'])
+            instance.save(update_fields=['story_descr', 'skills', 'notes', 'priority'])
         return instance
 
     class Meta:
         model = Backlog
-        fields = ('id', 'story_descr', 'notes', 'skills', 'sprint')
+        fields = ('id', 'story_descr', 'notes', 'skills', 'priority', 'sprint')
 
 
 class AcceptanceCriteriaForm(forms.ModelForm):
@@ -214,15 +218,3 @@ class BacklogNewForm(forms.ModelForm):
     class Meta:
         model = Backlog
         fields = ('story_title', 'story_descr', 'priority')
-
-class BacklogStatusForm(forms.Form):
-    logger = logging.getLogger("alliance")
-    logger.debug("Inside BacklogStatusForm")
-
-    STATUS = (
-        ('OPEN','OPEN'),
-	    ('COMPLETE','COMPLETE')
-    )
-
-    backlogStatus=forms.ChoiceField(choices=STATUS, required=False, label='Status', widget=forms.Select(attrs={'onchange':'listBacklogs(this.form);'}))
-    status = forms.CharField(widget=forms.HiddenInput(), required=False)

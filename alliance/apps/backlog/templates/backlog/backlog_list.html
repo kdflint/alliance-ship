@@ -188,21 +188,33 @@
 			redirectToLogin("{% url 'backlogsForm' %}", $(location).attr('pathname'));
         }
 		
-		function listBacklogs(form){		
-		 	document.getElementById("id_status").value = $("#id_backlogStatus").val();
+		function listBacklogs(form){
+			document.getElementById("id_statusFlag").value = $("#id_backlogStatus").val();
+			document.getElementById("id_priorityFlag").value = $("#id_backlogPriority").val();
+			
 			var data = $(form).serializeArray();
-            data.push({ name: 'backlogStatus', value: true });
+			data.push({ name: 'backlogStatus', value: true }, { name: 'backlogPriority', value: true });
             var posting = $.get("{% url 'backlogs' %}", $.param(data))
 			
 			posting.done( function (data) {
                 if (data.success) {
-					showMessage("Fetching backlogs for selected status...");
+					showMessage("Fetching backlogs for selected status and priority...");
 					//redirectToBacklog("{% url 'backlogs' %}", $(location).attr('pathname'));
 					redirectToBacklog("{% url 'backlogs' %}");
 				}else{
 					showErrors(data.errors);
 				}
 			});
+		}
+		
+		function refreshSelection(){
+			
+			var priorityFlag = document.getElementById("id_priorityFlag").value;
+			$('#id_backlogPriority option[value='+ priorityFlag +']').prop('selected', true);
+			
+			var statusFlag = document.getElementById("id_statusFlag").value;
+			$('#id_backlogStatus option[value='+ statusFlag +']').prop('selected', true);
+			
 		}
 		
     </script>
@@ -222,28 +234,44 @@
     
 	
         <table id="backlog-table">
-            <tr>
-                <th>Priority</th>
-                <th>Project</th>
-                <th>Module</th>
-                <th>Story Title</th>
-                <!--th>Status</th-->
-				<th> <form id="backlog-status-form" name="backlog-status-form" action="{% url 'backlogs' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
-					<label for="id_backlogStatus">Status:</label>
-					<select id="id_backlogStatus" name="backlogStatus" onchange="listBacklogs(this.form);">
-						{% if request.session.statusFlag == 'COMPLETE' %}
+            <form id="backlog-header-form" name="backlog-header-form" action="{% url 'backlogs' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<tr>
+					<th>
+						<label for="id_backlogPriority">Priority:</label>
+						<select id="id_backlogPriority" name="backlogPriority" onchange="listBacklogs(this.form);">
+							<option value="2"><=2</option>
+							<option value="3"><=3</option>
+							<option value="4"><=4</option>
+							<option value="5"><=5</option>
+							<option value="6"><=6</option>
+							<option value="7"><=7</option>
+							<option value="8"><=8</option>
+							<option value="9"><=9</option>
+						</select>
+						<input id="id_priorityFlag" name="priorityFlag" type="hidden" value="{{ request.session.priorityFlag }}"/>
+					</th>
+					<th>Project</th>
+					<th>Module</th>
+					<th>Story Title</th>
+					<th> 
+						<label for="id_backlogStatus">Status:</label>
+						<select id="id_backlogStatus" name="backlogStatus" onchange="listBacklogs(this.form);">
 							<option value="OPEN">OPEN</option>
-							<option value="COMPLETE" selected="selected">COMPLETE</option>
-						{% else %}
-							<option value="OPEN" selected="selected">OPEN</option>
 							<option value="COMPLETE">COMPLETE</option>
-						{% endif %}
-					</select>
-					<input id="id_status" name="statusFlag" type="hidden" value="{{ request.session.statusFlag }}"/>
-				</form> </th>
-                <th>Selected Sprint</th>
-                <th>Estimate</th>
-            </tr>
+							<!--{% if request.session.statusFlag == 'COMPLETE' %}
+								<option value="OPEN">OPEN</option>
+								<option value="COMPLETE" selected="selected">COMPLETE</option>
+							{% else %}
+								<option value="OPEN" selected="selected">OPEN</option>
+								<option value="COMPLETE">COMPLETE</option>
+							{% endif %}-->
+						</select>
+						<input id="id_statusFlag" name="statusFlag" type="hidden" value="{{ request.session.statusFlag }}"/>
+					</th>
+					<th>Selected Sprint</th>
+					<th>Estimate</th>
+				</tr>
+			</form>
 			{% if backlogs %}
 				{% for backlog, form_estimate, form, formset in backlogs %}
 					<tr id="backlog-row-{{ backlog.id }}">
