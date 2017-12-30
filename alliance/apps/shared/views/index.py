@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from apps.shared.models import Team
@@ -43,10 +43,15 @@ def index(request):
         logger.debug(teams2)
         if (len(teams) == 0):
             request.session['team'] = None
+            request.session['teamName'] = None
         elif (len(teams) == 1):
             request.session['team'] = teams[0].id
+            request.session['teamName'] = teams[0].name
+            return redirect('backlogs')
         else:
             request.session['test-teams'] = teams2
+            request.session['teamName'] = None
+            request.session['multiTeams'] = "True"
             form = ChooseTeamForm(request)
             context = RequestContext(request, {'teams': teams,
                                                'form': form})

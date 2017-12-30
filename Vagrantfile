@@ -20,15 +20,26 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder '.', '/home/vagrant/'
   
   config.vm.provision "file", source: "../alliance-community/alliance/config/.bash_aliases", destination: ".bash_aliases"
-  config.vm.provision "file", source: "../alliance-community/alliance/config/local_settings_template.py", destination: "/vagrant/alliance/config/local_settings.py"
   config.vm.provision "file", source: "../alliance-community/logs/alliance_template.log", destination: "/vagrant/alliance/logs/alliance.log"
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision 'shell', inline: <<-SHELL
+  
+  	if [ ! -e "/vagrant/alliance/config/local_settings.py" ]; then
+       echo "================================================================================"
+       echo "Copying local settings template to local system"
+       echo "================================================================================"
+       cp /vagrant/alliance/config/local_settings_template.py /vagrant/alliance/config/local_settings.py
+    else
+       echo "================================================================================"
+       echo "Local settings file already found. Not overwriting."
+       echo "================================================================================"
+    fi
+  
     echo "================================================================================"
-    echo "Getting updates! Don't mind me..."
+    echo "Getting package updates"
     echo "================================================================================"
     sudo apt-get update
 
@@ -43,16 +54,12 @@ Vagrant.configure("2") do |config|
     echo "================================================================================"
     sudo -u postgres psql -c "CREATE USER alliance WITH PASSWORD 'beloved';"
     sudo -u postgres psql -c "ALTER USER alliance WITH superuser;"
+    echo "================================================================================"
+    echo "Creating database and inserting static data, triggers."
+    echo "================================================================================"
     sudo -u postgres psql -c "CREATE DATABASE northbr6_devwaterwheel;"
     sudo -u postgres psql northbr6_devwaterwheel < /vagrant/bin/seed/static_inserts.sql
     sudo -u postgres psql northbr6_devwaterwheel < /vagrant/bin/seed/postgres_update_trigger.sql
-
-
-    echo "================================================================================"
-    echo "Configuring environment variables into .profile"
-    echo "================================================================================"
-		#source ~/.profile && [ -z "$ALLIANCE_OAUTH_GITHUB_KEY" ] && echo "export ALLIANCE_OAUTH_GITHUB_KEY=123" >> ~/.profile
-		#source ~/.profile && [ -z "$SOCIAL_AUTH_GITHUB_SECRET" ] && echo "export SOCIAL_AUTH_GITHUB_SECRET=456" >> ~/.profile
 
     echo "================================================================================"
     echo "Creating a virtualenv and installing requirements"

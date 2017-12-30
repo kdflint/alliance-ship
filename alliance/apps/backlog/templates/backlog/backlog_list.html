@@ -30,9 +30,20 @@
                 $(this).show();
             });
 
-            $("#backlog-table tr.odd").click(function(){
-                $(this).next("tr").toggle();
-                $(this).find(".arrow").toggleClass("up");
+            $("#backlog-table tr.odd").click(function(){ 
+				var selectedBacklog = $(this).index();
+				
+				$("#backlog-table > tbody > tr:not(.odd):gt(0)").each(function (i) {
+					var loopRowId = ($(this).index())-1;
+					
+					if (selectedBacklog != loopRowId){
+						$(this).hide();
+					}
+				});
+				
+				$(this).next("tr").toggle();
+				$(this).find(".arrow").toggleClass("up");
+                
             });
 
             $("[name='action-update-estimate']").click( function(e) {
@@ -172,80 +183,161 @@
                 }
             });
         }
+		
+		function showBacklogForm() {
+			redirectToLogin("{% url 'backlogsForm' %}", $(location).attr('pathname'));
+        }
+		
+		function listBacklogs(form){
+			document.getElementById("id_statusFlag").value = $("#id_backlogStatus").val();
+			document.getElementById("id_priorityFlag").value = $("#id_backlogPriority").val();
+			
+			var data = $(form).serializeArray();
+			data.push({ name: 'backlogStatus', value: true }, { name: 'backlogPriority', value: true });
+            var posting = $.get("{% url 'backlogs' %}", $.param(data))
+			
+			posting.done( function (data) {
+                if (data.success) {
+					showMessage("Fetching backlogs for selected status and priority...");
+					//redirectToBacklog("{% url 'backlogs' %}", $(location).attr('pathname'));
+					redirectToBacklog("{% url 'backlogs' %}");
+				}else{
+					showErrors(data.errors);
+				}
+			});
+		}
+		
+		function refreshSelection(){
+			
+			var priorityFlag = document.getElementById("id_priorityFlag").value;
+			$('#id_backlogPriority option[value='+ priorityFlag +']').prop('selected', true);
+			
+			var statusFlag = document.getElementById("id_statusFlag").value;
+			$('#id_backlogStatus option[value='+ statusFlag +']').prop('selected', true);
+			
+		}
+		
     </script>
 {%endblock%}
 
 {% block header %}
     <div>
-        <h1 style="text-align: center;">List of Backlogs</h1>
+        {% if request.session.teamName != None %}
+            <h1 style="text-align: center;">Backlog for User Team : {{ request.session.teamName }} </h1>
+        {% else %}
+            <h1 style="text-align: center;">Backlog for User : {{ user.username }} </h1>
+        {% endif %}
     </div>
 {% endblock %}
 
 {% block content %}
-    {% if backlogs %}
+    
+	
         <table id="backlog-table">
-            <tr>
-                <th>Priority</th>
-                <th>Project</th>
-                <th>Module</th>
-                <th>Story Title</th>
-                <th>Status</th>
-                <th>Selected Sprint</th>
-                <th>Estimate</th>
-            </tr>
-            {% for backlog, form_estimate, form, formset in backlogs %}
-                <tr id="backlog-row-{{ backlog.id }}">
-                    <td>{{ backlog.priority }}</td>
-                    <td>{{ backlog.project.name }}</td>
-                    <td>{{ backlog.module }}</td>
-                    <td>{{ backlog.story_title }}</td>
-                    <td id="status-{{ backlog.id }}">{{ backlog.status.name }}</td>
-                    <td id="sprint-name-{{ backlog.id }}">{{ backlog.sprint|default_if_none:"" }}</td>
-                    <td id="update_dttm-{{ backlog.id }}" style="display: none;">{{ backlog.update_dttm|date:"c" }}</td>
-                    <td>
-                        <form method="post">{% csrf_token %}
-                            {% for field in form_estimate.hidden_fields %}{{ field }}{% endfor %}
-                            {{ form_estimate.estimate }}
-                            <button onclick="updateEstimate(this.form);" name="action-update-estimate" value="update-estimate">Update</button>
-                        </form>
-                    </td>
-                </tr>
-                <tr id="backlog-detail-row-{{ backlog.id }}">
-                    <td colspan="7">
-                        <form method="post" action="">{% csrf_token %}
-                            <input id="formset-prefix" type="hidden" value="{{ formset.prefix }}">
-                            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
-                            {% for field in form.visible_fields %}
-                                <p class="input-field">
-                                    {{ field.label_tag }}
-                                    {{ field }}
-                                </p>
-                            {% endfor %}
-                            <button type="submit" name="action-select-sprint" value="select" onclick="updateSprint(this.form);">Select</button>
-                            <h3 style="width: 100%; text-align: center;">Acceptance Criteria</h3>
-                            <table {% if not form.read_only %} id="acc-cri-tbl-{{ backlog.id }}" {% endif %} class="acc-cri-tbl">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% include "backlog/acc_cri_par.txt" %}
-                                </tbody>
-                            </table>
-                            {% if not form.read_only %}
-                                <p>
-                                    <div id="acc-cri-mgt-{{ backlog.id }}">{{ formset.management_form }}</div>
-                                    <button type="submit" class="button-right-al" name="action-save" value="save" onclick="updateBacklog(this.form);">Save</button>
-                                </p>
-                            {% endif %}
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>There are no open User Stories to show for this backlog.</p>
-    {% endif %}
+            <form id="backlog-header-form" name="backlog-header-form" action="{% url 'backlogs' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+				<tr>
+					<th>
+						<label for="id_backlogPriority">Priority:</label>
+						<select id="id_backlogPriority" name="backlogPriority" onchange="listBacklogs(this.form);">
+							<option value="2"><=2</option>
+							<option value="3"><=3</option>
+							<option value="4"><=4</option>
+							<option value="5"><=5</option>
+							<option value="6"><=6</option>
+							<option value="7"><=7</option>
+							<option value="8"><=8</option>
+							<option value="9"><=9</option>
+						</select>
+						<input id="id_priorityFlag" name="priorityFlag" type="hidden" value="{{ request.session.priorityFlag }}"/>
+					</th>
+					<th>Project</th>
+					<th>Module</th>
+					<th>Story Title</th>
+					<th> 
+						<label for="id_backlogStatus">Status:</label>
+						<select id="id_backlogStatus" name="backlogStatus" onchange="listBacklogs(this.form);">
+							<option value="OPEN">OPEN</option>
+							<option value="COMPLETE">COMPLETE</option>
+							<!--{% if request.session.statusFlag == 'COMPLETE' %}
+								<option value="OPEN">OPEN</option>
+								<option value="COMPLETE" selected="selected">COMPLETE</option>
+							{% else %}
+								<option value="OPEN" selected="selected">OPEN</option>
+								<option value="COMPLETE">COMPLETE</option>
+							{% endif %}-->
+						</select>
+						<input id="id_statusFlag" name="statusFlag" type="hidden" value="{{ request.session.statusFlag }}"/>
+					</th>
+					<th>Selected Sprint</th>
+					<th>Estimate</th>
+				</tr>
+			</form>
+			{% if backlogs %}
+				{% for backlog, form_estimate, form, formset in backlogs %}
+					<tr id="backlog-row-{{ backlog.id }}">
+						<td>{{ backlog.priority }}</td>
+						<td>{{ backlog.project.name }}</td>
+						<td>{{ backlog.module }}</td>
+						<td>{{ backlog.story_title }}</td>
+						<td id="status-{{ backlog.id }}">{{ backlog.status.name }}</td>
+						<td id="sprint-name-{{ backlog.id }}">{{ backlog.sprint|default_if_none:"" }}</td>
+						<td id="update_dttm-{{ backlog.id }}" style="display: none;">{{ backlog.update_dttm|date:"c" }}</td>
+						<td>
+							<form method="post">{% csrf_token %}
+								{% for field in form_estimate.hidden_fields %}{{ field }}{% endfor %}
+								{{ form_estimate.estimate }}
+								<button onclick="updateEstimate(this.form);" name="action-update-estimate" value="update-estimate">Update</button>
+							</form>
+						</td>
+					</tr>
+					<tr id="backlog-detail-row-{{ backlog.id }}">
+						<td colspan="7">
+							<form method="post" action="">{% csrf_token %}
+								<input id="formset-prefix" type="hidden" value="{{ formset.prefix }}">
+								{% for field in form.hidden_fields %}{{ field }}{% endfor %}
+								{% for field in form.visible_fields %}
+									<p class="input-field">
+										{{ field.label_tag }}
+										{{ field }}
+									</p>
+								{% endfor %}
+								<button type="submit" name="action-select-sprint" value="select" onclick="updateSprint(this.form);">Select</button>
+								<h3 style="width: 100%; text-align: center;">Acceptance Criteria</h3>
+								<table {% if not form.read_only %} id="acc-cri-tbl-{{ backlog.id }}" {% endif %} class="acc-cri-tbl">
+									<thead>
+										<tr>
+											<th scope="col">Title</th>
+											<th scope="col">Description</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% include "backlog/acc_cri_par.txt" %}
+									</tbody>
+								</table>
+								{% if not form.read_only %}
+									<p>
+										<div id="acc-cri-mgt-{{ backlog.id }}">{{ formset.management_form }}</div>
+										<button type="submit" class="button-right-al" name="action-save" value="save" onclick="updateBacklog(this.form);">Save</button>
+									</p>
+								{% endif %}
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+		</table>
+			{% elif request.session.statusFlag == None %}
+				<p><h4 style="text-align: center;">There are no items to show !</h4></p>
+			{% else %}
+				<p><h4 style="text-align: center;">There are no items in {{request.session.statusFlag}} status to show !</h4></p>
+			{% endif %}
+	
+	{% if request.session.statusFlag != 'COMPLETE' %}
+	<div id="contentAdd" class="content" style="text-align: center" align="center">
+		<table id="backlog-new" align="center">
+			<br>
+			<button align="center" type="submit" class="button-right-al" name="action-add" value="add" onclick="showBacklogForm()" style="margin-right: 400px">Add Story</button>
+		</table>
+	</div>
+	{% endif %}
+	
 {% endblock %}

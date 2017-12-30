@@ -7,24 +7,80 @@ from django.views.generic import View
 from django.utils.timezone import localtime
 from ..github.export_to import export_to_github
 from ..util import (open_status_id, selected_status_id, queued_status_id,
-                    retrieve_backlogs_by_status_project_and_priority)
+                    retrieve_backlogs_by_status_project_and_priority, 
+                    retrieve_backlogs_by_acstatus_project_and_priority, retrieve_backlogs_by_project_status_and_priority)
 from apps.shared.models import Backlog, Estimate, Event, Status, Team
 from core.lib.shortcuts import create_json_message_object
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.views_helper import get_object_or_none
-
+import logging
 
 class BacklogView(RequireSignIn, View):
 
     def get(self, request):
+        logger = logging.getLogger("alliance")
         # Get the volunteers team
         team_id = request.session.get('team')
         # Redirects to the index page if there is no team associated
         if team_id is None:
             return redirect(reverse('index'))
+
+        logger.debug(request.GET)
+        results = {'success': False}
+        statusResults = False
+        statusFlag = request.session.get('statusFlag')
+        if 'backlogStatus' in request.GET:
+            logger.debug("Inside list_backlog_view backlogStatus")
+            request.session['statusFlag'] = None
+
+            if "COMPLETE" in request.GET.getlist("backlogStatus"):
+                request.session['statusFlag'] = 'COMPLETE'
+            else:
+                request.session['statusFlag'] = 'OPEN'
+
+            statusFlag = request.session['statusFlag']
+            logger.debug(statusFlag)
+            statusResults = True
+        else:
+            logger.debug("List backlogs default flow : backlogStatus is not avaliable in request.GET")
+
+        priorityResults = False
+        priorityFlag = request.session.get('priorityFlag')
+        if 'backlogPriority' in request.GET:
+            logger.debug("Inside list_backlog_view backlogPriority")
+            request.session['priorityFlag'] = None
+
+            if "3" in request.GET.getlist("backlogPriority"):
+                request.session['priorityFlag'] = '3'
+            elif "4" in request.GET.getlist("backlogPriority"):
+                request.session['priorityFlag'] = '4'
+            elif "5" in request.GET.getlist("backlogPriority"):
+                request.session['priorityFlag'] = '5'
+            elif "6" in request.GET.getlist("backlogPriority"):
+                request.session['priorityFlag'] = '6'
+            elif "7" in request.GET.getlist("backlogPriority"):
+                request.session['priorityFlag'] = '7'
+            elif "8" in request.GET.getlist("backlogPriority"):
+                request.session['priorityFlag'] = '8'
+            elif "9" in request.GET.getlist("backlogPriority"):
+                request.session['priorityFlag'] = '9'
+            else:
+                request.session['priorityFlag'] = '2'
+
+            priorityFlag = request.session['priorityFlag']
+            logger.debug(priorityFlag)
+            priorityResults = True
+        else:
+             logger.debug("List backlogs default flow : backlogPriority is not avaliable in request.GET")
+			 
+        if statusResults and priorityResults:
+            results = {'success': True}
+            return JsonResponse(results)
+
         # From here now we have all we need to list the backlogs
-        backlogs = retrieve_backlogs_by_status_project_and_priority(team_id)\
+        backlogs = retrieve_backlogs_by_project_status_and_priority(team_id, statusFlag, priorityFlag)\
             .order_by('project__name', 'priority', 'module', 'id')
+		
         backlog_tuple = []
         from ...backlog.forms import AcceptanceCriteriaFormSet, EstimateForm, BacklogUpdateForm
         for backlog in backlogs:
@@ -62,6 +118,9 @@ class BacklogView(RequireSignIn, View):
 
         results = {'success': False}
 
+        logger = logging.getLogger("alliance")
+        logger.debug("Inside list_backlog_view request.POST")
+        logger.debug(request.POST)
         if 'action-update-estimate' in request.POST:
             self.update_estimate(request, results, team_id)
         elif 'action-save' in request.POST:
