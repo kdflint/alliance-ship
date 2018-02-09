@@ -215,6 +215,27 @@
 			var statusFlag = document.getElementById("id_statusFlag").value;
 			$('#id_backlogStatus option[value='+ statusFlag +']').prop('selected', true);
 			
+			if(statusFlag=='COMPLETE'){
+				var tarea = document.querySelectorAll("textarea");
+				for(var i=0;i<tarea.length;i++){
+					tarea[i].disabled = false;
+					tarea[i].setAttribute("disabled","disabled");
+				}
+				
+				var tinput = document.querySelectorAll("input");
+				for(var i=0;i<tinput.length;i++){
+					tinput[i].disabled = false;
+					tinput[i].setAttribute("disabled","disabled");
+				}
+						
+				var tselect = document.querySelectorAll("select");
+				for(var i=0;i<tselect.length;i++){
+					if(tselect[i].name=="backlog-sprint"){
+						tselect[i].disabled = false;
+						tselect[i].setAttribute("disabled","disabled");
+					}
+				}				
+			}
 		}
 		
     </script>
@@ -258,13 +279,6 @@
 						<select id="id_backlogStatus" name="backlogStatus" onchange="listBacklogs(this.form);">
 							<option value="OPEN">OPEN</option>
 							<option value="COMPLETE">COMPLETE</option>
-							<!--{% if request.session.statusFlag == 'COMPLETE' %}
-								<option value="OPEN">OPEN</option>
-								<option value="COMPLETE" selected="selected">COMPLETE</option>
-							{% else %}
-								<option value="OPEN" selected="selected">OPEN</option>
-								<option value="COMPLETE">COMPLETE</option>
-							{% endif %}-->
 						</select>
 						<input id="id_statusFlag" name="statusFlag" type="hidden" value="{{ request.session.statusFlag }}"/>
 					</th>
@@ -330,6 +344,55 @@
 			{% else %}
 				<p><h4 style="text-align: center;">There are no items in {{request.session.statusFlag}} status to show !</h4></p>
 			{% endif %}
+	
+	
+	
+	<input id="id_paginatorCount" name="paginatorCount" type="hidden" value="{{ request.session.paginatorCount }}"/>
+	{% if backlogs.has_other_pages %}
+	
+		<ul class="pagination">
+			<table class="noBorder">
+			<tr class="noBorder"><td>
+			{% if backlogs.has_previous %}
+			  <a href="?page={{ backlogs.previous_page_number }}">Previous</a>
+			{% else %}
+			  <span>Previous</span>
+			{% endif %}
+			
+			{% for i in backlogs.paginator.page_range %}
+			  {% if backlogs.number == i %}
+				<span>{{ i }} <span class="sr-only">(current)</span></span>
+			  {% else %}
+				<a href="?page={{ i }}">{{ i }}</a>
+			  {% endif %}
+			{% endfor %}
+			
+			{% if backlogs.has_next %}
+			  <a href="?page={{ backlogs.next_page_number }}">Next</a>
+			{% else %}
+			  <span>Next</span>
+			{% endif %}
+			</td>
+			
+			<td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td>
+			<td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td>
+			<td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td>
+			<td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td>
+			<td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td>
+			
+			
+			<td>
+			Page: {{ backlogs.number }} of 
+			{% with pageList=backlogs.paginator.page_range %}
+			{{ pageList|length }}
+			{% endwith %}
+			
+			 | Records: {{ backlogs.start_index }} to {{ backlogs.end_index }}
+			</td>
+			</tr></table>
+		</ul>
+	{% endif %}
+	
 	
 	{% if request.session.statusFlag != 'COMPLETE' %}
 	<div id="contentAdd" class="content" style="text-align: center" align="center">

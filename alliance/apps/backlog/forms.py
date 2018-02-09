@@ -29,11 +29,11 @@ class BacklogUpdateForm(forms.ModelForm):
         widget=forms.Textarea()
     )
     notes = forms.CharField(
-        max_length=Backlog._meta.get_field('notes').max_length,
+        max_length=Backlog._meta.get_field('notes').max_length, required=False,
         widget=forms.Textarea()
     )
     skills = forms.CharField(
-        max_length=Backlog._meta.get_field('skills').max_length
+        max_length=Backlog._meta.get_field('skills').max_length, required=False,
     )
     priority = forms.CharField(
         max_length=Backlog._meta.get_field('priority').max_length,
