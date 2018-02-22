@@ -122,11 +122,11 @@ input[name='action-update-estimate'] {
 
 a {
     color: #000000;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 a:hover {
-    color: #4b1212;
+    color: blue;
 }
 
 .delete-row {

@@ -243,12 +243,41 @@
 
 {% block header %}
     <div>
-        {% if request.session.teamName != None %}
-            <h1 style="text-align: center;">Backlog for User Team : {{ request.session.teamName }} </h1>
+       {% if request.session.teamName != None %}
+            <h2 style="text-align: center;">Backlog for User Team : {{ request.session.teamName }} </h2>
+
+			<div style="text-align:center; font-size:11px">
+				Accepted Velocity : {{ request.session.acceptedVelocity }} |
+				Average Team Velocity : {{ request.session.teamVelocity }} |
+
+				{% if request.session.teamName == "All Megastars" %}
+					<a href="https://github.com/NorthBridge/alliance-community/milestones" target="_blank">Burndown Chart</a>
+				{% elif request.session.teamName == "North Stars" %}
+					<a href="https://github.com/NorthBridge/nexus-community/milestones" target="_blank">Burndown Chart</a>
+				{% else %}
+					<a href="https://github.com/NorthBridge/test-community/milestones" target="_blank">Burndown Chart</a>
+				{% endif %}
+			</div>
+
+			<div style="text-align: center;text-decoration:underline;">
+
+			</div>
+			
+			{% if request.session.statusFlag != 'COMPLETE' %}
+
+
+			{% endif %}
+
+			
+			{% if request.session.statusFlag == 'COMPLETE' %}
+
+			{% endif %}
+			
         {% else %}
             <h1 style="text-align: center;">Backlog for User : {{ user.username }} </h1>
-        {% endif %}
+        {% endif %}	
     </div>
+	
 {% endblock %}
 
 {% block content %}
@@ -402,5 +431,7 @@
 		</table>
 	</div>
 	{% endif %}
-	
+
+<input id="id_acceptedVelocity" name="acceptedVelocity" type="hidden" value="{{ request.session.acceptedVelocity }}"/>
+
 {% endblock %}
