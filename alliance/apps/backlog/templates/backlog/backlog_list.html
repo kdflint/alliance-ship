@@ -258,21 +258,6 @@
 					<a href="https://github.com/NorthBridge/test-community/milestones" target="_blank">Burndown Chart</a>
 				{% endif %}
 			</div>
-
-			<div style="text-align: center;text-decoration:underline;">
-
-			</div>
-			
-			{% if request.session.statusFlag != 'COMPLETE' %}
-
-
-			{% endif %}
-
-			
-			{% if request.session.statusFlag == 'COMPLETE' %}
-
-			{% endif %}
-			
         {% else %}
             <h1 style="text-align: center;">Backlog for User : {{ user.username }} </h1>
         {% endif %}	
@@ -431,7 +416,5 @@
 		</table>
 	</div>
 	{% endif %}
-
-<input id="id_acceptedVelocity" name="acceptedVelocity" type="hidden" value="{{ request.session.acceptedVelocity }}"/>
 
 {% endblock %}
