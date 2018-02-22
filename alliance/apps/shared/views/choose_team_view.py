@@ -69,9 +69,6 @@ class ChooseTeam(RequireSignIn, View):
             results['errors'] = form.errors.as_json()
 
         # Team Velocity for Completed backlogs : START
-        #completedBacklogs = retrieve_backlogs_by_acstatus_project_and_priority(teamId) \
-            #.order_by('project__name', 'module', 'sprint_id', 'priority', 'id')
-
         statusFlag = 'COMPLETE'
         priorityFlag = '9'
         completedBacklogs = retrieve_backlogs_by_project_status_and_priority(teamId, statusFlag, priorityFlag) \
@@ -154,6 +151,5 @@ class ChooseTeam(RequireSignIn, View):
 
             request.session['acceptedVelocity'] = acceptedEstimateVel
             logger.debug(acceptedEstimateVel)
-        # Accepted Velocity for current/recent sprint : START
-
+        # Accepted Velocity for current/recent sprint : END
         return JsonResponse(results)
