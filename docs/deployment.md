@@ -12,15 +12,17 @@
 
 2. On local machine, execute
 
-    `git clone <alliance-ship>` or `git pull <alliance-ship>`
+    If necessary: `git clone https://github.com/kdflint/alliance-ship.git` 
+    
+    Else: `git pull <alliance-ship>`
     
     `cd alliance-ship`
     
-    `git remote add heroku git@heroku.com:alliance-dev.git`
+    If necessary: `git remote add heroku git@heroku.com:alliance-dev.git`
     
     `heroku login`
     
-    `heroku keys:add`
+    If necessary: `heroku keys:add`
     
     `git push heroku`
 
