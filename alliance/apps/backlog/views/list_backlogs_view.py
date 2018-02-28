@@ -13,7 +13,9 @@ from apps.shared.models import Backlog, Estimate, Event, Status, Team
 from core.lib.shortcuts import create_json_message_object
 from apps.shared.views.mixins.requiresigninajax import RequireSignIn
 from core.lib.views_helper import get_object_or_none
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
+
 
 class BacklogView(RequireSignIn, View):
 
@@ -92,8 +94,9 @@ class BacklogView(RequireSignIn, View):
 
             # Creates the backlog form to edit data like story descr, skills,
             # notes, etc
-            form = BacklogUpdateForm(read_only=read_only, instance=backlog,
-                                     prefix='backlog')
+            form = BacklogUpdateForm(read_only=read_only, instance=backlog, 
+                                                prefix='backlog')
+
             # Creates the estimate form to edit the estimate time of the
             # specific backlog
             form_estimate = EstimateForm(instance=estimate, prefix='estimate')
@@ -106,7 +109,17 @@ class BacklogView(RequireSignIn, View):
             # Apeend all these information to be sent in the context
             backlog_tuple.append((backlog, form_estimate, form, formset),)
 
-        context = RequestContext(request, {'backlogs': backlog_tuple, })
+        page = request.GET.get('page', 1)
+        paginator = Paginator(backlog_tuple,5)
+        request.session['paginatorCount'] = paginator.count
+        try:
+            backlog_tuple_list = paginator.page(page)
+        except PageNotAnInteger:
+            backlog_tuple_list = paginator.page(1)
+        except EmptyPage:
+            backlog_tuple_list = paginator.page(paginator.num_pages)
+
+        context = RequestContext(request, {'backlogs': backlog_tuple_list, })
         return render(request, 'backlog/backlog_list.html', context)
 
     def post(self, request):
