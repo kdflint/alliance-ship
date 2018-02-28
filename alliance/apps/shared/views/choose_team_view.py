@@ -94,6 +94,9 @@ class ChooseTeam(RequireSignIn, View):
             logger.debug(estimate)
             logger.debug(estimateValue)
 
+            if estimateValue == "" or estimateValue is None:
+                estimateValue = 0
+
             if bgCountBySprint == 0:
                 previousRecSprint = currentRecSprint
 
@@ -101,14 +104,18 @@ class ChooseTeam(RequireSignIn, View):
                 bgCountBySprint += 1
                 estimateList.append(int(estimateValue))
             else:
-                myTeamVelocitydict.update({previousRecSprint: estimateList})
                 bgCountBySprint = 1
+
+                if previousRecSprint != None:
+                    myTeamVelocitydict.update({previousRecSprint: estimateList})
+
                 estimateList = []
                 estimateList.append(int(estimateValue))
 
             previousRecSprint = currentRecSprint
 
-        myTeamVelocitydict.update({previousRecSprint: estimateList})
+        if previousRecSprint != None:
+            myTeamVelocitydict.update({previousRecSprint: estimateList})
         logger.debug(myTeamVelocitydict)
 
         for key in myTeamVelocitydict:
@@ -149,7 +156,7 @@ class ChooseTeam(RequireSignIn, View):
             if acceptedSprint != None and acceptedEstimate != None:
                 acceptedEstimateVel += int(acceptedEstimate)
 
-            request.session['acceptedVelocity'] = acceptedEstimateVel
-            logger.debug(acceptedEstimateVel)
+        request.session['acceptedVelocity'] = acceptedEstimateVel
+        logger.debug(acceptedEstimateVel)
         # Accepted Velocity for current/recent sprint : END
         return JsonResponse(results)
