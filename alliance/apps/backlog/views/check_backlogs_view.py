@@ -21,6 +21,7 @@ class CheckBacklogsView(RequireSignIn, View):
 
         if ui_backlogs and team_id:
             ui_backlogs_count = len(ui_backlogs)
+            paginator_count = request.session.get('paginatorCount')
 
             # Same query executed in the BacklogView class
             statusFlag = request.session.get('statusFlag')
@@ -34,11 +35,12 @@ class CheckBacklogsView(RequireSignIn, View):
                     .count()
             logger.debug(db_backlogs_count)
             logger.debug(ui_backlogs_count)
+            logger.debug(paginator_count)
 
             # If the number of backlogs displayed to the user
             #  differs from the number that exists into database
             #  then user must refresh his/her page.
-            if (ui_backlogs_count != db_backlogs_count):
+            if (paginator_count != db_backlogs_count):
                 result['outdated'] = True
             else:
                 # Otherwise we must compare the last update time

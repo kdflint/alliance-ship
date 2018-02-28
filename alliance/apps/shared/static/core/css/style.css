@@ -122,11 +122,11 @@ input[name='action-update-estimate'] {
 
 a {
     color: #000000;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 a:hover {
-    color: #4b1212;
+    color: blue;
 }
 
 .delete-row {
@@ -134,4 +134,32 @@ a:hover {
     position:relative;
     display: inline;
     float:right;
+}
+
+.pagination {
+    display: block;
+}
+
+.pagination a {
+	font-size: 14px;
+	border: 1px solid #A9A9A9;
+	transition: background-color .3s;
+	margin: 0 0px;
+	background-color: #7285A5;
+	color: white;
+	padding: .5px 4px;
+}
+
+.pagination a:hover:not(.active) {background-color: #588BAE;}
+
+.center {
+    text-align: center;
+}
+
+table.noBorder{
+	border:0
+}
+
+tr.noBorder td{
+	border:0;
 }
