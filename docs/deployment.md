@@ -1,12 +1,18 @@
 # Deployment
 
-## Production deploy
+## Production Deploy and Support
 
 ### Prerequisites:  
 * Heroku toolbelt installed
     https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 
-### Steps
+### Automated Deploy Steps
+
+1. Currently, pushing to code branch master in private repository alliance-ship will cause Heroku to trigger a deployment automatically. Visit the Heroku [application dashboard](https://dashboard.heroku.com/apps/alliance-dev/deploy/github) for further details and options.
+
+### Manual Deploy Steps
+
+These are for reference only. 
 
 1. After code complete, pull from alliance-community to alliance-ship
 
@@ -53,7 +59,7 @@ remote:
 remote: Verifying deploy.... done.  
 ```
 
-### Notes
+### Support Notes
 
 To tail server logs, from local terminal, project root
 ```
