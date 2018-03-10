@@ -1,10 +1,6 @@
-# Deployment
+# Production Tasks
 
-## Production Deploy and Support
-
-### Prerequisites:  
-* Heroku toolbelt installed
-    https://devcenter.heroku.com/articles/getting-started-with-python#set-up
+## Production Deploy
 
 ### Automated Deploy Steps
 
@@ -59,7 +55,11 @@ remote:
 remote: Verifying deploy.... done.  
 ```
 
-### Support Notes
+## Production Support Notes
+
+### Prerequisites:  
+* Heroku toolbelt installed
+    https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 
 To tail server logs, from local terminal, project root
 ```
