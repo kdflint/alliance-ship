@@ -72,17 +72,17 @@ heroku run bash
 
 To view application logs, in heroku shell
 ```
-view logs/alliance.log
+view ~/logs/alliance.log
 ```
 
 To migrate, in heroku shell
 ```
-python alliance/manage.py migrate
+python ~/alliance/manage.py migrate
 ```
 
 To view django settings, in heroku shell
 ```
-python alliance/manage.py diffsettings
+python ~/alliance/manage.py diffsettings
 ```
 
 [Heroku environment documentation](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
