@@ -10,7 +10,7 @@
 
 These are for reference only. 
 
-1. After code complete, pull from alliance-community to alliance-ship
+1. After code complete, pull from `NorthBridge/alliance-community` to `kdflint/alliance-ship`
 
 2. On local machine, execute
 
