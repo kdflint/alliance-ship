@@ -4,7 +4,7 @@
 
 ### Automated Deploy Steps
 
-1. Currently, pushing to code branch master in private repository alliance-ship will cause Heroku to trigger a deployment automatically. Visit the Heroku [application dashboard](https://dashboard.heroku.com/apps/alliance-dev/deploy/github) for further details and options.
+1. Currently, pushing to code branch master in private repository `kdflint/alliance-ship` will cause Heroku to trigger a deployment automatically. Visit the Heroku [application dashboard](https://dashboard.heroku.com/apps/alliance-dev/deploy/github) for further details and options.
 
 ### Manual Deploy Steps
 
