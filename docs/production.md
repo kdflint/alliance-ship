@@ -26,7 +26,7 @@ These are for reference only.
     
     If necessary: `heroku keys:add`
     
-    `git push heroku`
+    `git push heroku` This will invoke the actual deployment.
 
 3. Smoketest the app at https://alliance-dev.herokuapp.com/alliance/apps/backlog
 
