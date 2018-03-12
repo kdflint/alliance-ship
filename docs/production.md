@@ -58,7 +58,7 @@ remote: Verifying deploy.... done.
 ## Production Support Notes
 
 ### Prerequisites:  
-* Heroku toolbelt installed
+* Heroku CLI installed
     https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 
 To tail server logs, from local terminal, project root
