@@ -85,6 +85,7 @@ EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+	'root': {'level': 'DEBUG'}, 
     'formatters': {
         'verbose': {
             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
@@ -95,25 +96,41 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
+        'null':{
+			'level': 'DEBUG',
+			'class': 'logging.NullHandler',
+		},
+		'console':{
+			'level': 'DEBUG',
+			'class': 'logging.StreamHandler',
+			'formatter': 'verbose'
+		},
+		'file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(LOG_FOLDER, 'alliance.log'),
-            #'filename': '/app/logs/alliance.log',
-        'when' : 'W1', #new log every Tuesday
-        'interval' : 1,
+            'filename': '/app/logs/alliance.log',
+			'when' : 'W1', 
+			'interval' : 1,
             'formatter': 'verbose'
         },
     },
     'loggers': {
-        'django': {
-            'handlers':['file'],
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+		'django': {
+            'handlers':['console'],
             'propagate': True,
             'level':'DEBUG',
         },
         'alliance': {
-            'handlers': ['file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
+        },
+		'ex_logger': {
+            'handlers': ['console', ],
+            'level': 'INFO',
         },
     }
 }
