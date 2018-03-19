@@ -85,7 +85,6 @@ EMAIL_SUBJECT_PREFIX = '[%s]' % PROJECT_NAME
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-	'root': {'level': 'DEBUG'}, 
     'formatters': {
         'verbose': {
             'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
@@ -96,10 +95,6 @@ LOGGING = {
         },
     },
     'handlers': {
-        'null':{
-			'level': 'DEBUG',
-			'class': 'logging.NullHandler',
-		},
 		'console':{
 			'level': 'DEBUG',
 			'class': 'logging.StreamHandler',
@@ -115,22 +110,14 @@ LOGGING = {
         },
     },
     'loggers': {
-        '': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        },
 		'django': {
-            'handlers':['console'],
+            'handlers':['console', 'file'],
             'propagate': True,
             'level':'DEBUG',
         },
         'alliance': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],
             'level': 'DEBUG',
-        },
-		'ex_logger': {
-            'handlers': ['console', ],
-            'level': 'INFO',
         },
     }
 }
