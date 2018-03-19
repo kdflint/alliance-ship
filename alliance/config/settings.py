@@ -95,7 +95,7 @@ LOGGING = {
         },
     },
     'handlers': {
-        'console':{
+		'console':{
 			'level': 'DEBUG',
 			'class': 'logging.StreamHandler',
 			'formatter': 'verbose'
@@ -103,9 +103,9 @@ LOGGING = {
 		'file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(LOG_FOLDER, 'alliance.log'),
-        'when' : 'W1', #new log every Tuesday
-        'interval' : 1,
+            'filename': '/app/logs/alliance.log',
+			'when' : 'W1', 
+			'interval' : 1,
             'formatter': 'verbose'
         },
     },
