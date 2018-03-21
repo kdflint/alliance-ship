@@ -88,12 +88,11 @@
 					{% if request.session.multiTeams != None %}
 						<a id="choose-team" href="javascript:void(0)">{% trans "Choose a Team" %}</a> |
 					{% endif %}
-                    {% trans "Logged in as" %}: {{ user.username }}
+                    {% trans "Logged in as" %}: {{ user.username }} |
                 {% else %}
                     <!--<a href="{% url 'login' %}">{% trans "Log In" %}</a>-->
                 {% endif %}
-                    | <a href="https://github.com/NorthBridge/teams/wiki" target="_blank">Sprint Planning</a>
-
+                <a href="https://github.com/NorthBridge/teams/wiki" target="_blank">Resources</a>
             {% endblock%}
         </div>
 
