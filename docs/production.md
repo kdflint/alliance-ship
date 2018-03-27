@@ -61,10 +61,18 @@ remote: Verifying deploy.... done.
 * Heroku CLI installed
     https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 
-To tail server logs, from local terminal, project root
+To tail all logs, from local terminal, project root
 ```
 heroku logs --tail
 ```
+
+To tail application logs
+
+```
+heroku logs --source app --tail
+```
+
+More about Heroku logging [here](https://devcenter.heroku.com/articles/logging#view-logs)
 
 To browse database, from local terminal, project root
 ```
