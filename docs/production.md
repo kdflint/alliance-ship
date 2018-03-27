@@ -84,11 +84,6 @@ To start a shell session and view application logs
 heroku run bash
 ```
 
-To view application logs, in heroku shell
-```
-view ~/logs/alliance.log
-```
-
 To migrate, in heroku shell
 ```
 python ~/alliance/manage.py migrate
