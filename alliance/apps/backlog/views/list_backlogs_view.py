@@ -79,6 +79,18 @@ class BacklogView(RequireSignIn, View):
             results = {'success': True}
             return JsonResponse(results)
 
+        # Sprint Velocity and Average Team Velocity : START
+        acceptedEstimateVel = self.evulateAcceptedVelocity(request, team_id)
+        teamVelocity = self.evulateAvgTeamVelocity(request, team_id)
+        logger.debug("Velocity in list_backlogs_view !!!!!! ")
+
+        logger.debug(acceptedEstimateVel)
+        request.session['acceptedVelocity'] = acceptedEstimateVel
+
+        logger.debug(teamVelocity)
+        request.session['teamVelocity'] = teamVelocity
+        # Sprint Velocity and Average Team Velocity : END
+
         # From here now we have all we need to list the backlogs
         backlogs = retrieve_backlogs_by_project_status_and_priority(team_id, statusFlag, priorityFlag)\
             .order_by('project__name', 'priority', 'module', 'id')
@@ -243,3 +255,96 @@ class BacklogView(RequireSignIn, View):
                 results['errors'] = formset.non_form_errors()
         else:
             results['errors'] = form.errors.as_json()
+
+    def evulateAcceptedVelocity(self, request, teamId):
+        logger = logging.getLogger("alliance")
+        # Accepted Velocity for current/recent sprint : START
+        statusFlag = 'OPEN'
+        priorityFlag = '9'
+        backlogs = retrieve_backlogs_by_project_status_and_priority(teamId, statusFlag, priorityFlag) \
+            .order_by('project__name', 'module', 'sprint_id', 'priority', 'id')
+
+        acceptedSprint = 0
+        acceptedEstimate = 0
+        acceptedEstimateVel = 0
+
+        for backlog in backlogs:
+            estimate = get_object_or_none(Estimate, team_id=teamId, backlog_id=backlog.id)
+            if not estimate:
+                estimate = Estimate(team_id=teamId, backlog_id=backlog.id)
+
+            acceptedSprint = backlog.sprint_id
+            acceptedEstimate = estimate.estimate
+            logger.debug(estimate)
+            logger.debug(acceptedEstimate)
+
+            if acceptedSprint != None and acceptedEstimate != None:
+                acceptedEstimateVel += int(acceptedEstimate)
+
+        return acceptedEstimateVel
+
+
+    def evulateAvgTeamVelocity(self, request, teamId):
+        logger = logging.getLogger("alliance")
+
+        # Average Team Velocity for Completed backlogs : START
+        statusFlag = 'COMPLETE'
+        priorityFlag = '9'
+        completedBacklogs = retrieve_backlogs_by_project_status_and_priority(teamId, statusFlag, priorityFlag) \
+            .order_by('project__name', 'module', 'sprint_id', 'priority', 'id')
+
+        previousRecSprint = 0
+        currentRecSprint = 0
+        bgCountBySprint = 0
+        totalEstimateSum = 0
+        estimateValue = 0
+        estimateList = []
+        myTeamVelocitydict = {}
+
+        for backlog in completedBacklogs:
+
+            estimate = get_object_or_none(Estimate, team_id=teamId, backlog_id=backlog.id)
+
+            if not estimate:
+                estimate = Estimate(team_id=teamId, backlog_id=backlog.id)
+
+            currentRecSprint = backlog.sprint_id
+            estimateValue = estimate.estimate
+            logger.debug(estimate)
+            logger.debug(estimateValue)
+
+            if estimateValue == "" or estimateValue is None:
+                estimateValue = 0
+
+            if bgCountBySprint == 0:
+                previousRecSprint = currentRecSprint
+
+            if currentRecSprint == previousRecSprint:
+                bgCountBySprint += 1
+                estimateList.append(int(estimateValue))
+            else:
+                bgCountBySprint = 1
+
+                if previousRecSprint != None:
+                    myTeamVelocitydict.update({previousRecSprint: estimateList})
+
+                estimateList = []
+                estimateList.append(int(estimateValue))
+
+            previousRecSprint = currentRecSprint
+
+        if previousRecSprint != None:
+            myTeamVelocitydict.update({previousRecSprint: estimateList})
+        logger.debug(myTeamVelocitydict)
+
+        for key in myTeamVelocitydict:
+            logger.debug(key)
+            logger.debug(myTeamVelocitydict[key])
+            estimateSum = sum(myTeamVelocitydict[key])
+            logger.debug(estimateSum)
+            totalEstimateSum += estimateSum
+            logger.debug(totalEstimateSum)
+
+        logger.debug(len(myTeamVelocitydict.keys()))
+        teamVelocity = totalEstimateSum / len(myTeamVelocitydict.keys())
+        return teamVelocity
