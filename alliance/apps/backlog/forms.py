@@ -28,16 +28,17 @@ class BacklogUpdateForm(forms.ModelForm):
         label="Story Description",
         widget=forms.Textarea()
     )
+    priority = forms.CharField(
+        max_length=Backlog._meta.get_field('priority').max_length,
+        widget=forms.TextInput(attrs={'size':'25'})
+    )
     notes = forms.CharField(
         max_length=Backlog._meta.get_field('notes').max_length, required=False,
-        widget=forms.Textarea()
+        widget=forms.Textarea(attrs={'class': 'textarea-notes'})
     )
     skills = forms.CharField(
         max_length=Backlog._meta.get_field('skills').max_length, required=False,
-    )
-    priority = forms.CharField(
-        max_length=Backlog._meta.get_field('priority').max_length,
-        widget=forms.Textarea()
+		widget=forms.Textarea()
     )
 
     def __init__(self, *args, **kwargs):
@@ -81,7 +82,7 @@ class BacklogUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Backlog
-        fields = ('id', 'story_descr', 'notes', 'skills', 'priority', 'sprint')
+        fields = ('id', 'story_descr', 'priority', 'notes', 'skills', 'sprint')
 
 
 class AcceptanceCriteriaForm(forms.ModelForm):
@@ -92,7 +93,7 @@ class AcceptanceCriteriaForm(forms.ModelForm):
         widget=forms.Textarea()
     )
     descr = forms.CharField(
-        max_length=AcceptanceCriteria._meta.get_field('descr').max_length,
+        max_length=AcceptanceCriteria._meta.get_field('descr').max_length, required=False,
         widget=forms.Textarea()
     )
     backlog = forms.CharField(
@@ -187,6 +188,8 @@ class BacklogNewForm(forms.ModelForm):
             backlog.github_repo = "alliance-community"
         elif 'North Stars' == teamNameFromRequest :
             backlog.github_repo = "nexus-community"
+        elif 'Belatrix Stars' == teamNameFromRequest :
+            backlog.github_repo = "bigbluebutton-community"
         else:
             backlog.github_repo = "test-community"
 
