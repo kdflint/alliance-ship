@@ -57,17 +57,19 @@ remote: Verifying deploy.... done.
 
 ## Production Support Notes
 
-### Prerequisites:  
+### Prerequisites  
+
 * Heroku CLI installed
     https://devcenter.heroku.com/articles/getting-started-with-python#set-up
 
-To tail all logs, from local terminal, project root
+### Commands
+
+To tail server logs, from local terminal, project root
 ```
 heroku logs --tail
 ```
 
 To tail application logs
-
 ```
 heroku logs --source app --tail
 ```
@@ -95,3 +97,11 @@ python ~/alliance/manage.py diffsettings
 ```
 
 [Heroku environment documentation](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
+
+### Handy Queries
+
+Retrieve story name, team, sprint and estimate
+```
+select t.name, e.estimate, b.story_title, b.sprint_id_fk from backlog b join team t on b.team_id_fk = t.id join estimate e on e.backlog_id_fk = b.id where b.id = 79;
+```
+
