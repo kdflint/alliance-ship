@@ -278,6 +278,10 @@ class BacklogView(RequireSignIn, View):
             logger.debug(estimate)
             logger.debug(acceptedEstimate)
 
+            if not acceptedEstimate:
+                acceptedEstimate = 0
+                logger.debug("Accepted Estimate is EMPTY. Resetting to ZERO(0) ", acceptedEstimate)
+
             if acceptedSprint != None and acceptedEstimate != None:
                 acceptedEstimateVel += int(acceptedEstimate)
 
