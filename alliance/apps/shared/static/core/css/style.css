@@ -93,6 +93,13 @@ textarea {
     resize: none;
 }
 
+.textarea-notes {
+    display:block;
+    width: 100%;
+    height: 100px;
+    resize: none;
+}
+
 #id_backlog-skills {
     width: 100%;
 }
