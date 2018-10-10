@@ -14,19 +14,23 @@ from django.utils.decorators import method_decorator
 from ..github.import_from import import_from_github
 
 
-logger = logging.getLogger("playbook")
+logger = logging.getLogger("alliance")
+
 
 
 class GitHubWebhookView(View):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
+        logger.debug("Inside >>>>>>>>>>>>>>> dispatch")
         return super(GitHubWebhookView, self).dispatch(*args, **kwargs)
 
     def get(self, request):
+        logger.debug("Inside >>>>>>>>>>>>>>> get")
         return HttpResponse("GET Method is not allowed", status=405)
 
     def post(self, request):
+        logger.debug("Inside >>>>>>>>>>>>>>> post")
         # self.verify_source(request)
         signature_ver = self.verify_signature(request)
         if not signature_ver:
@@ -52,6 +56,7 @@ class GitHubWebhookView(View):
     #  (in this case, Django will return an HttpResponse with status
     #  code = 403).
     def verify_signature(self, request):
+        logger.debug("Inside >>>>>>>>>>>>>>> verify_signature")
         if settings.GITHUB_WEBHOOK_SECRET:
             try:
                 sha_name, signature = request.META.get(
@@ -70,8 +75,7 @@ class GitHubWebhookView(View):
 
                 mac = hmac.new(settings.GITHUB_WEBHOOK_SECRET, request.body,
                                digestmod=sha1)
-                if not hmac.compare_digest(str(mac.hexdigest()),
-                                           str(signature)):
+                if not hmac.compare_digest(str(mac.hexdigest()), str(signature)):
                     logger.warning("X-Hub-Signature does not match. Ignoring" +
                                    " request...")
                     raise PermissionDenied
@@ -83,6 +87,7 @@ class GitHubWebhookView(View):
         return None
 
     def verify_source(self, request):
+        logger.debug("Inside >>>>>>>>>>>>>>> verify_source")
         src_ip = ip_address(u'{0}'.format(request.remote_addr))
         whitelist = requests.get('https://api.github.com/meta').json()['hooks']
         for valid_ip in whitelist:
@@ -101,4 +106,5 @@ class GitHubWebhookView(View):
     # source: https://docs.djangoproject.com/en/1.8/ref/request-response
     #  /#django.http.HttpRequest.META
     def meta_key_formatter(self, key):
+        logger.debug("Inside >>>>>>>>>>>>>>> meta_key_formatter")
         return 'HTTP_' + key.replace("-", "_").upper()

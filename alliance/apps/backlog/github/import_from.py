@@ -13,10 +13,11 @@ from ..util import status_id
 from apps.shared.models import Backlog, Status
 from core.lib.shortcuts import send_email
 
-logger = logging.getLogger("playbook")
+logger = logging.getLogger("alliance")
 
 
 def import_from_github(payload):
+    logger.debug("Inside >>>>>>>>>>>>>>> import_from_github")
     action = payload.get('action', None)
     if action:
         message = None
@@ -25,8 +26,11 @@ def import_from_github(payload):
 
         if __is_acceptance_issue(issue_labels):
             gh_number = payload['issue']['milestone']['number']
+            repo_name = payload['repository']['name']
+            logger.debug("repo_name ::: ", repo_name)
             try:
-                backlog = Backlog.objects.get(github_number=gh_number)
+                #To uniquily fetch a backlog by repo & github filter
+                backlog = Backlog.objects.get(github_number=gh_number, github_repo=repo_name)
             except Backlog.DoesNotExist:
                 message = ("There is no backlog associated with this"
                            " github number (number=%s)") % gh_number
@@ -74,6 +78,7 @@ def import_from_github(payload):
 
 
 def __notify_import_problem(message, payload, traceback):
+    logger.debug("Inside >>>>>>>>>>>>>>> __notify_import_problem")
     subject = '[alliance.backlog] Milestone importing error'
     body = "%s\n\nPayload received:\n%s\n\n%s" %\
         (message, json.dumps(payload, indent=4), traceback)
@@ -81,17 +86,20 @@ def __notify_import_problem(message, payload, traceback):
 
 
 def __is_acceptance_issue(labels):
+    logger.debug("Inside >>>>>>>>>>>>>>> __is_acceptance_issue")
     return any(label['name'] == ACCEPT_ISSUE_LABEL
                for label in labels)
 
 
 def __update_db(backlog, status_id):
+    logger.debug("Inside >>>>>>>>>>>>>>> __update_db")
     new_status = Status.objects.get(id=status_id)
     backlog.status = new_status
     backlog.save()
 
 
 def __update_gh(backlog, new_state):
+    logger.debug("Inside >>>>>>>>>>>>>>> __update_gh")
     github = Github(token=settings.GITHUB_TOKEN, user=settings.GITHUB_OWNER,
                     repo=backlog.github_repo)
     data = create_milestone_data(backlog, new_state)

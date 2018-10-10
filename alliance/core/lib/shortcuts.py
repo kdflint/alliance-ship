@@ -3,7 +3,7 @@ import logging.config
 from django.core.mail import send_mail
 from django.conf import settings
 
-logger = logging.getLogger("playbook")
+logger = logging.getLogger("alliance")
 
 def create_json_message_object(message, field='__all__', code='invalid'):
     return json.dumps({field: [{'message': message, 'code': code}]})

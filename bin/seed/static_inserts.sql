@@ -26,22 +26,22 @@ INSERT INTO team (id, focus, name, visibility, task_manager_id) VALUES (3, 'Pyth
 
 INSERT INTO schedule (id, name) VALUES (1, 'NorthBridge Standard');
 
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (1, 'Sprint 1', '2018-01-11', '2015-02-07', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (2, 'Sprint 2', '2018-02-01', '2015-02-28', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (3, 'Sprint 3', '2018-02-22', '2015-03-21', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (4, 'Sprint 4', '2018-03-15', '2015-04-11', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (5, 'Sprint 5', '2018-04-05', '2015-05-02', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (6, 'Sprint 6', '2018-04-26', '2015-05-23', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (7, 'Sprint 7', '2018-05-17', '2015-06-13', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (8, 'Sprint 8', '2018-06-07', '2015-07-04', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (9, 'Sprint 9', '2018-06-28', '2015-07-25', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (10, 'Sprint 10', '2018-07-19', '2015-08-15', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (11, 'Sprint 11', '2018-08-09', '2015-09-05', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (12, 'Sprint 12', '2018-08-30', '2015-09-26', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (13, 'Sprint 13', '2018-09-20', '2015-10-17', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (14, 'Sprint 14', '2018-10-11', '2015-11-07', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (15, 'Sprint 15', '2018-11-01', '2015-11-28', 1);
-INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (16, 'Sprint 16', '2018-11-22', '2015-12-19', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (1, 'Sprint 1', '2018-01-11', '2018-02-07', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (2, 'Sprint 2', '2018-02-01', '2018-02-28', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (3, 'Sprint 3', '2018-02-22', '2018-03-21', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (4, 'Sprint 4', '2018-03-15', '2018-04-11', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (5, 'Sprint 5', '2018-04-05', '2018-05-02', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (6, 'Sprint 6', '2018-04-26', '2018-05-23', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (7, 'Sprint 7', '2018-05-17', '2018-06-13', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (8, 'Sprint 8', '2018-06-07', '2018-07-04', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (9, 'Sprint 9', '2018-06-28', '2018-07-25', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (10, 'Sprint 10', '2018-07-19', '2018-08-15', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (11, 'Sprint 11', '2018-08-09', '2018-09-05', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (12, 'Sprint 12', '2018-08-30', '2018-09-26', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (13, 'Sprint 13', '2018-09-20', '2018-10-17', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (14, 'Sprint 14', '2018-10-11', '2018-11-07', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (15, 'Sprint 15', '2018-11-01', '2018-11-28', 1);
+INSERT INTO event (id, name, start_dttm, end_dttm, schedule_id_fk) VALUES (16, 'Sprint 16', '2018-11-22', '2018-12-19', 1);
 
 INSERT INTO campaign (id, name, description, amount_goal, respondent_goal) VALUES (1, 'FriendsAndFamily', 'Friends And Family', 10000, 500);
 INSERT INTO campaign (id, name, description, amount_goal, respondent_goal) VALUES (2, 'Indiegogo', 'Indiegogo', 16000, 50);
