@@ -12,7 +12,7 @@ from apps.shared.models.backlog import Backlog, Status
 from apps.shared.models.acceptance_criteria import AcceptanceCriteria
 from core.lib.shortcuts import send_email
 
-logger = logging.getLogger("playbook")
+logger = logging.getLogger("alliance")
 
 STATIC_LABEL_VALUE = 'acceptance criteria'
 ACCEPT_ISSUE_TITLE = 'Accept the story (milestone)'
@@ -21,8 +21,14 @@ ACCEPT_ISSUE_TITLE = 'Accept the story (milestone)'
 def export_to_github(backlog):
     __validate(backlog)
 
+    logger.debug("Inside >>>>>>>>>>>>>>> export_to_github")
+    logger.debug(settings.GITHUB_TOKEN)
+    logger.debug(settings.GITHUB_OWNER)
+    logger.debug(backlog.github_repo)
+
     github = Github(token=settings.GITHUB_TOKEN, user=settings.GITHUB_OWNER,
                     repo=backlog.github_repo)
+    logger.debug(github)
 
     if backlog.status.id == selected_status_id():
         try:
@@ -68,18 +74,21 @@ def export_to_github(backlog):
 
 
 def __notify_export_problem(message, traceback=None, is_update=False):
+    logger.debug("Inside >>>>>>>>>>>>>>> __notify_export_problem")
     subject = '[alliance.backlog] Milestone exporting error'
     body = "%s\n\n%s" % (message, traceback)
     send_email(subject, body)
 
 
 def __rollback_status(backlog):
+    logger.debug("Inside >>>>>>>>>>>>>>> __rollback_status")
     status = Status.objects.get(id=selected_status_id())
     backlog.status = status
     backlog.save()
 
 
 def __create_issue_data(acceptance_criterion):
+    logger.debug("Inside >>>>>>>>>>>>>>> __create_issue_data")
     data = {'title': acceptance_criterion.title}
     data['body'] = acceptance_criterion.descr
     data['milestone'] = acceptance_criterion.backlog.github_number
@@ -90,6 +99,7 @@ def __create_issue_data(acceptance_criterion):
 
 
 def __create_acceptance_issue_data(github_number, github_repo):
+    logger.debug("Inside >>>>>>>>>>>>>>> __create_acceptance_issue_data")
     descr = ('The product owner should complete this task after all the '
              'acceptance criteria are met for this story (milestone).')
     data = {'title': ACCEPT_ISSUE_TITLE}
@@ -101,9 +111,13 @@ def __create_acceptance_issue_data(github_number, github_repo):
 
 
 def __export_milestone(backlog, github):
+    logger.debug("Inside >>>>>>>>>>>>>>> __export_milestone")
     data = create_milestone_data(backlog)
+    logger.debug("Inside __export_milestone >>> ")
+    logger.debug(data)
     try:
         ghMilestone = github.issues.milestones.create(data)
+        logger.debug(ghMilestone)
     except:
         raise
     else:
@@ -120,6 +134,7 @@ def __export_milestone(backlog, github):
 
 
 def __update_milestone(backlog, github):
+    logger.debug("Inside >>>>>>>>>>>>>>> __update_milestone")
     data = create_milestone_data(backlog)
     github.issues.milestones.update(backlog.github_number, data)
     logger.info("Milestone #%s from repo %s successfully updated.",
@@ -128,6 +143,7 @@ def __update_milestone(backlog, github):
 
 
 def __export_issues(backlog, github):
+    logger.debug("Inside >>>>>>>>>>>>>>> __export_issues")
     logger.info("Creating associated issues:")
     acceptance_criteria = AcceptanceCriteria.objects.\
         filter(backlog=backlog)
@@ -138,6 +154,7 @@ def __export_issues(backlog, github):
 
 
 def __export_acceptance_issue(backlog, github):
+    logger.debug("Inside >>>>>>>>>>>>>>> __export_acceptance_issue")
     data = __create_acceptance_issue_data(backlog.github_number,
                                           backlog.github_repo)
     logger.info("Creating Accept Issue related to milestone #%s" +
@@ -147,6 +164,7 @@ def __export_acceptance_issue(backlog, github):
 
 
 def __validate(backlog):
+    logger.debug("Inside >>>>>>>>>>>>>>> __validate")
     if not isinstance(backlog, Backlog):
         errMsg = "The given object is not an instance of Backlog."
         logger.error(errMsg)

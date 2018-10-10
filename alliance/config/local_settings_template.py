@@ -24,8 +24,10 @@ SOCIAL_AUTH_GITHUB_KEY = 'd65f4ff7e0cddcc12345'
 SOCIAL_AUTH_GITHUB_SECRET = '6fbe9f90498881c31a0d0f1fa2512430a7c12345'
 
 #For github api access
+GITHUB_WEBHOOK_SECRET = 'n0rthbr1dge'
 GITHUB_OWNER='NorthBridge'
-GITHUB_TOKEN='e06f3ac09b232fd7b7c483fba2f1f16d0367b19f'
+GITHUB_TOKEN='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+# GITHUB_TOKEN : Use your generated github personal access token
 
 ################################################################################
 # Path configuration
